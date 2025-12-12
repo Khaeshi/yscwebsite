@@ -1,0 +1,248 @@
+---
+
+import  Layout  from "../layouts/Layout.astro"
+import { InstructorProfile } from "../components/InstructorProfile";
+import { ProgramHistorySection } from "../components/ProgramHistorySection";
+//import { EventBanner } from "../components/EventBanner";
+import { ParallaxHero } from "../components/ParallaxHero.tsx";
+import { ParallaxSection } from "../components/ParallaxSection";
+import { Button } from "../components/ui/button";
+import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { Handshake, Trophy, Users, Award, Target } from "lucide-react";
+
+interface Coach {
+  name: string;
+  title: string;
+  image: string;
+  specialization: string[];
+  experience: string;
+  description: string;
+  achievements: string[];
+}
+
+interface Milestone {
+  year: string;
+  title: string;
+  description: string;
+}
+
+const coaches: Coach[] = [
+  {
+    name: "Coach Jefferson H. Tablante",
+    title: "Head Badminton Coach & Program Director",
+    image: "",
+    specialization: ["Singles Strategy", "Competitive Training", "Advanced Techniques", "Strokes"],
+    experience: "24+ years coaching experience",
+    description: "Coach Jeff is a former national-level badminton player of year 1999-2003 who represented his country in international tournaments. After retiring from competitive play, he dedicated himself to coaching and has developed numerous players who went on to compete at state and national levels. His coaching philosophy emphasizes building strong fundamentals, mental toughness, and strategic thinking up to pro level mentality. Coach Jeff specializes in honing players' skills to meet the demands of today's more challenging opponents, ensuring that every training session is both effective and enjoyable.",
+    achievements: [
+      "Former Batang Pinoy Coach with noteable 15+ local tournament appearances",
+      "Coached 6+ students to tournament championship",
+      "BWF Level 2 certified coach",
+      "Developed players who received sports scholarships to universities"
+    ]
+  },
+  {
+    name: "Coach Ryan Jean(RJ) Sison",
+    title: "Assistant Coach",
+    image: "",
+    specialization: ["Strength Training", "Agility", "Footwork", "Match Analysis"],
+    experience: "24+ years professional experience",
+    description: "Coach RJ brings a physical boost to badminton training, combining his expertise in sports conditioning. He works primarily with beginners to advanced players looking to take their game to the next level. Coach RJ uses video analysis technology to break down technique and develop personalized training programs. His focus on physical conditioning, speed, and power has helped many players dramatically improve their competitive edge.",
+    achievements: [
+      "Former professional player with circuit tournament wins",
+      "Batang Pinoy Coach, and currently National University Badminton coach participating UAAP",
+      "Trained young generation players competing at regionals championship level"
+    ]
+  }
+];
+
+const historyMilestones: Milestone[] = [
+  {
+    year: "2012",
+    title: "Program Launch",
+    description: "Started our badminton coaching program with a vision to make quality badminton training accessible to the community."
+  },
+  {
+    year: "2016",
+    title: "Tournament Success",
+    description: "Our students won their first inter-school championship, marking the beginning of many competitive achievements."
+  },
+  {
+    year: "2019",
+    title: "Facility Upgrade",
+    description: "Partnered with premier badminton courts equipped with professional-grade flooring and lighting systems."
+  },
+  {
+    year: "2024",
+    title: "Excellence Recognition",
+    description: "Became a BWF-recognized training center with 300+ active students and multiple championship titles."
+  }
+];
+const pageTitle = "About | Young Starter Club";
+const description = "Learn more about Young Starter Club and our programs.";
+const image = "/assets/YSC.png";
+
+---
+<Layout title={pageTitle} description={description} image={image}>
+  <div class="min-h-screen bg-white">
+
+    {/* Hero Section - Parallax */}
+    <ParallaxHero
+      imageUrl="https://images.unsplash.com/photo-1756893653899-45c365fa19a1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiYWRtaW50b24lMjBjb2FjaCUyMHRyYWluaW5nfGVufDF8fHx8MTc2NDE2MDMxNnww&ixlib=rb-4.1.0&q=80&w=1080"
+      title="Master Your Game"
+      subtitle="Elevate your badminton skills with professional coaching from experienced players and certified instructors. From fundamental techniques to competitive strategies, we'll help you achieve your athletic goals."
+      stats={[
+        { number: "300+", label: "Active Students" },
+        { number: "15+", label: "Championships" },
+        { number: "18+", label: "Years Experience" },
+        { number: "50+", label: "Tournaments" }
+      ]}
+      showBackButton={true}
+      client:load
+    />
+
+    {/* Partnership Section */}
+    <section class="py-16 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-4xl mx-auto">
+          <div class="inline-flex items-center gap-2 bg-white/80 px-4 py-2 rounded-full mb-6 backdrop-blur-sm">
+            <Handshake className="w-5 h-5 text-blue-600" />
+            <span class="text-sm text-blue-600">Partnership</span>
+          </div>
+
+          <h3 class="mb-8">In Partnership With</h3>
+
+          <div class="flex flex-row items-center justify-center gap-6 mb-8">
+            {/* JT Badminton Logo Placeholder */}
+            <div class="rounded-2xl pr-4">
+              <ImageWithFallback
+                src=""
+                alt="JT Badminton Logo"
+                className="h-24 w-auto mx-auto object-contain shadow-lg"
+              />
+              <h2 class="mb-2">JT Badminton</h2>
+            </div>
+            {/* SCBC Logo Placeholder */}
+            <div class="rounded-2xl pl-4">
+              <ImageWithFallback
+                src={""}
+                alt="JT Badminton Logo"
+                className="h-24 w-auto mx-auto object-contain shadow-lg"
+              />
+              <h2 class="mb-2">
+                South City Homes <br />
+                Recreaction Center
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Event Banner
+    <section class="py-12 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <EventBanner />
+      </div>
+    </section> */}
+
+    {/* Program Features */}
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="mb-4">Training Excellence</h2>
+          <p class="text-muted-foreground max-w-2xl mx-auto">
+            Comprehensive badminton training designed to develop champions
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-8 border border-blue-100">
+            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center mb-4">
+              <Target className="w-6 h-6 text-white" />
+            </div>
+            <h3 class="mb-3">Professional Facilities</h3>
+            <p class="text-muted-foreground">
+              Train on with proper equipments, lighting, and environment maintained to tournament standards.
+            </p>
+          </div>
+
+          <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-8 border border-blue-100">
+            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center mb-4">
+              <Trophy className="w-6 h-6 text-white" />
+            </div>
+            <h3 class="mb-3">Tournament Preparation</h3>
+            <p class="text-muted-foreground">
+              Compete in friendly tournaments and get ready for inter-school and regional competitions.
+            </p>
+          </div>
+
+          <div class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-8 border border-blue-100">
+            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center mb-4">
+              <Users className="w-6 h-6 text-white" />
+            </div>
+            <h3 class="mb-3">Small Group Training</h3>
+            <p class="text-muted-foreground">
+              Minimum of 1 and maximum of 6 students per session ensures personalized attention and effective skill development.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Coaches Section */}
+    <section class="py-20 bg-gradient-to-br from-blue-50 to-cyan-50">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="mb-4">Meet Our Coaches</h2>
+          <p class="text-muted-foreground max-w-2xl mx-auto">
+            Train with experienced coaches who have competed at the highest levels
+          </p>
+        </div>
+
+        <div class="space-y-8">
+          {coaches.map((coach, index) => (
+            <InstructorProfile key={index} {...coach} client:visible />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* History Section */}
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <ProgramHistorySection
+          image="https://images.unsplash.com/photo-1746934960613-86fe80748101?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiYWRtaW50b24lMjBzcG9ydHMlMjBoaXN0b3J5fGVufDF8fHx8MTc2NDE2MDMxOHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+          foundedYear="2012"
+          milestones={historyMilestones}
+          stats={[
+            { icon: Users, value: "300+", label: "Students" },
+            { icon: Trophy, value: "15+", label: "Championships" },
+            { icon: Award, value: "50+", label: "Tournaments" }
+          ]}
+        />
+      </div>
+    </section>
+
+    {/* CTA Section */}
+    <ParallaxSection
+      imageUrl="https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiYWRtaW50b24lMjBzcG9ydHMlMjBhY3Rpb258ZW58MXx8fHwxNzY0NTc2Nzk2fDA&ixlib=rb-4.1.0&q=80&w=1080"
+      className="py-20"
+    >
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <Trophy className="w-12 h-12 mx-auto mb-6 text-yellow-300" />
+        <h2 class="mb-6 text-white">Ready to Elevate Your Game?</h2>
+        <p class="mb-8 max-w-2xl mx-auto text-white/90">
+          Join our badminton coaching program and train with the best. Contact us on Facebook to book your trial session!
+        </p>
+        <Button
+          className="bg-white text-blue-600 hover:bg-white/90"
+          onClick={() => window.open('https://facebook.com', '_blank')}
+          client:load
+        >
+          Message Us on Facebook
+        </Button>
+      </div>
+    </ParallaxSection>
+  </div>
+</Layout>

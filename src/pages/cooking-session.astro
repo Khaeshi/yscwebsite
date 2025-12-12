@@ -1,0 +1,204 @@
+---
+
+import { InstructorProfile } from "../components/InstructorProfile.tsx";
+import { ProgramHistorySection } from "../components/ProgramHistorySection.tsx";
+import { EventBanner } from "../components/EventBanner.tsx";
+import { ParallaxHero } from "../components/ParallaxHero.tsx";
+import { ParallaxSection } from "../components/ParallaxSection.tsx";
+import { Button } from "../components/ui/button.tsx";
+import { ImageWithFallback } from "../components/figma/ImageWithFallback.tsx";
+import { ArrowLeft, ChefHat, Users, Award, Utensils } from "lucide-react";
+import Layout from "../layouts/Layout.astro"
+
+
+  const instructors = [
+    {
+      name: "Chef Andrea Romano",
+      title: "Executive Chef & Culinary Director",
+      image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmZW1hbGUlMjBjaGVmJTIwcG9ydHJhaXR8ZW58MXx8fHwxNzY0MTYxMDUwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      specialization: ["Italian Cuisine", "Baking & Pastry", "Healthy Cooking", "Food Safety"],
+      experience: "16+ years culinary experience",
+      description: "Chef Andrea trained at the Culinary Institute of America and worked in fine dining restaurants before discovering her passion for teaching. She specializes in making cooking accessible and fun for all ages while emphasizing nutrition, food safety, and cultural appreciation. Andrea believes cooking is a life skill that builds confidence, creativity, and brings families together. Her warm, patient teaching style puts even nervous beginners at ease.",
+      achievements: [
+        "Culinary Institute of America graduate with honors",
+        "Former sous chef at award-winning restaurants",
+        "Certified in ServSafe food safety and allergen awareness",
+        "Developed kid-friendly cooking curriculum used by schools"
+      ]
+    },
+    {
+      name: "Chef Marcus Johnson",
+      title: "Pastry Chef & Baking Specialist",
+      image: "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtYWxlJTIwY2hlZiUyMHBvcnRyYWl0fGVufDF8fHx8MTc2NDE2MTA1MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      specialization: ["Baking", "Desserts", "Bread Making", "Cake Decorating"],
+      experience: "12+ years professional experience",
+      description: "Chef Marcus is a master pastry chef who has created desserts for weddings, events, and bakeries across the region. His classes focus on the science and art of baking, teaching students how ingredients work together to create magic. Marcus makes baking approachable and fun, whether you're making your first cookies or attempting a challenging layer cake. He emphasizes precision, creativity, and the joy of sharing homemade treats with others.",
+      achievements: [
+        "Award-winning pastry chef with competition medals",
+        "Ran successful artisan bakery for 8 years",
+        "Expert in gluten-free and allergy-friendly baking",
+        "Featured in Food & Wine Magazine"
+      ]
+    },
+    {
+      name: "Chef Yuki Tanaka",
+      title: "International Cuisine Instructor",
+      image: "https://images.unsplash.com/photo-1595475207225-428b62bda831?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhc2lhbiUyMGNoZWYlMjBwb3J0cmFpdHxlbnwxfHx8fDE3NjQxNjEwNTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      specialization: ["Asian Cuisine", "Sushi", "Vegetarian Cooking", "Knife Skills"],
+      experience: "14+ years teaching experience",
+      description: "Chef Yuki brings authentic Asian culinary techniques and a global perspective to our cooking classes. Trained in Tokyo and having worked in kitchens around the world, she teaches students about different cuisines, ingredients, and cooking methods. Yuki's classes emphasize knife skills, flavor balance, and the cultural stories behind dishes. She's passionate about introducing students to new flavors and teaching them that cooking is a gateway to understanding different cultures.",
+      achievements: [
+        "Trained in traditional Japanese cuisine in Tokyo",
+        "Expert sushi chef with 10+ years experience",
+        "Author of 'Cooking Around the World for Kids' recipe book",
+        "Cultural culinary ambassador at international food festivals"
+      ]
+    }
+  ];
+
+  const historyMilestones = [
+    {
+      year: "2013",
+      title: "Kitchen Launch",
+      description: "Opened our teaching kitchen with state-of-the-art equipment and a mission to inspire young chefs of all ages."
+    },
+    {
+      year: "2016",
+      title: "Program Diversity",
+      description: "Expanded to include international cuisines, baking classes, and special dietary accommodation workshops."
+    },
+    {
+      year: "2020",
+      title: "Community Cooking",
+      description: "Launched virtual cooking classes during pandemic, bringing culinary education into homes worldwide."
+    },
+    {
+      year: "2024",
+      title: "Culinary Excellence",
+      description: "Achieved 350+ active students with partnerships with local farms for farm-to-table education experiences."
+    }
+  ];
+
+  const pageTitle = "Homepage | Young Starter Club";
+  const description ="Welcome to the Young Starter Club homepage!";
+  const image = "/assets/YSC.png";
+---
+
+<Layout title={pageTitle} description={description} image={image}>
+  <div class="min-h-screen bg-white">
+
+    {/* Hero Section - Parallax */}
+    <ParallaxHero 
+      imageUrl="https://images.unsplash.com/photo-1759521296047-89338c8e083d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb29raW5nJTIwY2xhc3MlMjBpbnN0cnVjdG9yJTIwY2hlZnxlbnwxfHx8fDE3NjQxNjEwNDl8MA&ixlib=rb-4.1.0&q=80&w=1080"
+      title="Create Delicious Memories"
+      subtitle="Learn the joy of cooking through hands-on culinary sessions! From basic kitchen safety to creating impressive dishes, develop practical cooking skills, nutritional knowledge, and confidence in the kitchen."
+      stats={[
+        { number: "350+", label: "Students" },
+        { number: "500+", label: "Recipes Taught" },
+        { number: "16+", label: "Years Experience" },
+        { number: "100+", label: "Monthly Classes" }
+      ]}
+      showBackButton={true}
+      client:load
+    />
+
+    {/* Event Banner 
+    <section class="py-12 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <EventBanner />
+      </div>
+    </section> */}
+
+    {/* Program Features */}
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="mb-4">Culinary Skills for Life</h2>
+          <p class="text-muted-foreground max-w-2xl mx-auto">
+            Learn essential cooking skills in a fun, safe, and supportive environment
+          </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-2xl p-8 border border-orange-100">
+            <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-lg flex items-center justify-center mb-4">
+              <ChefHat className="w-6 h-6 text-white" />
+            </div>
+            <h3 class="mb-3">Hands-On Learning</h3>
+            <p class="text-muted-foreground">Cook complete dishes from start to finish, developing real-world culinary skills.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-2xl p-8 border border-orange-100">
+            <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-lg flex items-center justify-center mb-4">
+              <Utensils className="w-6 h-6 text-white" />
+            </div>
+            <h3 class="mb-3">World Cuisines</h3>
+            <p class="text-muted-foreground">Explore flavors from around the globe, learning about cultures through food.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-2xl p-8 border border-orange-100">
+            <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-lg flex items-center justify-center mb-4">
+              <Award className="w-6 h-6 text-white" />
+            </div>
+            <h3 class="mb-3">Take Home Your Food</h3>
+            <p class="text-muted-foreground">Share your delicious creations with family and friends after every class.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Instructors Section */}
+    <section class="py-20 bg-gradient-to-br from-orange-50 to-yellow-50">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="mb-4">Meet Our Culinary Team</h2>
+          <p class="text-muted-foreground max-w-2xl mx-auto">
+            Learn from professional chefs who are passionate about food education
+          </p>
+        </div>
+        
+        <div class="space-y-8">
+          {instructors.map((instructor, index) => (
+            <InstructorProfile key={index} {...instructor} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* History Section */}
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <ProgramHistorySection
+          image="https://images.unsplash.com/photo-1609211373254-b52e03ba0c85?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb29raW5nJTIwa2l0Y2hlbiUyMGNsYXNzfGVufDF8fHx8MTc2MDM0MTE1OHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+          foundedYear="2013"
+          milestones={historyMilestones}
+          stats={[
+            { icon: Users, value: "350+", label: "Students" },
+            { icon: Award, value: "500+", label: "Recipes" },
+            { icon: ChefHat, value: "100+", label: "Classes" }
+          ]}
+        />
+      </div>
+    </section>
+
+    {/* CTA Section */}
+    <ParallaxSection
+      imageUrl="https://images.unsplash.com/photo-1556911073-38141963c9e0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb29raW5nJTIwZm9vZCUyMGRlbGljaW91c3xlbnwxfHx8fDE3NjQ1NzcwMzR8MA&ixlib=rb-4.1.0&q=80&w=1080"
+      className="py-20"
+    >
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <ChefHat className="w-12 h-12 mx-auto mb-6 text-yellow-300" />
+        <h2 class="mb-6 text-white">Ready to Start Cooking?</h2>
+        <p class="mb-8 max-w-2xl mx-auto text-white/90">
+          Join our culinary community and discover the joy of cooking. Contact us on Facebook to book your first session!
+        </p>
+        <Button 
+          className="bg-white text-orange-600 hover:bg-white/90"
+          onClick={() => window.open('https://facebook.com', '_blank')}
+        >
+          Message Us on Facebook
+        </Button>
+      </div>
+    </ParallaxSection>
+  </div>
+</Layout>

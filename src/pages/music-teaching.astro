@@ -1,0 +1,191 @@
+---
+
+import { InstructorProfile } from "../components/InstructorProfile";
+import { ProgramHistorySection } from "../components/ProgramHistorySection";
+import { EventBanner } from "../components/EventBanner";
+import { ParallaxHero } from "../components/ParallaxHero";
+import { Button } from "../components/ui/button";
+// import { ImageWithFallback } from "../components/figma/ImageWithFallback.tsx";
+import { ArrowLeft, Music, Users, Award, GraduationCap } from "lucide-react";
+import Layout from "layouts/Layout.astro";
+
+// Define types for instructors and milestones to retain TypeScript security
+interface Instructor {
+  name: string;
+  title: string;
+  image: string;
+  specialization: string[];
+  experience: string;
+  description: string;
+  achievements: string[];
+}
+
+interface Milestone {
+  year: string;
+  title: string;
+  description: string;
+}
+
+const instructors: Instructor[] = [
+  {
+    name: "Silayan Pallones",
+    title: "Voice Major & YSC Co-Founder",
+    image: "",
+    specialization: ["Piano", "Music Theory", "Composition"],
+    experience: "15+ years teaching experience",
+    description: "Sarah holds a Master's degree in Music Education from Berklee College of Music. Her passion for teaching began at age 19 when she started giving private piano lessons. She specializes in classical piano and music theory, preparing students for ABRSM and Trinity College examinations. Sarah believes in creating a nurturing environment where students can discover their musical voice while building solid technical foundations.",
+    achievements: [
+      "100+ students passed ABRSM exams with distinction",
+      "Former concert pianist with the Regional Symphony Orchestra",
+      "Published composer with works performed internationally",
+      "Certified ABRSM and Trinity College examiner"
+    ]
+  }
+];
+
+const historyMilestones: Milestone[] = [
+  {
+    year: "2010",
+    title: "Foundation",
+    description: "Started with just 10 students and one piano in a small studio, driven by a passion for making music education accessible to all."
+  },
+  {
+    year: "2015",
+    title: "Expansion",
+    description: "Grew to accommodate 100+ students with a diverse range of instruments including piano, guitar, violin, and voice."
+  },
+  {
+    year: "2020",
+    title: "Digital Innovation",
+    description: "Successfully transitioned to hybrid learning during the pandemic, making lessons accessible online while maintaining quality."
+  },
+  {
+    year: "2024",
+    title: "Recognition",
+    description: "Achieved 500+ successful students and became a recognized ABRSM and Trinity College examination center."
+  }
+];
+
+const pageTitle = "About | Young Starter Club";
+const description = "Learn more about Young Starter Club and our programs.";
+const image = "/assets/YSC.png";
+
+---
+<Layout title={pageTitle} description={description} image={image}>
+  <div class="min-h-screen bg-white">
+
+    <!-- Hero Section - Parallax -->
+    <ParallaxHero 
+      imageUrl="https://images.unsplash.com/photo-1643941088552-fdf7362d36bb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaGlsZHJlbiUyMHBsYXlpbmclMjBjbGFzc2ljYWwlMjBtdXNpYyUyMHBpYW5vJTIwdmlvbGlufGVufDF8fHx8MTc2NDU3NDg5MXww&ixlib=rb-4.1.0&q=80&w=1080"
+      title="Discover the Joy of Music"
+      subtitle={`Learn to play piano, guitar, violin, and more with our team of experienced, certified instructors. 
+        From complete beginners to advanced students preparing for competitions, we provide personalized 
+        instruction tailored to your musical journey.`}
+      stats={[
+        { number: "50+", label: "Students Taught" },
+        { number: "10", label: "Students Competing" },
+        { number: "10+", label: "Years Experience" },
+        { number: "Yearly", label: "Recitals" },
+      ]}
+      showBackButton={true};
+      client:idle
+    />
+
+    <!-- Event Banner -->
+    <!-- <section class="py-12 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <EventBanner />
+      </div>
+    </section> -->
+
+    <!-- Program Features -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="mb-4">What We Offer</h2>
+          <p class="text-muted-foreground max-w-2xl mx-auto">
+            Comprehensive music education designed to help you achieve your musical goals
+          </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 border border-purple-100">
+            <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mb-4">
+              <Music className="w-6 h-6 text-white" />
+            </div>
+            <h3 class="mb-3">Multiple Instruments</h3>
+            <p class="text-muted-foreground">Piano, guitar, violin, voice, and more. Find the perfect instrument for your musical journey.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 border border-purple-100">
+            <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mb-4">
+              <GraduationCap className="w-6 h-6 text-white" />
+            </div>
+            <h3 class="mb-3">Competition Preparations</h3>
+            <p class="text-muted-foreground">JSC and music school preparation with Music Degree examiners guiding you to success.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 border border-purple-100">
+            <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mb-4">
+              <Users className="w-6 h-6 text-white" />
+            </div>
+            <h3 class="mb-3">Performance Opportunities</h3>
+            <p class="text-muted-foreground">Annual recitals and showcases to build confidence and share your musical talents.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Instructors Section -->
+    <section class="py-20 bg-gradient-to-br from-purple-50 to-pink-50">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="mb-4">Meet Our Music Teachers</h2>
+          <p class="text-muted-foreground max-w-2xl mx-auto">
+            Learn from passionate, experienced instructors dedicated to your musical growth
+          </p>
+        </div>
+        
+        <div class="space-y-8">
+          {instructors.map((instructor, index) => (
+            <InstructorProfile key={index} {...instructor} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- History Section -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <ProgramHistorySection
+          image="https://images.unsplash.com/photo-1700144387892-29b96bade040?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoaXN0b3JpY2FsJTIwbXVzaWMlMjBzY2hvb2x8ZW58MXx8fHwxNzY0MTYwMzE3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+          foundedYear="2010"
+          milestones={historyMilestones}
+          stats={[
+            { icon: Users, value: "500+", label: "Students" },
+            { icon: Award, value: "95%", label: "Pass Rate" },
+            { icon: Music, value: "50+", label: "Recitals" }
+          ]}
+        />
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-br from-purple-600 via-pink-600 to-orange-600 text-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <Music className="w-12 h-12 mx-auto mb-6" />
+        <h2 class="mb-6">Ready to Start Your Musical Journey?</h2>
+        <p class="mb-8 max-w-2xl mx-auto text-white/90">
+          Join our community of music learners today. Contact us on Facebook to schedule your first lesson!
+        </p>
+        <Button 
+          className="bg-white text-purple-600 hover:bg-white/90"
+          onClick={() => window.open('https://facebook.com', '_blank')}
+          client:load
+        >
+          Message Us on Facebook
+        </Button>
+      </div>
+    </section>
+  </div>
+</Layout>

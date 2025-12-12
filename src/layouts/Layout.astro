@@ -1,0 +1,59 @@
+---
+// src/layouts/Layout.astro
+// Main layout for YSC Website pages.
+// Wraps shared elements like Header/Footer and provides SEO basics.
+// Customize props as needed (e.g., title, description).
+
+import { Header } from '../components/Header';
+import { Footer } from '../components/Footer';
+import "../../styles/globals.css";
+
+interface Props {
+    title: string;
+    description: string;
+    image: string;
+}
+
+const currentPath = Astro.url.pathname;
+
+const { 
+  title = "Young Starter Club - Discover Your Passion", 
+  description = "Join Young Starter Club for music, sports, arts, cooking, and photography programs for all ages.",
+  image = "/YSC.ico"  
+} = Astro.props;
+
+// Import React components (assuming they're in src/components/)
+// If these are Astro components, remove the client:load directives below.
+
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Updated favicon link -->
+        <link rel="icon" type="image/png" href="/YSC.ico" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content="music lessons, badminton coaching, arts classes, cooking sessions, photography classes, young starter club" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    
+  </head>
+  <body class="min-h-screen bg-white">
+    <!-- Shared Header Component -->
+    <!-- Using client:load to make it interactive (e.g., for menus or state) -->
+    <Header currentPath={currentPath} client:load />
+
+    <!-- Page-specific content injected here via <slot /> -->
+    <slot />
+
+    <!-- Shared Footer Component -->
+    <!-- Same as Header -->
+    <Footer client:load />
+  </body>
+</html>

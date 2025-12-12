@@ -1,0 +1,204 @@
+---
+import { InstructorProfile } from "../components/InstructorProfile";
+import { ProgramHistorySection } from "../components/ProgramHistorySection";
+import { EventBanner } from "../components/EventBanner";
+import { ParallaxHero } from "../components/ParallaxHero";
+import { ParallaxSection } from "../components/ParallaxSection";
+import { Button } from "../components/ui/button";
+import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { ArrowLeft, Camera, Users, Award, Image } from "lucide-react";
+import Layout from "../layouts/Layout.astro"
+
+
+
+const instructors = [
+  {
+    name: "David Hernandez",
+    title: "Lead Photography Instructor & Visual Storyteller",
+    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtYW4lMjBwaG90b2dyYXBoZXIlMjBwb3J0cmFpdHxlbnwxfHx8fDE3NjQxNjEwNTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    specialization: ["Portrait Photography", "Composition", "Natural Lighting", "Photo Editing"],
+    experience: "18+ years professional experience",
+    description: "David is an award-winning photographer whose work has been featured in National Geographic, TIME, and major publications worldwide. After years of professional photography, he discovered his passion for teaching and helping others see the world through a creative lens. David believes photography is about telling stories and capturing authentic moments. His teaching philosophy emphasizes both technical mastery and artistic vision, helping students develop their unique photographic voice.",
+    achievements: [
+      "Published in National Geographic and major magazines",
+      "Winner of International Photography Awards",
+      "Documentary photographer with global exhibitions",
+      "Adobe Certified Expert in Lightroom and Photoshop"
+    ]
+  },
+  {
+    name: "Sophie Williams",
+    title: "Creative Photography & Social Media Specialist",
+    image: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21hbiUyMHBob3RvZ3JhcGhlciUyMHBvcnRyYWl0fGVufDF8fHx8MTc2NDE2MTA1Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+    specialization: ["Mobile Photography", "Social Media Content", "Creative Editing", "Product Photography"],
+    experience: "10+ years professional experience",
+    description: "Sophie is a modern photographer who bridges traditional photography with contemporary digital storytelling. She specializes in teaching smartphone photography and social media content creation, making professional photography techniques accessible to everyone. Sophie's classes focus on creativity, authenticity, and practical skills for the digital age. She's passionate about empowering students to create compelling visual content, whether for personal projects or future careers.",
+    achievements: [
+      "Brand photographer for 50+ businesses",
+      "Instagram content creator with 100K+ followers",
+      "Founder of 'Phone Photography Pro' online course",
+      "Regular speaker at social media and photography conferences"
+    ]
+  },
+  {
+    name: "James Park",
+    title: "Technical Photography & Equipment Specialist",
+    image: "https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhc2lhbiUyMG1hbiUyMHBob3RvZ3JhcGhlcnxlbnwxfHx8fDE3NjQxNjEwNTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+    specialization: ["DSLR Mastery", "Studio Lighting", "Sports Photography", "Camera Technology"],
+    experience: "15+ years teaching experience",
+    description: "James brings deep technical knowledge to photography education, helping students master their camera equipment and understand the science behind great photos. A former sports photographer for major publications, he teaches students to capture fast action, work with challenging lighting, and push their cameras to their limits. James makes complex technical concepts easy to understand, building student confidence in manual mode shooting and professional techniques.",
+    achievements: [
+      "Former sports photographer for major sports leagues",
+      "Expert in high-speed photography and action shots",
+      "Technical reviewer for photography equipment magazines",
+      "Certified instructor for Canon and Nikon camera systems"
+    ]
+  }
+];
+
+const historyMilestones = [
+  {
+    year: "2014",
+    title: "Vision Begins",
+    description: "Started photography classes with a mission to make professional photography education accessible to all ages and skill levels."
+  },
+  {
+    year: "2017",
+    title: "Digital Expansion",
+    description: "Added mobile photography and social media content creation courses, embracing modern photography trends."
+  },
+  {
+    year: "2021",
+    title: "Portfolio Program",
+    description: "Launched student portfolio development program, helping aspiring photographers build professional collections."
+  },
+  {
+    year: "2024",
+    title: "Creative Community",
+    description: "Grew to 250+ students with regular photo walks, exhibitions, and partnerships with local galleries."
+  }
+];
+const pageTitle = "About | Young Starter Club";
+const description = "Learn more about Young Starter Club and our programs.";
+const image = "/assets/YSC.png";
+
+---
+<Layout title={pageTitle} description={description} image={image}>
+  <div class="min-h-screen bg-white">
+
+    
+    {/* Hero Section - Parallax */}
+    <ParallaxHero 
+      imageUrl="https://images.unsplash.com/photo-1727106996133-a22d17fba4be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwaG90b2dyYXBoeSUyMGluc3RydWN0b3IlMjBjYW1lcmF8ZW58MXx8fHwxNzY0MTYxMDQ5fDA&ixlib=rb-4.1.0&q=80&w=1080"
+      title="Capture Your Vision"
+      subtitle="Discover the art and technical skills of photography. Learn composition, lighting, and storytelling through images. From smartphone photography to DSLR techniques, we cover everything you need to create stunning photos."
+      stats={[
+        { number: "250+", label: "Students" },
+        { number: "20+", label: "Exhibitions" },
+        { number: "18+", label: "Years Experience" },
+        { number: "500+", label: "Photo Walks" }
+      ]}
+      showBackButton={true}
+      client:load
+    />
+
+    {/* Event Banner 
+    <section class="py-12 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <EventBanner />
+      </div>
+    </section> */}
+
+    {/* Program Features */}
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="mb-4">Photography Education</h2>
+          <p class="text-muted-foreground max-w-2xl mx-auto">
+            Comprehensive photography training for all skill levels and camera types
+          </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8 border border-green-100">
+            <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mb-4">
+              <Camera className="w-6 h-6 text-white" />
+            </div>
+            <h3 class="mb-3">Any Camera Welcome</h3>
+            <p class="text-muted-foreground">Learn with your smartphone, point-and-shoot, or DSLR. We teach techniques for any camera.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8 border border-green-100">
+            <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mb-4">
+              <Image className="w-6 h-6 text-white" />
+            </div>
+            <h3 class="mb-3">Photo Walks & Field Trips</h3>
+            <p class="text-muted-foreground">Practice photography in diverse real-world settings, from urban streets to nature trails.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8 border border-green-100">
+            <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mb-4">
+              <Award className="w-6 h-6 text-white" />
+            </div>
+            <h3 class="mb-3">Editing Mastery</h3>
+            <p class="text-muted-foreground">Learn professional editing techniques using Lightroom, Photoshop, and mobile apps.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Instructors Section */}
+    <section class="py-20 bg-gradient-to-br from-green-50 to-emerald-50">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="mb-4">Meet Our Photography Instructors</h2>
+          <p class="text-muted-foreground max-w-2xl mx-auto">
+            Learn from professional photographers who live and breathe visual storytelling
+          </p>
+        </div>
+        
+        <div class="space-y-8">
+          {instructors.map((instructor, index) => (
+            <InstructorProfile key={index} {...instructor} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* History Section */}
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <ProgramHistorySection
+          image="https://images.unsplash.com/photo-1486892539609-d5322f938c50?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwaG90b2dyYXBoeSUyMGNhbWVyYSUyMHdvcmtzaG9wfGVufDF8fHx8MTc2MDM0MTE1OHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+          foundedYear="2014"
+          milestones={historyMilestones}
+          stats={[
+            { icon: Users, value: "250+", label: "Students" },
+            { icon: Award, value: "20+", label: "Exhibitions" },
+            { icon: Camera, value: "500+", label: "Photo Walks" }
+          ]}
+        />
+      </div>
+    </section>
+
+    {/* CTA Section */}
+    <ParallaxSection
+      imageUrl="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwaG90b2dyYXBoeSUyMGNhbWVyYSUyMGxhbmRzY2FwZXxlbnwxfHx8fDE3NjQ1NzcxMDF8MA&ixlib=rb-4.1.0&q=80&w=1080"
+      className="py-20"
+    >
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <Camera className="w-12 h-12 mx-auto mb-6 text-yellow-300" />
+        <h2 class="mb-6 text-white">Ready to Capture Amazing Photos?</h2>
+        <p class="mb-8 max-w-2xl mx-auto text-white/90">
+          Join our photography community and start creating stunning images. Contact us on Facebook to enroll today!
+        </p>
+        <Button 
+          className="bg-white text-green-600 hover:bg-white/90"
+          onClick={() => window.open('https://facebook.com', '_blank')}
+        >
+          Message Us on Facebook
+        </Button>
+      </div>
+    </ParallaxSection>
+  </div>
+</Layout>

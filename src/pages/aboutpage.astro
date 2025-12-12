@@ -1,0 +1,353 @@
+---
+
+import { ParallaxHero } from '../components/ParallaxHero.tsx';
+import { ParallaxSection } from '../components/ParallaxSection.tsx';
+import { Button } from '../components/ui/button.tsx'; 
+import  Layout  from '../layouts/Layout.astro';
+import { Heart, Target, Star, Users, Award, Sparkles, CheckCircle2 } from 'lucide-react';
+import { secondimageUrl } from "../config.ts";
+
+interface TeamMember {
+  name: string;
+  role: string;
+  bio: string;
+  image: string;
+}
+interface LeadershipTeamProps {
+  team: TeamMember[];
+}
+
+interface Foundation {
+  title: string;
+  subtitle?: string;
+  details?: string;
+}
+
+interface CoreValuesProps {
+  mission: Foundation[];
+  vision: Foundation[];
+  value: Foundation[];
+}
+
+const mission = [
+  {
+  title: "<strong>Mission</strong>",
+  details: `Our mission is to provide access to a translatable benefit of excellent teaching approach, methods, and materials at an equitable cost to all aspiring learners of all ages.
+    Learnings must be translated to their growth in musicality, artistry, and all facets of life.
+    The end goal is to achieve a well-developed individual with strong confidence, integrity, purpose, and excellence`
+  },
+];
+const vision = [
+  {
+  title: "<strong>Vision</strong>",
+  details: `<strong>Young Starter Club</strong> envisions a well fostered community where all students, parents, and the working staff have accesss to an empathetic social environment.
+    We strongly believe that relationships anchored in integrity, compassion, and social responsibility will be a transformative approach to excellence in service, in learning, and in camaraderie.`
+  },
+];
+const corevalue = [
+  {
+    title: "<strong>Core Values</strong>",
+    subtitle: "Responsibility",
+    details: `Being accountable for one's action and commitments`,
+  },
+  {
+    subtitle: "Integrity",
+    details: `Being honest and holding high ethical standards`,
+  },
+  {
+    subtitle: "Compassion & Empathy",
+    details: `Showing care and understanding`,
+  },
+];
+
+const team = [
+  {
+    name: "Desiree Tablante",
+    role: "Founder & Executive Director",
+    image: "",
+    bio: "With over 20 years in education and a passion for nurturing young talent, Sarah founded Young Starter Club to create a welcoming space where children and adults can explore their interests and develop new skills."
+  },
+  {
+    name: "Silayan Pallones",
+    role: "Program Director",
+    image: "",
+    bio: "Michael oversees all our programs, ensuring quality instruction and engaging curriculum. His background in sports coaching and arts education brings a holistic approach to skill development."
+  },
+  {
+    name: "Emily Rodriguez",
+    role: "Community Engagement Manager",
+    image: "",
+    bio: "Emily connects with families and builds partnerships within our community. She ensures that Young Starter Club remains accessible and welcoming to learners from all backgrounds."
+  }
+];
+
+
+const milestones = [
+  {
+    year: "2010",
+    title: "The Beginning",
+    description: "Our humble beginnings took off in this year through the efforts of Ms. Silayan as a simple home service for music lessons."
+  },
+  {
+    year: "2013",
+    title: "Expansion",
+    description: "Silayan Music Studio was born and had a great leap to what is now called Young Starter Club."
+  },
+  {
+    year: "2015",
+    title: "Diversification",
+    description: "Introduced cooking sessions and photography classes, and Badminton in collaboration with Jefferson Tablante Training Camp(JTTC) becoming a true multi-disciplinary learning center."
+  },
+  {
+    year: "2020",
+    title: "Innovation",
+    description: "Adapted to hybrid learning models, ensuring continued education during challenging times."
+  },
+  {
+    year: "2026",
+    title: "Thriving Community",
+    description: "Celebrated over 80+ students served and countless success stories across all our programs."
+  }
+];
+
+
+const pageTitle = "About | Young Starter Club";
+const description = "Learn more about Young Starter Club and our programs.";
+const image = "/assets/YSC.png";
+---
+
+<Layout title={pageTitle} description={description} image={image}>
+  <div class="min-h-screen bg-white">
+
+    {/* Hero Section - Parallax */}
+    <ParallaxHero
+      imageUrl={secondimageUrl}
+      title="About Young Starter Club"
+      subtitle="We're a vibrant learning community dedicated to nurturing talents, building confidence, and creating joyful learning experiences for children and adults alike."
+      stats={[
+        { number: "14+", label: "Years of Excellence" },
+        { number: "1,500+", label: "Students Served" },
+        { number: "5", label: "Programs" },
+        { number: "25+", label: "Expert Instructors" }
+      ]}
+      showBackButton={true}
+      client:load
+    />
+
+    {/* Our Story */}
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto text-center mb-16">
+          <div class="inline-flex items-center gap-2 bg-purple-50 px-4 py-2 rounded-full mb-6">
+            <Sparkles className="w-4 h-4 text-purple-600" />
+            <span class="text-purple-600">Our Story</span>
+          </div>
+          <h2 class="mb-6">Where Passion Meets Education</h2>
+          <p class="text-muted-foreground text-lg leading-relaxed">
+            Young Starter Club was born from a simple belief: that everyone deserves access to quality education in the things they're passionate about. What started as a small music teaching venture in 2010 as HeartOfPsalms has blossomed into a comprehensive learning hub offering music, badminton, arts, cooking, and photography programs.
+          </p>
+          <p class="text-muted-foreground text-lg leading-relaxed mt-4">
+            We began in a house studio and have grown to serve over 80 learners. Now is the time to expand, but our focus remains the same -
+            providing excellent instruction in a warm and supportive environment.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* Vision, Mission, Core Values Section */}
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <div class="inline-flex items-center gap-2 bg-gradient-to-r from-purple-100 to-pink-100 px-4 py-2 rounded-full mb-4">
+            <Heart className="w-4 h-4 text-purple-600" />
+            <span class="text-sm text-purple-600">Our Foundation</span>
+          </div>
+          <h2 class="mb-4">Vision, Mission & Values</h2>
+          <p class="text-muted-foreground max-w-2xl mx-auto text-lg">
+            The principles that guide everything we do at Young Starter Club
+          </p>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {/* Vision */}
+          <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl p-8 shadow-lg border border-purple-100 hover:shadow-xl transition-shadow duration-300">
+            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6">
+              <Target className="w-8 h-8 text-white" />
+            </div>
+            {vision.map((vision) =>(
+            <h3 set:html={vision.title} class="mb-4" />
+            <p set:html={vision.details} class="text-muted-foreground leading-relaxed">
+            </p>
+            ))}
+          </div>
+
+          {/* Mission */}
+          <div class="bg-gradient-to-br from-pink-50 to-orange-50 rounded-3xl p-8 shadow-lg border border-pink-100 hover:shadow-xl transition-shadow duration-300">
+            <div class="w-16 h-16 bg-gradient-to-br from-pink-500 to-orange-500 rounded-2xl flex items-center justify-center mb-6">
+              <Heart className="w-8 h-8 text-white" />
+            </div>
+            {mission.map((mission) => (
+            <h3 set:html={mission.title} class="mb-4"/>
+            <p class="text-muted-foreground leading-relaxed">
+              {mission.details}
+            </p>
+            ))}
+          </div>
+          
+
+          {/* Core Values */}
+          <div class="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-3xl p-8 shadow-lg border border-orange-100 hover:shadow-xl transition-shadow duration-300">
+            <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-2xl flex items-center justify-center mb-6">
+              <Star className="w-8 h-8 text-white" />
+            </div>
+            {corevalue.map((corevalue) =>(
+            <h3 set:html={corevalue.title} class="mb-4" />
+            <ul class="space-y-3">
+              <li class="flex items-start gap-2">
+                <CheckCircle2 className="w-5 h-5 text-orange-600 mt-0.5 flex-shrink-0" />
+                <span class="text-muted-foreground">{corevalue.subtitle}</span>
+                <span class="text-muted-foreground leading-relaxed">{corevalue.details}</span>
+              </li>
+            </ul>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Journey Timeline */}
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <div class="inline-flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-full mb-6">
+            <Award className="w-4 h-4 text-blue-600" />
+            <span class="text-blue-600">Our Journey</span>
+          </div>
+          <h2 class="mb-4">Milestones & Growth</h2>
+          <p class="text-muted-foreground max-w-2xl mx-auto">
+            From humble beginnings to a thriving learning community
+          </p>
+        </div>
+
+        <div class="max-w-4xl mx-auto">
+          <div class="space-y-8">
+            {milestones.map((milestone, index) => (
+              <div class="relative pl-8 border-l-4 border-purple-200 pb-8 last:pb-0">
+                <div class="absolute -left-3 top-0 w-6 h-6 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full border-4 border-white shadow-lg"></div>
+                <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 border border-purple-100">
+                  <div class="inline-block bg-purple-600 text-white px-4 py-1 rounded-full mb-3">
+                    {milestone.year}
+                  </div>
+                  <h3 class="mb-2">{milestone.title}</h3>
+                  <p class="text-muted-foreground">{milestone.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Leadership Team */}
+    <section class="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <div class="inline-flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-full mb-6">
+            <Users className="w-4 h-4 text-blue-600" />
+            <span class="text-blue-600">Leadership</span>
+          </div>
+          <h2 class="mb-4">Meet Our Team</h2>
+          <p class="text-muted-foreground max-w-2xl mx-auto">
+            Passionate leaders dedicated to creating exceptional learning experiences
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          {team.map((member, index) => (
+            <div class="bg-white rounded-3xl overflow-hidden shadow-lg border border-purple-100 hover:shadow-2xl transition-shadow duration-300">
+              <div class="aspect-square overflow-hidden">
+                <img
+                  src={member.image}
+                  alt={`${member.name}, ${member.role} at Young Starter Club`}
+                  class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div class="p-6">
+                <h3 class="mb-1">{member.name}</h3>
+                <p class="text-purple-600 mb-3">{member.role}</p>
+                <p class="text-muted-foreground text-sm leading-relaxed">{member.bio}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* What Sets Us Apart */}
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+          <h2 class="mb-4">What Sets Us Apart</h2>
+          <p class="text-muted-foreground max-w-2xl mx-auto">
+            The Young Starter Club difference
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-6 border border-purple-100">
+            <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mb-4">
+              <Award className="w-6 h-6 text-white" />
+            </div>
+            <h3 class="mb-2">Expert Instructors</h3>
+            <p class="text-muted-foreground">Certified professionals with real-world experience and a passion for teaching.</p>
+          </div>
+
+          <div class="bg-gradient-to-br from-pink-50 to-orange-50 rounded-2xl p-6 border border-pink-100">
+            <div class="w-12 h-12 bg-pink-600 rounded-lg flex items-center           justify-center mb-4">
+            <Users className="w-6 h-6 text-white" />
+          </div>
+          <h3 class="mb-2">Small Classes</h3>
+          <p class="text-muted-foreground">Personalized attention with small student-to-instructor ratios.</p>
+        </div>
+
+        <div class="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-2xl p-6 border border-orange-100">
+          <div class="w-12 h-12 bg-orange-600 rounded-lg flex items-center justify-center mb-4">
+            <Heart className="w-6 h-6 text-white" />
+          </div>
+          <h3 class="mb-2">Supportive Environment</h3>
+          <p class="text-muted-foreground">A welcoming space where mistakes are learning opportunities.</p>
+        </div>
+
+        <div class="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-6 border border-blue-100">
+          <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-4">
+            <Sparkles className="w-6 h-6 text-white" />
+          </div>
+          <h3 class="mb-2">Holistic Development</h3>
+          <p class="text-muted-foreground">Building skills, confidence, and character through diverse programs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* CTA Section */}
+  <ParallaxSection
+    imageUrl="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdHVkZW50cyUyMGxlYXJuaW5nJTIwdG9nZXRoZXJ8ZW58MXx8fHwxNzY0NTc3NTQyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+    className="py-20"
+  >
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <Heart className="w-12 h-12 mx-auto mb-6 text-yellow-300" />
+      <h2 class="mb-6 text-white">Join Our Community</h2>
+      <p class="mb-8 max-w-2xl mx-auto text-white/90">
+        Become part of the Young Starter Club family. Let's discover your passion together!
+      </p>
+      <Button
+        className="bg-white text-purple-600 hover:bg-white/90"
+        onClick={() => window.open('https://facebook.com', '_blank')}
+      >
+        Message Us on Facebook
+      </Button>
+    </div>
+  </ParallaxSection>
+</div>
+</Layout>
+

@@ -1,0 +1,192 @@
+---
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
+import { InstructorProfile } from "../components/InstructorProfile";
+import { ProgramHistorySection } from "../components/ProgramHistorySection";
+import { ParallaxHero } from "../components/ParallaxHero";
+import { ParallaxSection } from "../components/ParallaxSection";
+import { Button } from "../components/ui/button";
+import { ImageWithFallback } from "../components/figma/ImageWithFallback";
+import { ArrowLeft, Palette, Users, Award, Sparkles } from "lucide-react";
+import  Layout  from '../layouts/Layout.astro'
+
+
+  const instructors = [
+    {
+      name: "",
+      title: "Lead Art Instructor & Creative Director",
+      image: "",
+      specialization: ["Watercolor", "Acrylic Painting", "Mixed Media", "Art History"],
+      experience: "14+ years teaching experience",
+      description: "Isabella holds a BFA in Fine Arts from Rhode Island School of Design. Her artwork has been featured in numerous galleries and exhibitions across the region. As an educator, she's passionate about helping students discover their creative voice while building technical skills. Isabella believes that art education goes beyond technique – it's about fostering confidence, self-expression, and seeing the world from new perspectives.",
+      achievements: [
+        "Exhibited artwork in 20+ galleries and art shows",
+        "Winner of Regional Art Educator of the Year award",
+        "Published in Art Education Magazine",
+        "Developed 'Art for Everyone' inclusive curriculum"
+      ]
+    },
+    {
+      name: "Mei Lin Chen",
+      title: "Sculpture & 3D Art Instructor",
+      image: "",
+      specialization: ["Clay Sculpture", "Ceramics", "Paper Craft", "3D Design"],
+      experience: "12+ years teaching experience",
+      description: "Mei Lin's three-dimensional artwork has been displayed in public installations and private collections. She brings a unique perspective to art education by introducing students to sculpture, ceramics, and hands-on creative construction. Mei Lin teaches students to think spatially and work with various materials, from traditional clay to modern recycled materials. Her classes emphasize experimentation, problem-solving, and the joy of creating something tangible.",
+      achievements: [
+        "Public art installations in 5+ cities",
+        "Master ceramicist with studio practice",
+        "Developed eco-friendly art curriculum using recycled materials",
+        "Regular exhibitor at craft and sculpture festivals"
+      ]
+    }
+  ];
+
+  const historyMilestones = [
+    {
+      year: "2011",
+      title: "Studio Opening",
+      description: "Opened our first art studio with the mission to make quality art education accessible to all ages and backgrounds."
+    },
+    {
+      year: "2014",
+      title: "Program Expansion",
+      description: "Added specialized classes in digital art, sculpture, and portfolio preparation for aspiring art students."
+    },
+    {
+      year: "2018",
+      title: "Community Impact",
+      description: "Launched annual student art exhibition and community mural projects, showcasing over 200 student artworks."
+    },
+    {
+      year: "2024",
+      title: "Innovation & Growth",
+      description: "Integrated modern digital art tools while maintaining focus on traditional techniques, serving 400+ students."
+    }
+  ];
+
+const pageTitle = "About | Young Starter Club";
+const description = "Learn more about Young Starter Club and our programs.";
+const image = "/assets/YSC.png";
+---
+
+<Layout title={pageTitle} description={description} image={image}>
+    <div class="min-h-screen bg-white">
+      
+      {/* Hero Section - Parallax */}
+      <ParallaxHero 
+        imageUrl="https://images.unsplash.com/photo-1615909340810-3ec0e50f9e4d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhcnQlMjB0ZWFjaGVyJTIwY2hpbGRyZW4lMjBwYWludGluZ3xlbnwxfHx8fDE3NjQxNjEwNDh8MA&ixlib=rb-4.1.0&q=80&w=1080"
+        title="Unleash Your Creativity"
+        subtitle="Explore the wonderful world of visual arts through painting, drawing, sculpture, and mixed media. Our experienced instructors nurture creativity while teaching fundamental techniques in a supportive, inspiring environment."
+        stats={[
+          { number: "400+", label: "Students" },
+          { number: "10+", label: "Exhibitions" },
+          { number: "14+", label: "Years Experience" },
+          { number: "1000+", label: "Artworks Created" }
+        ]}
+        showBackButton={true}
+        client:load
+      />
+
+      {/* Event Banner 
+      <section class="py-12 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+          <EventBanner />
+        </div>
+      </section> */}
+
+      {/* Program Features */}
+      <section class="py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center mb-12">
+            <h2 class="mb-4">What Makes Our Program Special</h2>
+            <p class="text-muted-foreground max-w-2xl mx-auto">
+              Comprehensive art education that nurtures creativity and builds technical skills
+            </p>
+          </div>
+          
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-gradient-to-br from-pink-50 to-rose-50 rounded-2xl p-8 border border-pink-100">
+              <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-500 rounded-lg flex items-center justify-center mb-4">
+                <Palette className="w-6 h-6 text-white" />
+              </div>
+              <h3 class="mb-3">Diverse Mediums</h3>
+              <p class="text-muted-foreground">Explore watercolor, acrylic, charcoal, clay, digital art, and more. Find your favorite medium!</p>
+            </div>
+            
+            <div class="bg-gradient-to-br from-pink-50 to-rose-50 rounded-2xl p-8 border border-pink-100">
+              <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-500 rounded-lg flex items-center justify-center mb-4">
+                <Sparkles className="w-6 h-6 text-white" />
+              </div>
+              <h3 class="mb-3">Portfolio Building</h3>
+              <p class="text-muted-foreground">Create a collection of artwork to showcase your growth and achievements over time.</p>
+            </div>
+            
+            <div class="bg-gradient-to-br from-pink-50 to-rose-50 rounded-2xl p-8 border border-pink-100">
+              <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-500 rounded-lg flex items-center justify-center mb-4">
+                <Award className="w-6 h-6 text-white" />
+              </div>
+              <h3 class="mb-3">Annual Exhibition</h3>
+              <p class="text-muted-foreground">Showcase your artwork at our annual student art exhibition, celebrating creativity and talent.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Instructors Section */}
+      <section class="py-20 bg-gradient-to-br from-pink-50 to-rose-50">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="text-center mb-12">
+            <h2 class="mb-4">Meet Our Art Instructors</h2>
+            <p class="text-muted-foreground max-w-2xl mx-auto">
+              Learn from professional artists who are passionate about inspiring the next generation
+            </p>
+          </div>
+          
+          <div class="space-y-8">
+            {instructors.map((instructor, index) => (
+              <InstructorProfile key={index} {...instructor} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* History Section */}
+      <section class="py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+          <ProgramHistorySection
+            image="https://images.unsplash.com/photo-1649479117144-49ae67b86632?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhcnQlMjBwYWludGluZyUyMHN0dWRpb3xlbnwxfHx8fDE3NjAyMzc4OTF8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+            foundedYear="2011"
+            milestones={historyMilestones}
+            stats={[
+              { icon: Users, value: "400+", label: "Students" },
+              { icon: Award, value: "10+", label: "Exhibitions" },
+              { icon: Palette, value: "1000+", label: "Artworks" }
+            ]}
+          />
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <ParallaxSection
+        imageUrl="https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhcnQlMjBwYWludGluZyUyMGNvbG9yZnVsfGVufDF8fHx8MTc2NDU3Njk0N3ww&ixlib=rb-4.1.0&q=80&w=1080"
+        className="py-20"
+      >
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <Palette className="w-12 h-12 mx-auto mb-6 text-yellow-300" />
+          <h2 class="mb-6 text-white">Ready to Create Amazing Art?</h2>
+          <p class="mb-8 max-w-2xl mx-auto text-white/90">
+            Join our vibrant community of young artists. Contact us on Facebook to schedule your first class!
+          </p>
+          <Button 
+            className="bg-white text-pink-600 hover:bg-white/90"
+            onClick={() => window.open('https://facebook.com', '_blank')}
+          >
+            Message Us on Facebook
+          </Button>
+        </div>
+      </ParallaxSection>
+
+      <Footer />
+    </div>
+</Layout>

@@ -1,0 +1,3 @@
+export const imageUrl = "https://images.unsplash.com/photo-1643941088552-fdf7362d36bb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaGlsZHJlbiUyMHBsYXlpbmclMjBjbGFzc2ljYWwlMjBtdXNpYyUyMHBpYW5vJTIwdmlvbGlufGVufDF8fHx8MTc2NDU3NDg5MXww&ixlib=rb-4.1.0&q=80&w=1080";
+
+export const secondimageUrl = "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaGlsZHJlbiUyMGxlYXJuaW5nJTIwaGFwcHklMjBncm91cHxlbnwxfHx8fDE3NjQ1Nzc1NDJ8MA&ixlib=rb-4.1.0&q=80&w=1080"
