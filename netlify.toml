@@ -1,0 +1,4 @@
+
+  for = "/*"
+
+    Content-Security-Policy = "style-src 'self' 'nonce-<your_random_value>' 'sha256-<your_style_hash>'"
