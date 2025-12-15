@@ -13,6 +13,8 @@ import { Sparkles, Star, Target, Heart, Users, MapPin, Music, Trophy, Palette, C
 import { format } from 'date-fns';
 import { MapToggleButton } from "../components/MapToggleButton";
 import { homeimageUrl } from "../config";
+import { ChristmasDecoration } from "components/ChristmasDecor";
+import { EventModal } from "components/EventModal.tsx"
 
 
 interface Testimonial {
@@ -99,6 +101,12 @@ const stats = [
 ];
 
 ---
+
+ {/* Christmas Decorations */}
+ <ChristmasDecoration variant="combo" intensity="medium" enabled={true} client:load/>
+
+ {/* Event Modal */}
+ <EventModal client:load/>
 
   <ParallaxSection 
     imageUrl={homeimageUrl};

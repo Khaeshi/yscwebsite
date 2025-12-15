@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Card } from "./ui/card";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
-import { Badge } from "./ui/badge";
+import { Card } from "./ui/card.tsx";
+import { Button } from "./ui/button.tsx";
+import { Input } from "./ui/input.tsx";
+import { Textarea } from "./ui/textarea.tsx";
+import { Badge } from "./ui/badge.tsx";
 import { Calendar, MapPin, Clock, X, Plus, Edit2 } from "lucide-react";
 
 interface Event {
