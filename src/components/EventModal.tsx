@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect } from "react";
 import {
   Dialog,
@@ -105,7 +107,7 @@ export function EventModal() {
               </p>
 
               <div className="flex flex-col gap-3 w-full">
-                <a href="/event-guidelines" className="w-full">
+                <a href="/Events/event-guidelines" className="w-full">
                   <Button
                     className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg text-sm sm:text-base min-h-[44px]"
                     size="lg"

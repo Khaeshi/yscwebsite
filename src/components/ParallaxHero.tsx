@@ -6,7 +6,7 @@ interface ParallaxHeroProps {
   imageUrl: string;
   title: string;
   subtitle: string;
-  stats: { number: string; label: string }[];
+  stats?: { number: string; label: string }[];
   showBackButton?: boolean;
 }
 
@@ -70,7 +70,7 @@ export function ParallaxHero({ imageUrl, title, subtitle, stats, showBackButton 
 
           {/* Stats */}
           <div className="grid grid-cols-2 gap-6">
-            {stats.map((stat, index) => (
+            {stats?.map((stat, index) => (
               <div key={index} className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 text-center">
                 <div className="text-3xl font-bold text-yellow-300 mb-2">{stat.number}</div>
                 <div className="text-sm text-white/80">{stat.label}</div>
