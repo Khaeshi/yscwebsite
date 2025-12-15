@@ -8,7 +8,7 @@ import react from '@astrojs/react';
 // https://astro.build/config
 export default defineConfig({
   experimental: {
-    csp:true
+    csp:false
   },
   vite: {
     plugins: [tailwindcss()],
