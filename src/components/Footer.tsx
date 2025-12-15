@@ -107,7 +107,7 @@ export function Footer() {
                 <h3 className="text-white mb-4">Follow Us</h3>
                 <div className="flex space-x-4">
                   <motion.a
-                    href="#"
+                    href="https://www.facebook.com/YSCcommunity"
                     className="hover:text-red-400 transition-colors"
                     whileHover={{ scale: 1.2, rotate: 5 }}
                     transition={{ type: "spring", stiffness: 400 }}
@@ -115,7 +115,7 @@ export function Footer() {
                     <Facebook className="w-5 h-5" />
                   </motion.a>
                   <motion.a
-                    href="#"
+                    href="https://www.instagram.com/youngstarterclub/"
                     className="hover:text-red-400 transition-colors"
                     whileHover={{ scale: 1.2, rotate: 5 }}
                     transition={{ type: "spring", stiffness: 400 }}

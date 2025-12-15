@@ -9,6 +9,7 @@ import { ParallaxSection } from "../components/ParallaxSection";
 import { Button } from "../components/ui/button";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { Handshake, Trophy, Users, Award, Target } from "lucide-react";
+import { badmintonimageUrl, JTTC, badmintonhistory } from "config";
 
 interface Coach {
   name: string;
@@ -78,8 +79,8 @@ const historyMilestones: Milestone[] = [
     description: "Became a BWF-recognized training center with 300+ active students and multiple championship titles."
   }
 ];
-const pageTitle = "About | Young Starter Club";
-const description = "Learn more about Young Starter Club and our programs.";
+const pageTitle = "Badminton | Young Starter Club";
+const description = "Improve your badminton skills with our fun and engaging lessons. Perfect for beginners, experienced, and national players alike. Join Young Starter Club!";
 const image = "/assets/YSC.png";
 
 ---
@@ -88,7 +89,7 @@ const image = "/assets/YSC.png";
 
     {/* Hero Section - Parallax */}
     <ParallaxHero
-      imageUrl="https://images.unsplash.com/photo-1756893653899-45c365fa19a1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiYWRtaW50b24lMjBjb2FjaCUyMHRyYWluaW5nfGVufDF8fHx8MTc2NDE2MDMxNnww&ixlib=rb-4.1.0&q=80&w=1080"
+      imageUrl={badmintonimageUrl}
       title="Master Your Game"
       subtitle="Elevate your badminton skills with professional coaching from experienced players and certified instructors. From fundamental techniques to competitive strategies, we'll help you achieve your athletic goals."
       stats={[
@@ -116,9 +117,9 @@ const image = "/assets/YSC.png";
             {/* JT Badminton Logo Placeholder */}
             <div class="rounded-2xl pr-4">
               <ImageWithFallback
-                src=""
+                src={JTTC}
                 alt="JT Badminton Logo"
-                className="h-24 w-auto mx-auto object-contain shadow-lg"
+                className="h-24 w-auto mx-auto drop-shadow-lg"
               />
               <h2 class="mb-2">JT Badminton</h2>
             </div>
@@ -126,8 +127,8 @@ const image = "/assets/YSC.png";
             <div class="rounded-2xl pl-4">
               <ImageWithFallback
                 src={""}
-                alt="JT Badminton Logo"
-                className="h-24 w-auto mx-auto object-contain shadow-lg"
+                alt="South City Homes Recreation Center"
+                className="h-24 w-auto mx-auto"
               />
               <h2 class="mb-2">
                 South City Homes <br />
@@ -212,7 +213,7 @@ const image = "/assets/YSC.png";
     <section class="py-20 bg-white">
       <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <ProgramHistorySection
-          image="https://images.unsplash.com/photo-1746934960613-86fe80748101?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiYWRtaW50b24lMjBzcG9ydHMlMjBoaXN0b3J5fGVufDF8fHx8MTc2NDE2MDMxOHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+          image={badmintonhistory}
           foundedYear="2012"
           milestones={historyMilestones}
           stats={[
@@ -226,8 +227,9 @@ const image = "/assets/YSC.png";
 
     {/* CTA Section */}
     <ParallaxSection
-      imageUrl="https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxiYWRtaW50b24lMjBzcG9ydHMlMjBhY3Rpb258ZW58MXx8fHwxNzY0NTc2Nzk2fDA&ixlib=rb-4.1.0&q=80&w=1080"
-      className="py-20"
+      imageUrl={badmintonimageUrl}
+      className="py-10"
+      overlayOpacity={0.8}
     >
       <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <Trophy className="w-12 h-12 mx-auto mb-6 text-yellow-300" />

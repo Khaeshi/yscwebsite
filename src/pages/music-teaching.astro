@@ -8,6 +8,8 @@ import { Button } from "../components/ui/button";
 // import { ImageWithFallback } from "../components/figma/ImageWithFallback.tsx";
 import { ArrowLeft, Music, Users, Award, GraduationCap } from "lucide-react";
 import Layout from "layouts/Layout.astro";
+import { musicimageUrl } from '../config.ts'
+
 
 // Define types for instructors and milestones to retain TypeScript security
 interface Instructor {
@@ -66,8 +68,10 @@ const historyMilestones: Milestone[] = [
   }
 ];
 
-const pageTitle = "About | Young Starter Club";
-const description = "Learn more about Young Starter Club and our programs.";
+
+
+const pageTitle = "Music | Young Starter Club";
+const description = "Learn more about Music with Young Starter Club";
 const image = "/assets/YSC.png";
 
 ---
@@ -76,7 +80,7 @@ const image = "/assets/YSC.png";
 
     <!-- Hero Section - Parallax -->
     <ParallaxHero 
-      imageUrl="https://images.unsplash.com/photo-1643941088552-fdf7362d36bb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjaGlsZHJlbiUyMHBsYXlpbmclMjBjbGFzc2ljYWwlMjBtdXNpYyUyMHBpYW5vJTIwdmlvbGlufGVufDF8fHx8MTc2NDU3NDg5MXww&ixlib=rb-4.1.0&q=80&w=1080"
+      imageUrl={musicimageUrl} 
       title="Discover the Joy of Music"
       subtitle={`Learn to play piano, guitar, violin, and more with our team of experienced, certified instructors. 
         From complete beginners to advanced students preparing for competitions, we provide personalized 
@@ -88,7 +92,7 @@ const image = "/assets/YSC.png";
         { number: "Yearly", label: "Recitals" },
       ]}
       showBackButton={true};
-      client:idle
+      client:load
     />
 
     <!-- Event Banner -->

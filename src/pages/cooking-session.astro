@@ -9,13 +9,14 @@ import { Button } from "../components/ui/button.tsx";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback.tsx";
 import { ArrowLeft, ChefHat, Users, Award, Utensils } from "lucide-react";
 import Layout from "../layouts/Layout.astro"
+import { cookingimageUrl } from "config";
 
 
   const instructors = [
     {
-      name: "Chef Andrea Romano",
+      name: "Chef Desiree Tablante",
       title: "Executive Chef & Culinary Director",
-      image: "https://images.unsplash.com/photo-1559827260-dc66d52bef19?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmZW1hbGUlMjBjaGVmJTIwcG9ydHJhaXR8ZW58MXx8fHwxNzY0MTYxMDUwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      image: "",
       specialization: ["Italian Cuisine", "Baking & Pastry", "Healthy Cooking", "Food Safety"],
       experience: "16+ years culinary experience",
       description: "Chef Andrea trained at the Culinary Institute of America and worked in fine dining restaurants before discovering her passion for teaching. She specializes in making cooking accessible and fun for all ages while emphasizing nutrition, food safety, and cultural appreciation. Andrea believes cooking is a life skill that builds confidence, creativity, and brings families together. Her warm, patient teaching style puts even nervous beginners at ease.",
@@ -26,34 +27,6 @@ import Layout from "../layouts/Layout.astro"
         "Developed kid-friendly cooking curriculum used by schools"
       ]
     },
-    {
-      name: "Chef Marcus Johnson",
-      title: "Pastry Chef & Baking Specialist",
-      image: "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtYWxlJTIwY2hlZiUyMHBvcnRyYWl0fGVufDF8fHx8MTc2NDE2MTA1MXww&ixlib=rb-4.1.0&q=80&w=1080",
-      specialization: ["Baking", "Desserts", "Bread Making", "Cake Decorating"],
-      experience: "12+ years professional experience",
-      description: "Chef Marcus is a master pastry chef who has created desserts for weddings, events, and bakeries across the region. His classes focus on the science and art of baking, teaching students how ingredients work together to create magic. Marcus makes baking approachable and fun, whether you're making your first cookies or attempting a challenging layer cake. He emphasizes precision, creativity, and the joy of sharing homemade treats with others.",
-      achievements: [
-        "Award-winning pastry chef with competition medals",
-        "Ran successful artisan bakery for 8 years",
-        "Expert in gluten-free and allergy-friendly baking",
-        "Featured in Food & Wine Magazine"
-      ]
-    },
-    {
-      name: "Chef Yuki Tanaka",
-      title: "International Cuisine Instructor",
-      image: "https://images.unsplash.com/photo-1595475207225-428b62bda831?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhc2lhbiUyMGNoZWYlMjBwb3J0cmFpdHxlbnwxfHx8fDE3NjQxNjEwNTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      specialization: ["Asian Cuisine", "Sushi", "Vegetarian Cooking", "Knife Skills"],
-      experience: "14+ years teaching experience",
-      description: "Chef Yuki brings authentic Asian culinary techniques and a global perspective to our cooking classes. Trained in Tokyo and having worked in kitchens around the world, she teaches students about different cuisines, ingredients, and cooking methods. Yuki's classes emphasize knife skills, flavor balance, and the cultural stories behind dishes. She's passionate about introducing students to new flavors and teaching them that cooking is a gateway to understanding different cultures.",
-      achievements: [
-        "Trained in traditional Japanese cuisine in Tokyo",
-        "Expert sushi chef with 10+ years experience",
-        "Author of 'Cooking Around the World for Kids' recipe book",
-        "Cultural culinary ambassador at international food festivals"
-      ]
-    }
   ];
 
   const historyMilestones = [
@@ -79,8 +52,8 @@ import Layout from "../layouts/Layout.astro"
     }
   ];
 
-  const pageTitle = "Homepage | Young Starter Club";
-  const description ="Welcome to the Young Starter Club homepage!";
+  const pageTitle = "Learn to Cook: Beginner Class | Young Starter Club";
+  const description ="Discover the joy of cooking! Here at Young Starter Club, our beginner cooking class will give you the confidence to create amazing meals.";
   const image = "/assets/YSC.png";
 ---
 
@@ -89,7 +62,7 @@ import Layout from "../layouts/Layout.astro"
 
     {/* Hero Section - Parallax */}
     <ParallaxHero 
-      imageUrl="https://images.unsplash.com/photo-1759521296047-89338c8e083d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb29raW5nJTIwY2xhc3MlMjBpbnN0cnVjdG9yJTIwY2hlZnxlbnwxfHx8fDE3NjQxNjEwNDl8MA&ixlib=rb-4.1.0&q=80&w=1080"
+      imageUrl={cookingimageUrl}
       title="Create Delicious Memories"
       subtitle="Learn the joy of cooking through hands-on culinary sessions! From basic kitchen safety to creating impressive dishes, develop practical cooking skills, nutritional knowledge, and confidence in the kitchen."
       stats={[

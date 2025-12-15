@@ -9,6 +9,7 @@ import { Button } from "../components/ui/button";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { ArrowLeft, Palette, Users, Award, Sparkles } from "lucide-react";
 import  Layout  from '../layouts/Layout.astro'
+import { artsimageUrl } from "config";
 
 
   const instructors = [
@@ -26,20 +27,6 @@ import  Layout  from '../layouts/Layout.astro'
         "Developed 'Art for Everyone' inclusive curriculum"
       ]
     },
-    {
-      name: "Mei Lin Chen",
-      title: "Sculpture & 3D Art Instructor",
-      image: "",
-      specialization: ["Clay Sculpture", "Ceramics", "Paper Craft", "3D Design"],
-      experience: "12+ years teaching experience",
-      description: "Mei Lin's three-dimensional artwork has been displayed in public installations and private collections. She brings a unique perspective to art education by introducing students to sculpture, ceramics, and hands-on creative construction. Mei Lin teaches students to think spatially and work with various materials, from traditional clay to modern recycled materials. Her classes emphasize experimentation, problem-solving, and the joy of creating something tangible.",
-      achievements: [
-        "Public art installations in 5+ cities",
-        "Master ceramicist with studio practice",
-        "Developed eco-friendly art curriculum using recycled materials",
-        "Regular exhibitor at craft and sculpture festivals"
-      ]
-    }
   ];
 
   const historyMilestones = [
@@ -65,8 +52,8 @@ import  Layout  from '../layouts/Layout.astro'
     }
   ];
 
-const pageTitle = "About | Young Starter Club";
-const description = "Learn more about Young Starter Club and our programs.";
+const pageTitle = "Arts | Young Starter Club";
+const description = "Learn to draw with confidence! Young Starter Club offers beginner-friendly drawing lessons for all ages. Master essential techniques and unleash your creativity.";
 const image = "/assets/YSC.png";
 ---
 
@@ -75,7 +62,7 @@ const image = "/assets/YSC.png";
       
       {/* Hero Section - Parallax */}
       <ParallaxHero 
-        imageUrl="https://images.unsplash.com/photo-1615909340810-3ec0e50f9e4d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhcnQlMjB0ZWFjaGVyJTIwY2hpbGRyZW4lMjBwYWludGluZ3xlbnwxfHx8fDE3NjQxNjEwNDh8MA&ixlib=rb-4.1.0&q=80&w=1080"
+        imageUrl={artsimageUrl}
         title="Unleash Your Creativity"
         subtitle="Explore the wonderful world of visual arts through painting, drawing, sculpture, and mixed media. Our experienced instructors nurture creativity while teaching fundamental techniques in a supportive, inspiring environment."
         stats={[

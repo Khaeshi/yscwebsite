@@ -5,7 +5,7 @@ import { ParallaxSection } from '../components/ParallaxSection.tsx';
 import { Button } from '../components/ui/button.tsx'; 
 import  Layout  from '../layouts/Layout.astro';
 import { Heart, Target, Star, Users, Award, Sparkles, CheckCircle2 } from 'lucide-react';
-import { secondimageUrl } from "../config.ts";
+import { aboutimageUrl } from "../config.ts";
 
 interface TeamMember {
   name: string;
@@ -121,7 +121,7 @@ const image = "/assets/YSC.png";
 
     {/* Hero Section - Parallax */}
     <ParallaxHero
-      imageUrl={secondimageUrl}
+      imageUrl={aboutimageUrl}
       title="About Young Starter Club"
       subtitle="We're a vibrant learning community dedicated to nurturing talents, building confidence, and creating joyful learning experiences for children and adults alike."
       stats={[
