@@ -4,7 +4,7 @@ import { Button } from "./ui/button.tsx";
 import { Input } from "./ui/input.tsx";
 import { Textarea } from "./ui/textarea.tsx";
 import { Badge } from "./ui/badge.tsx";
-import { Calendar, MapPin, Clock, X, Plus, Edit2 } from "lucide-react";
+import { Calendar, MapPin, Clock, Plus, Edit2 } from "lucide-react";
 
 interface Event {
   id: string;
@@ -20,12 +20,12 @@ export function EventBanner() {
   const [events, setEvents] = useState<Event[]>([
     {
       id: "1",
-      title: "Annual Music Recital 2024",
+      title: "",
       description: "Join us for an evening of beautiful performances by our talented music students!",
       date: "2024-12-15",
       time: "6:00 PM",
       location: "Young Starter Club Main Hall",
-      type: "upcoming"
+      type: "upcoming",
     }
   ]);
 
@@ -35,7 +35,7 @@ export function EventBanner() {
     description: "",
     date: "",
     time: "",
-    location: ""
+    location: "",
   });
   const [editingId, setEditingId] = useState<string | null>(null);
 
@@ -53,35 +53,19 @@ export function EventBanner() {
       const newEvent: Event = {
         id: Date.now().toString(),
         ...formData,
-        type: "upcoming"
+        type: "upcoming" as const
       };
       setEvents([...events, newEvent]);
     }
     
-    setFormData({ title: "", description: "", date: "", time: "", location: "" });
+    setFormData({ title: "", description: "", date: "", time: "", location: "", });
     setShowForm(false);
-  };
-
-  const handleEdit = (event: Event) => {
-    setFormData({
-      title: event.title,
-      description: event.description,
-      date: event.date,
-      time: event.time,
-      location: event.location
-    });
-    setEditingId(event.id);
-    setShowForm(true);
-  };
-
-  const handleDelete = (id: string) => {
-    setEvents(events.filter(event => event.id !== id));
   };
 
   const handleCancel = () => {
     setShowForm(false);
     setEditingId(null);
-    setFormData({ title: "", description: "", date: "", time: "", location: "" });
+    setFormData({ title: "", description: "", date: "", time: "", location: "", });
   };
 
   const upcomingEvents = events.filter(e => e.type === "upcoming");
@@ -107,24 +91,6 @@ export function EventBanner() {
                       <h3 className="mb-1">{event.title}</h3>
                     </div>
                   </div>
-                  <div className="flex gap-2">
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleEdit(event)}
-                      className="text-purple-600 hover:text-purple-700"
-                    >
-                      <Edit2 className="w-4 h-4" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      onClick={() => handleDelete(event.id)}
-                      className="text-red-600 hover:text-red-700"
-                    >
-                      <X className="w-4 h-4" />
-                    </Button>
-                  </div>
                 </div>
                 
                 <p className="text-muted-foreground mb-4">{event.description}</p>
@@ -143,21 +109,15 @@ export function EventBanner() {
                     <span>{event.location}</span>
                   </div>
                 </div>
+                <Button asChild>
+                  <a href="/Events/event-guidelines" className="mt-6" rel="noopener noreferrer">
+                    Learn More
+                  </a>
+                </Button>
               </div>
             </Card>
           ))}
         </div>
-      )}
-
-      {!showForm && (
-        <Button
-          onClick={() => setShowForm(true)}
-          variant="outline"
-          className="w-full border-dashed border-2 border-purple-300 text-purple-600 hover:bg-purple-50"
-        >
-          <Plus className="w-4 h-4 mr-2" />
-          Add New Event
-        </Button>
       )}
 
       {showForm && (
@@ -215,6 +175,7 @@ export function EventBanner() {
                 placeholder="e.g., Young Starter Club Main Hall"
               />
             </div>
+
             
             <div className="flex gap-3 pt-2">
               <Button type="submit" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700">

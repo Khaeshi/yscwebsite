@@ -10,6 +10,7 @@ import { ImageWithFallback } from "../components/figma/ImageWithFallback";
 import { ArrowLeft, Palette, Users, Award, Sparkles } from "lucide-react";
 import  Layout  from '../layouts/Layout.astro'
 import { artsimageUrl } from "config";
+import { EventBanner } from "components/EventBanner";
 
 
   const instructors = [
@@ -75,12 +76,11 @@ const image = "/assets/YSC.png";
         client:load
       />
 
-      {/* Event Banner 
       <section class="py-12 bg-white">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
           <EventBanner />
         </div>
-      </section> */}
+      </section> 
 
       {/* Program Features */}
       <section class="py-20 bg-white">
