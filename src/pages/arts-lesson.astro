@@ -165,13 +165,15 @@ const image = "/assets/YSC.png";
           <p class="mb-8 max-w-2xl mx-auto text-white/90">
             Join our vibrant community of young artists. Contact us on Facebook to schedule your first class!
           </p>
-          <Button 
-            className="bg-white text-pink-600 hover:bg-white/90"
-            onClick={() => window.open('https://facebook.com', '_blank')}
+          <a 
+            href="https://www.facebook.com/YSCcommunity" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="inline-flex items-center gap-2 bg-white text-pink-600 hover:bg-white/90 hover:text-pink-700 shadow-xl px-5 py-2 rounded-lg font-medium text-sm"
           >
             Message Us on Facebook
-          </Button>
-        </div>
+          </a>
+      </div>
       </ParallaxSection>
     </div>
 </Layout>

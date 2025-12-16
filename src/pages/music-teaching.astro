@@ -4,11 +4,12 @@ import { InstructorProfile } from "../components/InstructorProfile";
 import { ProgramHistorySection } from "../components/ProgramHistorySection";
 import { EventBanner } from "../components/EventBanner";
 import { ParallaxHero } from "../components/ParallaxHero";
+import { ParallaxSection } from "../components/ParallaxSection.tsx"
 import { Button } from "../components/ui/button";
 // import { ImageWithFallback } from "../components/figma/ImageWithFallback.tsx";
-import { ArrowLeft, Music, Users, Award, GraduationCap } from "lucide-react";
+import { Heart, Music, Users, Award, GraduationCap } from "lucide-react";
 import Layout from "layouts/Layout.astro";
-import { musicimageUrl } from '../config.ts'
+import { musicimageUrl, musicAward, Silayan } from '../config.ts'
 
 
 // Define types for instructors and milestones to retain TypeScript security
@@ -31,16 +32,16 @@ interface Milestone {
 const instructors: Instructor[] = [
   {
     name: "Silayan Pallones",
-    title: "Voice Major & YSC Co-Founder",
-    image: "",
-    specialization: ["Piano", "Music Theory", "Composition"],
-    experience: "15+ years teaching experience",
-    description: "Sarah holds a Master's degree in Music Education from Berklee College of Music. Her passion for teaching began at age 19 when she started giving private piano lessons. She specializes in classical piano and music theory, preparing students for ABRSM and Trinity College examinations. Sarah believes in creating a nurturing environment where students can discover their musical voice while building solid technical foundations.",
+    title: "Voice Major & YSC Builder",
+    image: Silayan,
+    specialization: ["Voice","Piano", "Music Theory", "Composition"],
+    experience: "16+ years teaching experience",
+    description: "Multi-skilled musician, ",
     achievements: [
-      "100+ students passed ABRSM exams with distinction",
-      "Former concert pianist with the Regional Symphony Orchestra",
+      "8+ students participated JSC",
+      "Former concert performer",
       "Published composer with works performed internationally",
-      "Certified ABRSM and Trinity College examiner"
+      "Associate in Music Ministry, Major in Voice"
     ]
   }
 ];
@@ -54,7 +55,7 @@ const historyMilestones: Milestone[] = [
   {
     year: "2015",
     title: "Expansion",
-    description: "Grew to accommodate 100+ students with a diverse range of instruments including piano, guitar, violin, and voice."
+    description: "Grew to accommodate 20+ students with a diverse range of instruments including piano, guitar, violin, and voice."
   },
   {
     year: "2020",
@@ -62,9 +63,9 @@ const historyMilestones: Milestone[] = [
     description: "Successfully transitioned to hybrid learning during the pandemic, making lessons accessible online while maintaining quality."
   },
   {
-    year: "2024",
+    year: "2025",
     title: "Recognition",
-    description: "Achieved 500+ successful students and became a recognized ABRSM and Trinity College examination center."
+    description: "Achieved 60+ successful students."
   }
 ];
 
@@ -162,34 +163,38 @@ const image = "/assets/YSC.png";
     <section class="py-20 bg-white">
       <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <ProgramHistorySection
-          image="https://images.unsplash.com/photo-1700144387892-29b96bade040?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoaXN0b3JpY2FsJTIwbXVzaWMlMjBzY2hvb2x8ZW58MXx8fHwxNzY0MTYwMzE3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+          image={musicAward}
           foundedYear="2010"
           milestones={historyMilestones}
           stats={[
-            { icon: Users, value: "500+", label: "Students" },
+            { icon: Users, value: "60+", label: "Students" },
             { icon: Award, value: "95%", label: "Pass Rate" },
-            { icon: Music, value: "50+", label: "Recitals" }
+            { icon: Music, value: "6+", label: "Recitals" }
           ]}
         />
       </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="py-20 bg-gradient-to-br from-purple-600 via-pink-600 to-orange-600 text-white">
+    {/* CTA Section */}
+    <ParallaxSection
+      imageUrl="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdHVkZW50cyUyMGxlYXJuaW5nJTIwdG9nZXRoZXJ8ZW58MXx8fHwxNzY0NTc3NTQyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+      className="py-20"
+    >
       <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <Music className="w-12 h-12 mx-auto mb-6" />
-        <h2 class="mb-6">Ready to Start Your Musical Journey?</h2>
+        <Heart className="w-12 h-12 mx-auto mb-6 text-yellow-300" />
+        <h2 class="mb-6 text-white">Join Our Music Classes</h2>
         <p class="mb-8 max-w-2xl mx-auto text-white/90">
-          Join our community of music learners today. Contact us on Facebook to schedule your first lesson!
+          Become part of the Young Starter Club Music department. Let's discover your passion together!
         </p>
-        <Button 
-          className="bg-white text-purple-600 hover:bg-white/90"
-          onClick={() => window.open('https://facebook.com', '_blank')}
-          client:load
-        >
-          Message Us on Facebook
-        </Button>
+        <a 
+            href="https://www.facebook.com/YSCcommunity" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="inline-flex items-center gap-2 bg-white text-purple-600 hover:bg-yellow-300 hover:text-purple-700 shadow-xl px-5 py-2 rounded-lg font-medium text-sm"
+          >
+            Message Us on Facebook
+          </a>  
       </div>
-    </section>
+    </ParallaxSection>
   </div>
 </Layout>

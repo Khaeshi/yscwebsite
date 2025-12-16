@@ -136,26 +136,22 @@ const stats = [
           
           <!-- CTA Buttons -->
           <div class="flex flex-wrap gap-4 mb-10">
-            <Button 
-              size="lg"
-              className="bg-white text-purple-600 hover:bg-yellow-300 hover:text-purple-700 shadow-xl hover:shadow-2xl transition-all duration-300"
-              onClick={() => window.open('https://facebook.com', '_blank')}
-              client:load
+            <a 
+              href="https://www.facebook.com/YSCcommunity" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="inline-flex items-center gap-2 bg-white text-purple-600 hover:bg-yellow-300 hover:text-purple-700 shadow-xl hover:shadow-2xl transition-all duration-300 px-4 py-2 rounded-lg font-medium text-sm"
             >
-              <MessageCircle className="w-5 h-5 mr-2" />
+              <MessageCircle className="w-5 h-5" />
               Get Started Today
-            </Button>
-            <Button 
-              size="lg"
-              variant="outline" 
-              className="bg-white text-purple-600 hover:bg-yellow-300 hover:text-purple-700 shadow-xl hover:shadow-2xl transition-all duration-300"
-              client:load
-            >
-              <a href="#programs" >
-                Explore Programs
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </a>
-            </Button>
+            </a>           
+            <a 
+              href="#programs"
+              class="inline-flex items-center gap-2 bg-white text-purple-600 hover:bg-yellow-300 hover:text-purple-700 shadow-xl hover:shadow-2xl transition-all duration-300 px-4 py-2 rounded-lg font-medium text-sm"
+              >
+              Explore Programs
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </a>
           </div>
 
           <!-- Stats -->
@@ -277,15 +273,15 @@ const stats = [
 
       <div class="text-center mt-12">
         <p class="text-muted-foreground mb-4">Not sure which program is right for you?</p>
-        <Button 
-          variant="outline" 
-          size="lg"
-          onClick={() => window.open('https://facebook.com', '_blank')}
-          client:load
+        <a 
+          href="https://www.facebook.com/YSCcommunity" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="inline-flex items-center gap-2 border border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white px-6 py-3 rounded-lg font-medium text-sm transition-all"
         >
-          <MessageCircle className="w-5 h-5 mr-2" />
+          <MessageCircle className="w-5 h-5" />
           Contact Us for Guidance
-        </Button>
+        </a>
       </div>
     </div>
   </section>
@@ -407,23 +403,21 @@ const stats = [
           Join our vibrant community of learners today. Let's discover your passion together!
         </p>
         <div class="flex flex-wrap gap-4 justify-center">
-          <Button 
-            size="lg"
-            className="bg-white text-purple-600 hover:bg-yellow-300 hover:text-purple-700 shadow-xl"
-            onClick={() => window.open('https://www.facebook.com/YSCcommunity', '_blank')}
-            client:load
+          <a 
+            href="https://www.facebook.com/YSCcommunity" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="inline-flex items-center gap-2 bg-white text-purple-600 hover:bg-yellow-300 hover:text-purple-700 shadow-xl px-6 py-3 rounded-lg font-medium text-sm"
           >
             <MessageCircle className="w-5 h-5 mr-2" />
             Contact Us on Facebook
-          </Button>
-          <Button 
-            size="lg"
-            variant="outline" 
-            className="bg-white text-purple-600 hover:bg-yellow-300 hover:text-purple-700 shadow-xl hover:shadow-2xl transition-all duration-300" 
-            client:visible
+          </a>        
+          <a 
+          href="#programs"
+          class="inline-flex items-center gap-2 bg-white text-purple-600 hover:bg-yellow-300 hover:text-purple-700 shadow-xl px-6 py-3 rounded-lg font-medium text-sm"
           >
-            <a href="#programs">Browse Programs</a>
-          </Button>
+          Browse Programs
+          </a>
         </div>
       </div>
     </ParallaxSection>

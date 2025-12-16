@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 export function Footer() {
   return (
     <footer className="bg-gradient-to-br from-purple-900 via-pink-900 to-orange-900 text-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="container mx-auto px-4 sm:px-4 lg:px-6 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* About */}
           <div>
             <div className="mb-4">
@@ -22,7 +22,8 @@ export function Footer() {
               </a>
             </div>
             <p className="text-white/80">
-              Empowering children and adults to discover their creative talents through quality lessons in music, sports, arts, and more.
+              Empowering children and adults to discover their creative talents through
+               quality lessons in music, sports, arts, and more.
             </p>
           </div>
 
@@ -87,7 +88,7 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="mb-4">Get in Touch</h4>
+            <h4 className="mb-4 font-medium">Get in Touch</h4>
             <ul className="space-y-3">
               <li className="flex items-center gap-2 text-white/80">
                 <Phone className="w-4 h-4" />

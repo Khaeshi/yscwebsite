@@ -9,15 +9,15 @@ import { Button } from "../components/ui/button.tsx";
 import { ImageWithFallback } from "../components/figma/ImageWithFallback.tsx";
 import { ArrowLeft, ChefHat, Users, Award, Utensils } from "lucide-react";
 import Layout from "../layouts/Layout.astro"
-import { cookingimageUrl } from "config";
+import { cookingimageUrl, Desiree } from "config";
 
 
   const instructors = [
     {
       name: "Chef Desiree Tablante",
       title: "Executive Chef & Culinary Director",
-      image: "",
-      specialization: ["Italian Cuisine", "Baking & Pastry", "Healthy Cooking", "Food Safety"],
+      image: Desiree,
+      specialization: ["Filipino Cuisine", "Baking & Pastry", "Healthy Cooking", "Food Safety"],
       experience: "16+ years culinary experience",
       description: "Chef Andrea trained at the Culinary Institute of America and worked in fine dining restaurants before discovering her passion for teaching. She specializes in making cooking accessible and fun for all ages while emphasizing nutrition, food safety, and cultural appreciation. Andrea believes cooking is a life skill that builds confidence, creativity, and brings families together. Her warm, patient teaching style puts even nervous beginners at ease.",
       achievements: [
@@ -40,16 +40,6 @@ import { cookingimageUrl } from "config";
       title: "Program Diversity",
       description: "Expanded to include international cuisines, baking classes, and special dietary accommodation workshops."
     },
-    {
-      year: "2020",
-      title: "Community Cooking",
-      description: "Launched virtual cooking classes during pandemic, bringing culinary education into homes worldwide."
-    },
-    {
-      year: "2024",
-      title: "Culinary Excellence",
-      description: "Achieved 350+ active students with partnerships with local farms for farm-to-table education experiences."
-    }
   ];
 
   const pageTitle = "Learn to Cook: Beginner Class | Young Starter Club";
@@ -165,12 +155,14 @@ import { cookingimageUrl } from "config";
         <p class="mb-8 max-w-2xl mx-auto text-white/90">
           Join our culinary community and discover the joy of cooking. Contact us on Facebook to book your first session!
         </p>
-        <Button 
-          className="bg-white text-orange-600 hover:bg-white/90"
-          onClick={() => window.open('https://facebook.com', '_blank')}
-        >
-          Message Us on Facebook
-        </Button>
+        <a 
+            href="https://www.facebook.com/YSCcommunity" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="inline-flex items-center gap-2 bg-white text-orange-600 hover:bg-white/90 hover:text-orange-700 shadow-xl px-5 py-2 rounded-lg font-medium text-sm"
+          >
+            Message Us on Facebook
+          </a>
       </div>
     </ParallaxSection>
   </div>
