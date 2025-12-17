@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Disallow specific paths if needed (uncomment and customize)
+# Disallow: /admin/
+# Disallow: /private/
+
+# Sitemap (optional, but recommended for SEO)
+
+# Sitemap: https://youngstarterclub.asia/sitemap.xml
