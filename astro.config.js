@@ -14,8 +14,8 @@ export default defineConfig({
     plugins: [tailwindcss()],
     envPrefix: 'PUBLIC_',
   },
-  
-  integrations: [react(), sitemap()],
+
   site: 'https://youngstarterclub.asia',
-  
+  integrations: [react(), sitemap()],
+
 });
