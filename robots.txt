@@ -5,6 +5,5 @@ Allow: /
 # Disallow: /admin/
 # Disallow: /private/
 
-# Sitemap (optional, but recommended for SEO)
 
-# Sitemap: https://youngstarterclub.asia/sitemap.xml
+Sitemap: https://youngstarterclub.asia/sitemap-index.xml
