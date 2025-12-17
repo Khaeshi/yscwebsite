@@ -100,8 +100,8 @@ const competitionRules = [
     icon: Users
   }
 ];
-const pageTitle = "About | Young Starter Club";
-const description = "Learn more about Young Starter Club and our programs.";
+const pageTitle = "Even Guidelines | Young Starter Club";
+const description = "Events and Description of Party";
 const image = "/assets/YSC.png";
 ---
 
@@ -111,34 +111,41 @@ const image = "/assets/YSC.png";
   <!-- Hero Section -->
   <ParallaxHero
     imageUrl="https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=1200"
-    title="Discover the Joy of Music"
-    subtitle={`Learn to play piano, guitar, violin, and more with our team of experienced, certified instructors. 
-      From complete beginners to advanced students preparing for competitions, we provide personalized 
-      instruction tailored to your musical journey.`}
+    title="I'm Dreaming Of An Art Christmas"
+    subtitle={`Join us at our art competition happening on December 18, 2025! As we showcase the art of the Christmas fever, we invite our students to participate and share their festive creations.`}
     showBackButton={true};
     client:load
   />
-  
-    <div class="container mx-auto px-4 text-center">
-      <Badge className="mb-6 bg-white/90 text-purple-700 px-4 py-2">
-        <Trophy className="w-4 h-4 mr-2 inline" />
-        Art Competition
-      </Badge>
-      <h1 class="mb-6 text-black">🎨 I'm Dreaming of an Art Christmas</h1>
-      <div class="max-w-3xl mx-auto space-y-4">
-        <p class="text-2xl text-black pb-6">
-          Artwork Competition
-        </p>
-        <p class="mb-6 text-black">Theme:</p>
-        <p class="text-xl text-black/90 italic">
-          "The True Meaning of Christmas"
-        </p>
+
+  <!-- Competition Theme -->
+  <div class="container mx-auto px-4 mb-16 mt-15">
+    <Card className="overflow-hidden border-2 border-purple-200">
+      <div class="relative h-80 overflow-hidden">
+        <ImageWithFallback
+          src="https://images.unsplash.com/photo-1719935115623-4857df23f3c6?w=1200"
+          alt="Art Christmas Competition"
+          className="w-full h-full object-cover"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-purple-600 to-pink-600 opacity-60"></div>
+        <div class="absolute inset-0 flex items-center justify-center text-center p-8">
+          <div>
+            <div class="bg-white/20 backdrop-blur-sm rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-6">
+              <Palette className="w-12 h-12 text-white" />
+            </div>
+            <h2 class="text-white mb-4">Competition Theme</h2>
+            <p class="text-white text-2xl italic mb-4">"The True Meaning of Christmas"</p>
+            <p class="text-white/90 text-lg max-w-2xl mx-auto">
+              Express your artistic vision of what Christmas truly means through your creative artwork. 
+              Show us the spirit, joy, love, and meaning behind this special season! 🎄✨
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
-  </ParallaxHero>
+    </Card>
+  </div>
 
   <!-- Quick Info Cards -->
-  <div class="container mx-auto px-4 -mt-16 relative z-10 mb-16">
+  <div class="container mx-auto px-4 -mt-16 relative z-10 mb-16 mt-15">
     <div class="grid md:grid-cols-4 gap-6">
       <Card className="p-6 text-center bg-white/95 backdrop-blur-sm border-2 border-purple-200 hover:shadow-xl transition-shadow">
         <div class="bg-gradient-to-br from-purple-500 to-pink-500 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -176,33 +183,6 @@ const image = "/assets/YSC.png";
         <p class="text-sm text-muted-foreground">In Person</p>
       </Card>
     </div>
-  </div>
-
-  <!-- Competition Theme -->
-  <div class="container mx-auto px-4 mb-16">
-    <Card className="overflow-hidden border-2 border-purple-200">
-      <div class="relative h-80 overflow-hidden">
-        <ImageWithFallback
-          src="https://images.unsplash.com/photo-1719935115623-4857df23f3c6?w=1200"
-          alt="Art Christmas Competition"
-          className="w-full h-full object-cover"
-        />
-        <div class="absolute inset-0 bg-gradient-to-t from-purple-600 to-pink-600 opacity-60"></div>
-        <div class="absolute inset-0 flex items-center justify-center text-center p-8">
-          <div>
-            <div class="bg-white/20 backdrop-blur-sm rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-6">
-              <Palette className="w-12 h-12 text-white" />
-            </div>
-            <h2 class="text-white mb-4">Competition Theme</h2>
-            <p class="text-white text-2xl italic mb-4">"The True Meaning of Christmas"</p>
-            <p class="text-white/90 text-lg max-w-2xl mx-auto">
-              Express your artistic vision of what Christmas truly means through your creative artwork. 
-              Show us the spirit, joy, love, and meaning behind this special season! 🎄✨
-            </p>
-          </div>
-        </div>
-      </div>
-    </Card>
   </div>
 
   <!-- Competition Rules -->

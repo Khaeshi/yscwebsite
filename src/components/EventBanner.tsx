@@ -21,9 +21,9 @@ export function EventBanner() {
     {
       id: "1",
       title: "",
-      description: "Join us for an evening of beautiful performances by our talented music students!",
-      date: "2024-12-15",
-      time: "6:00 PM",
+      description: "Join us for an event of beautiful artworks of our students!",
+      date: "2025-12-20",
+      time: "2:00 PM",
       location: "Young Starter Club Main Hall",
       type: "upcoming",
     }
@@ -130,7 +130,7 @@ export function EventBanner() {
                 required
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                placeholder="e.g., Annual Music Recital 2024"
+                placeholder="e.g., Annual Music Recital 2026"
               />
             </div>
             
