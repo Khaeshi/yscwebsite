@@ -6,6 +6,7 @@
 
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
+import { Analytics } from '@vercel/analytics/astro';
 import "../../styles/globals.css";
 
 interface Props {
@@ -45,6 +46,7 @@ const {
   <body class="min-h-screen bg-white">  
     <Header currentPath={currentPath} client:load />
       <slot />
+      <Analytics /> 
     <Footer client:load />
   </body>
 </html>
