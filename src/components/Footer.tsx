@@ -69,12 +69,12 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href="/arts-lessons" className="text-white/80 hover:text-white transition-transform transition-colors inline-block duration-300 hover:translate-x-1">
+                <a href="/arts-lesson" className="text-white/80 hover:text-white transition-transform transition-colors inline-block duration-300 hover:translate-x-1">
                   Arts Lessons
                 </a>
               </li>
               <li>
-                <a href="/cooking-sessions" className="text-white/80 hover:text-white transition-transform transition-colors inline-block duration-300 hover:translate-x-1">
+                <a href="/cooking-session" className="text-white/80 hover:text-white transition-transform transition-colors inline-block duration-300 hover:translate-x-1">
                   Cooking Sessions
                 </a>
               </li>
