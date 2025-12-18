@@ -42,12 +42,12 @@ const {
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="robots" content="index, follow">
+    <Analytics />
+    <SpeedInsights />
   </head>
   <body class="min-h-screen bg-white">  
     <Header currentPath={currentPath} client:load />
       <slot />
     <Footer client:load />
-    <Analytics />
-    <SpeedInsights />
   </body>
 </html>
