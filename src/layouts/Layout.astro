@@ -41,15 +41,10 @@ const {
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="robots" content="index, follow">
     <script>
-      import { inject } from '@vercel/analytics';
-      console.log('Injecting Vercel Analytics...');  
-      inject();  
-      console.log('Vercel Analytics injected successfully'); 
-
+      import { inject } from '@vercel/analytics';  
       import { injectSpeedInsights } from '@vercel/speed-insights';  
-      console.log('Injecting Speed Insights...');  
+      inject();
       injectSpeedInsights();  
-      console.log('Speed Insights injected successfully');  
     </script>
   </head>
   <body class="min-h-screen bg-white">  
