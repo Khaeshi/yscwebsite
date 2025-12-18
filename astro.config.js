@@ -12,7 +12,7 @@ export default defineConfig({
   experimental: {
     csp:false
   },
-
+  output: 'server',
   vite: {
     plugins: [tailwindcss()],
     envPrefix: 'PUBLIC_',
