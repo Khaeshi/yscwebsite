@@ -6,8 +6,6 @@
 
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
-import { Analytics } from '@vercel/analytics/astro';
-import { SpeedInsights } from '@vercel/speed-insights/astro';
 import "../../styles/globals.css";
 
 interface Props {
@@ -42,8 +40,17 @@ const {
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="robots" content="index, follow">
-    <Analytics mode="production" />
-    <SpeedInsights />
+    <script>
+      import { inject } from '@vercel/analytics';
+      console.log('Injecting Vercel Analytics...');  
+      inject();  
+      console.log('Vercel Analytics injected successfully'); 
+
+      import { injectSpeedInsights } from '@vercel/speed-insights';  
+      console.log('Injecting Speed Insights...');  
+      injectSpeedInsights();  
+      console.log('Speed Insights injected successfully');  
+    </script>
   </head>
   <body class="min-h-screen bg-white">  
     <Header currentPath={currentPath} client:load />

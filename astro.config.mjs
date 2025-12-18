@@ -4,7 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
-import vercel from '@astrojs/vercel';
+import vercel from '@astrojs/vercel/static';
 
 
 // https://astro.build/config
@@ -12,7 +12,7 @@ export default defineConfig({
   experimental: {
     csp:false
   },
-  output: 'server',
+  output: 'static',
   vite: {
     plugins: [tailwindcss()],
     envPrefix: 'PUBLIC_',
@@ -20,5 +20,9 @@ export default defineConfig({
 
   site: 'https://youngstarterclub.asia',
   integrations: [react(), sitemap(),],
-  adapter: vercel(),
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true,
+    },
+  }),
 });
