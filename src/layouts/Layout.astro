@@ -22,8 +22,6 @@ const {
   image = "/YSC.ico"  
 } = Astro.props;
 
-// Import React components (assuming they're in src/components/)
-// If these are Astro components, remove the client:load directives below.
 
 ---
 
@@ -43,19 +41,10 @@ const {
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="robots" content="index, follow">
-
-    
   </head>
-  <body class="min-h-screen bg-white">
-    <!-- Shared Header Component -->
-    <!-- Using client:load to make it interactive (e.g., for menus or state) -->
+  <body class="min-h-screen bg-white">  
     <Header currentPath={currentPath} client:load />
-
-    <!-- Page-specific content injected here via <slot /> -->
-    <slot />
-
-    <!-- Shared Footer Component -->
-    <!-- Same as Header -->
+      <slot />
     <Footer client:load />
   </body>
 </html>

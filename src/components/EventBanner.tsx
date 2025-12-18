@@ -4,7 +4,7 @@ import { Button } from "./ui/button.tsx";
 import { Input } from "./ui/input.tsx";
 import { Textarea } from "./ui/textarea.tsx";
 import { Badge } from "./ui/badge.tsx";
-import { Calendar, MapPin, Clock, Plus, Edit2 } from "lucide-react";
+import { Calendar, MapPin, Clock } from "lucide-react";
 
 interface Event {
   id: string;
