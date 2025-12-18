@@ -23,6 +23,7 @@ import {
   MessageCircle
 } from "lucide-react";
 import Layout from '../../layouts/Layout.astro'
+import { eventUrl } from '../../config.ts'
 
 
 const judgingCriteria = [
@@ -110,7 +111,7 @@ const image = "/assets/YSC.png";
 <div class="min-h-screen bg-gradient-to-b from-purple-50 via-pink-50 to-orange-50">
   <!-- Hero Section -->
   <ParallaxHero
-    imageUrl="https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=1200"
+    imageUrl={eventUrl}
     title="I'm Dreaming Of An Art Christmas"
     subtitle={`Join us at our art competition happening on December 18, 2025! As we showcase the art of the Christmas fever, we invite our students to participate and share their festive creations.`}
     showBackButton={true};
