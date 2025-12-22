@@ -12,28 +12,32 @@ import { Button } from "./ui/button.tsx";
 import { Badge } from "./ui/badge.tsx";
 import { Calendar, Trophy, Sparkles, ArrowRight } from "lucide-react";
 
-export function EventModal() {
+
+interface EventModalProps {
+  disabled?: boolean; 
+}
+
+export function EventModal({ disabled = false }: EventModalProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [hasSeenModal, setHasSeenModal] = useState(false);
 
   useEffect(() => {
+    if (disabled) return; 
+
     const seenModal = sessionStorage.getItem("hasSeenEventModal");
-    setHasSeenModal(!!seenModal);
 
     if (!seenModal) {
       const timer = setTimeout(() => {
-
         setIsOpen(true);
         sessionStorage.setItem("hasSeenEventModal", "true");
-        setHasSeenModal(true);
-      }, 3000); 
+      }, 3000);
 
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [disabled]);
 
-  if (isOpen) {
-    console.log("Dialog is being rendered!");
+
+  if (disabled) {
+    return null;
   }
 
   return (
@@ -107,17 +111,18 @@ export function EventModal() {
               </p>
 
               <div className="flex flex-col gap-3 w-full">
-                <a href="/Events/event-guidelines" className="w-full">
-                  <Button
-                    className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg text-sm sm:text-base min-h-[44px]"
-                    size="lg"
-                  >
+                <Button
+                  asChild
+                  className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg text-sm sm:text-base min-h-[44px]"
+                  size="lg"
+                >
+                  <a href="/Events/event-guidelines">
                     <span className="flex items-center justify-center gap-2">
                       View Competition Guidelines
                       <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
                     </span>
-                  </Button>
-                </a>
+                  </a>
+                </Button>
 
                 <Button
                   onClick={() => setIsOpen(false)}
