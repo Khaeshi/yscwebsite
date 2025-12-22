@@ -11,7 +11,7 @@ import { ParallaxSection } from "../components/ParallaxSection";
 import { Sparkles, Star, Heart, Users, Music, Trophy, Palette, ChefHat, Camera, ArrowRight, CheckCircle2, MessageCircle, HelpCircle } from "lucide-react";
 import { format } from 'date-fns';
 import { MapToggleButton } from "../components/MapToggleButton";
-import { homeimageUrl } from "../config";
+import { homeimageUrl, photographyimageUrl } from "../config";
 import { ChristmasDecoration } from "../components/ChristmasDecor.tsx";
 import { EventModal } from "../components/EventModal.tsx"
 
@@ -78,11 +78,61 @@ try {
 
 // Static data (programs, features, stats) - no changes needed
 const programs = [
-  { id: 'music', title: 'Music Teaching', description: 'Master piano, guitar, violin and more with certified instructors', icon: Music, path: '/music-teaching', color: 'from-purple-500 to-pink-500', bgColor: 'bg-purple-50', textColor: 'text-purple-600', image: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=600' },
-  { id: 'badminton', title: 'Badminton Coaching', description: 'Professional coaching from basic techniques to competitive play', icon: Trophy, path: '/badminton-coaching', color: 'from-blue-500 to-cyan-500', bgColor: 'bg-blue-50', textColor: 'text-blue-600', image: 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=600' },
-  { id: 'arts', title: 'Arts Lessons', description: 'Explore painting, drawing, sculpture and mixed media', icon: Palette, path: '/arts-lessons', color: 'from-pink-500 to-rose-500', bgColor: 'bg-pink-50', textColor: 'text-pink-600', image: 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=600' },
-  { id: 'cooking', title: 'Cooking Sessions', description: 'Learn culinary skills and create delicious dishes', icon: ChefHat, path: '/cooking-sessions', color: 'from-orange-500 to-yellow-500', bgColor: 'bg-orange-50', textColor: 'text-orange-600', image: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=600' },
-  { id: 'photography', title: 'Photography Classes', description: 'Capture stunning images and master visual storytelling', icon: Camera, path: '/photography-classes', color: 'from-green-500 to-emerald-500', bgColor: 'bg-green-50', textColor: 'text-green-600', image: 'https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=600' },
+  { 
+    id: 'music', 
+    title: 'Music Teaching', 
+    description: 'Master piano, guitar, violin and more with certified instructors', 
+    icon: Music, 
+    path: '/music-teaching', 
+    color: 'from-purple-500 to-pink-500', 
+    bgColor: 'bg-purple-50', 
+    textColor: 'text-purple-600', 
+    image: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=600' 
+  },
+  { 
+    id: 'badminton', 
+    title: 'Badminton Coaching', 
+    description: 'Professional coaching from basic techniques to competitive play', 
+    icon: Trophy, 
+    path: '/badminton-coaching', 
+    color: 'from-blue-500 to-cyan-500', 
+    bgColor: 'bg-blue-50', 
+    textColor: 'text-blue-600', 
+    image: 'https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=600' 
+  },
+  { 
+    id: 'arts', 
+    title: 'Arts Lessons', 
+    description: 'Explore painting, drawing, sculpture and mixed media', 
+    icon: Palette, 
+    path: '/arts-lesson', 
+    color: 'from-pink-500 to-rose-500', 
+    bgColor: 'bg-pink-50', 
+    textColor: 'text-pink-600', 
+    image: 'https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=600' 
+  },
+  { 
+    id: 'cooking', 
+    title: 'Cooking Sessions', 
+    description: 'Learn culinary skills and create delicious dishes', 
+    icon: ChefHat, 
+    path: '/cooking-session', 
+    color: 'from-orange-500 to-yellow-500', 
+    bgColor: 'bg-orange-50', 
+    textColor: 'text-orange-600', 
+    image: 'https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=600' 
+  },
+  { 
+    id: 'photography', 
+    title: 'Photography Classes', 
+    description: 'Capture stunning images and master visual storytelling', 
+    icon: Camera, 
+    path: '/photography-classes', 
+    color: 'from-green-500 to-emerald-500', 
+    bgColor: 'bg-green-50', 
+    textColor: 'text-green-600', 
+    image: photographyimageUrl,
+  },
 ];
 
 const features = [

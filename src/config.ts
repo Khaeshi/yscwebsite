@@ -9,7 +9,7 @@ export const badmintonimageUrl = "/images/DSC00001.jpg";
 export const JTTC ="/images/JT-Logo.png";
 export const badmintonhistory = "/images/YSC0001.jpg";
 
-export const photographyimageUrl = "";
+export const photographyimageUrl = "/images/Photography/DSC00054.jpg";
 
 export const cookingimageUrl = "/images/Cooking/image2.png";
 
