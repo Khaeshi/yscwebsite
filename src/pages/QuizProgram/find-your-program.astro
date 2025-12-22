@@ -1,0 +1,22 @@
+---
+import Layout from '../../layouts/Layout.astro'
+import { QuizModal } from '../../components/QuizModal.tsx';
+
+const handleCloseQuiz = () => {
+    // Optional: Navigate back to home or show a thank you message
+    window.location.href = '/';
+};
+
+const pageTitle = "Quiz | Young Starter Club";
+const description = "Take a quiz to identify your desired program with YSC!";
+const image = "/assets/YSC.png";
+---
+
+<Layout title={pageTitle} description={description} image={image}>
+    <div class="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
+        
+        {/* Quiz Modal - Always shown */}
+        <QuizModal client:load onClose={handleCloseQuiz} />
+        
+    </div>
+</Layout>
