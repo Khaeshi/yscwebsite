@@ -3,8 +3,9 @@
 import { ParallaxHero } from '../components/ParallaxHero.tsx';
 import { ParallaxSection } from '../components/ParallaxSection.tsx';
 import  Layout  from '../layouts/Layout.astro';
-import { Heart, Target, Star, Users, Award, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Heart, Target, Users, Award, Sparkles } from 'lucide-react';
 import { aboutimageUrl, Desiree, Katherine, Silayan } from "../config.ts";
+import CoreValuesCarousel from '../components/CoreValuesCarousel.tsx';
 
 interface TeamMember {
   name: string;
@@ -55,7 +56,31 @@ const corevalue = [
   },
   {
     subtitle: "Compassion & Empathy",
-    details: `Showing care and understanding`,
+    details: `Showing care for one another and understanding others’ feelings`,
+  },
+  {
+    subtitle: "Excellence",
+    details: `Striving for the highest standards in all endeavors`,
+  },
+  {
+    subtitle: "Growth and Learning",
+    details: `Embracing a mindset of continuous self-learning and improvement`,
+  },
+  {
+    subtitle: "Critical Thinking",
+    details: `Encouraging the ability to think critically and solve problems`,
+  },
+  {
+    subtitle: "Community Engagement",
+    details: `Fostering a sense of belonging and connection with the wider community`,
+  },
+  {
+    subtitle: "Honesty",
+    details: `Being truthful and transparent in all dealings`,
+  },
+  {
+    subtitle: "Respect",
+    details: `Treating others with dignity and valuing diverse perspectives`,
   },
 ];
 
@@ -70,7 +95,9 @@ const team = [
     name: "Silayan Pallones",
     role: "YSC Builder, Program Head",
     image: Silayan,
-    bio: `Associate in Music Ministry, major in Voice. She's a Graduate of Bob Jones University, Greenville, SC, USA. A Multi-skilled musician, Recording Artist, Choir Conductor, Composer, Lyricist, Performer, Resourse Speaker, Educator, Visual Artist, and Music Producer`
+    bio: `Associate in Music Ministry, major in Voice. She's a Graduate of Bob Jones University, 
+          Greenville, SC, USA. A Multi-skilled musician, Recording Artist, Choir Conductor, Composer, Lyricist, Performer, Resourse Speaker, Educator, 
+          Visual Artist, and Music Producer`
   },
   {
     name: "Katherine Kay Brutas",
@@ -201,23 +228,8 @@ const image = "/assets/YSC.png";
             ))}
           </div>
           
-
           {/* Core Values */}
-          <div class="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-3xl p-8 shadow-lg border border-orange-100 hover:shadow-xl transition-shadow duration-300">
-            <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-2xl flex items-center justify-center mb-6">
-              <Star className="w-8 h-8 text-white" />
-            </div>
-            {corevalue.map((corevalue) =>(
-            <h3 set:html={corevalue.title} class="mb-4" />
-            <ul class="space-y-3">
-              <li class="flex items-start gap-2">
-                <CheckCircle2 className="w-5 h-5 text-orange-600 mt-0.5 flex-shrink-0" />
-                <span class="text-muted-foreground">{corevalue.subtitle}</span>
-                <span class="text-muted-foreground leading-relaxed">{corevalue.details}</span>
-              </li>
-            </ul>
-            ))}
-          </div>
+          <CoreValuesCarousel coreValues={corevalue} client:visible/>
         </div>
       </div>
     </section>
