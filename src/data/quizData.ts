@@ -325,7 +325,7 @@ export interface QuizAnswer {
         "Create lasting artworks"
       ],
       color: "bg-pink-50 border-pink-200",
-      link: "/arts-lessons"
+      link: "/arts-lesson"
     },
     cooking: {
       name: "Cooking Sessions",
@@ -339,7 +339,7 @@ export interface QuizAnswer {
         "Build independence and confidence"
       ],
       color: "bg-orange-50 border-orange-200",
-      link: "/cooking-sessions"
+      link: "/cooking-session"
     },
     photography: {
       name: "Photography",
@@ -353,7 +353,7 @@ export interface QuizAnswer {
         "Share your unique vision"
       ],
       color: "bg-blue-50 border-blue-200",
-      link: "/photography"
+      link: "/photography-classes"
     }
   };
   
