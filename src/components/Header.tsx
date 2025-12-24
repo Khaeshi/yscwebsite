@@ -343,6 +343,16 @@ export function Header({ currentPath } : HeaderProps) {
                     <span className="font-medium">Home</span>
                   </a >
                 </div>
+                <div className="mb-4">
+                  <a
+                    href="/aboutpage"
+                    className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-50 transition-all duration-200"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <div className="w-2 h-2 rounded-full bg-blue-500" /> {/* You can change the color if you like */}
+                    <span className="font-medium">About</span>
+                  </a>
+                </div>
 
                 {/* Programs Section */}
                 <div className="mb-6">
