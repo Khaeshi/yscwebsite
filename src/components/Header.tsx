@@ -443,7 +443,7 @@ export function Header({ currentPath } : HeaderProps) {
                 <Button 
                   className="w-full bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 hover:from-purple-700 hover:via-pink-700 hover:to-orange-600 shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 transition-all duration-200"
                   onClick={() => {
-                    window.open('https://facebook.com', '_blank');
+                    window.open('https://www.facebook.com/YSCcommunity', '_blank');
                     setMobileMenuOpen(false);
                   }}
                 >
