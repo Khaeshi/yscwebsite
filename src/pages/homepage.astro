@@ -12,9 +12,13 @@ import { Sparkles, Star, Heart, Users, Music, Trophy, Palette, ChefHat, Camera, 
 import { format } from 'date-fns';
 import { MapToggleButton } from "../components/MapToggleButton";
 import { homeimageUrl, photographyimageUrl } from "../config";
-import { ChristmasDecoration } from "../components/ChristmasDecor.tsx";
+import { ChristmasDecoration } from "../components/holidayComponent/ChristmasDecor.tsx";
+import  NewYearOverlay  from "../components/holidayComponent/NewYearOverlay.tsx";
 import { EventModal } from "../components/EventModal.tsx"
 
+
+const isNewYearActivated = true;  
+const isChristmasActivated = true; 
 
 interface Testimonial {
   name: string;
@@ -152,10 +156,12 @@ const stats = [
 ---
 
  {/* Christmas Decorations */}
- <ChristmasDecoration variant="combo" intensity="medium" enabled={true} client:load/>
+ <ChristmasDecoration variant="combo" intensity="medium" isActivated={isChristmasActivated} client:load />
+ <NewYearOverlay isActivated={isNewYearActivated} client:load />
 
  {/* Event Modal */}
  <EventModal disabled={true} client:load/>
+ 
 
   <ParallaxSection 
     imageUrl={homeimageUrl};

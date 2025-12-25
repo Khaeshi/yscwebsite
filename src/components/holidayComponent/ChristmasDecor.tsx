@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 interface ChristmasDecorationProps {
   variant?: 'snowfall' | 'lights' | 'ornaments' | 'combo';
   intensity?: 'subtle' | 'medium' | 'festive';
-  enabled?: boolean;
+  isActivated?: boolean;  // Renamed from 'enabled' for consistency
 }
 
 interface Snowflake {
@@ -18,7 +18,7 @@ interface Snowflake {
 export function ChristmasDecoration({ 
   variant = 'combo', 
   intensity = 'medium',
-  enabled = true 
+  isActivated = true  // Renamed and default true
 }: ChristmasDecorationProps) {
   const [snowflakes, setSnowflakes] = useState<Snowflake[]>([]);
 
@@ -33,7 +33,7 @@ export function ChristmasDecoration({
   };
 
   useEffect(() => {
-    if (!enabled || (variant !== 'snowfall' && variant !== 'combo')) return;
+    if (!isActivated || (variant !== 'snowfall' && variant !== 'combo')) return;  // Updated to isActivated
 
     // Generate snowflakes
     const flakes: Snowflake[] = [];
@@ -51,9 +51,9 @@ export function ChristmasDecoration({
     }
     
     setSnowflakes(flakes);
-  }, [variant, intensity, enabled]);
+  }, [variant, intensity, isActivated]);  // Updated dependency
 
-  if (!enabled) return null;
+  if (!isActivated) return null;  // Updated to isActivated
 
   const showSnowfall = variant === 'snowfall' || variant === 'combo';
   const showDecorations = variant === 'ornaments' || variant === 'combo';
