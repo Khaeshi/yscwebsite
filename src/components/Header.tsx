@@ -22,6 +22,12 @@ export function Header({ currentPath } : HeaderProps) {
   const isActive = (path:string) => currentPath === path; 
   const isHomePage = currentPath === "/"; 
 
+  const generateMessengerLink = () => {
+    let message = `I'm interested in enrolling. Can you provide more details?`;
+
+    const facebookPageUsername = 'YSCcommunity'; 
+    return `https://m.me/${facebookPageUsername}?text=${encodeURIComponent(message)}`;
+  };
 
   // Handle scroll effect
   useEffect(() => {
@@ -289,7 +295,7 @@ export function Header({ currentPath } : HeaderProps) {
 
               <Button 
                 className="ml-2 bg-gradient-to-r from-purple-600 via-pink-600 to-orange-500 hover:from-purple-700 hover:via-pink-700 hover:to-orange-600 shadow-lg shadow-purple-500/30 hover:shadow-xl hover:shadow-purple-500/40 transition-all duration-200"
-                onClick={() => window.open('https://facebook.com', '_blank')}
+                onClick={() => window.open(generateMessengerLink(), '_blank')}
               >
                 <MessageCircle className="w-4 h-4 mr-2" />
                 Contact Us
@@ -359,7 +365,7 @@ export function Header({ currentPath } : HeaderProps) {
                   <button
                     onClick={() => setShowMobileProgramsMenu(!showMobileProgramsMenu)}
                     className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all duration-200 ${
-                      showMobileProgramsMenu || ['/music-teaching', '/badminton-coaching', '/arts-lesson', '/cooking-session', '/photography-classes'].includes(currentPathname)  // Use currentPathname
+                      showMobileProgramsMenu || ['/music-teaching', '/badminton-coaching', '/arts-lesson', '/cooking-session', '/photography-classes'].includes(currentPathname)  // currentPathname
                         ? 'bg-purple-50 text-purple-700 font-medium shadow-sm' 
                         : 'text-gray-700 hover:bg-gray-50'
                     }`}
