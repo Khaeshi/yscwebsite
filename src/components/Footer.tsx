@@ -47,7 +47,7 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href="/#about" className="text-white/80 hover:text-white transition-transform transition-colors inline-block duration-300 hover:translate-x-1">
+                <a href="/aboutpage" className="text-white/80 hover:text-white transition-transform transition-colors inline-block duration-300 hover:translate-x-1">
                   About Us
                 </a>
               </li>

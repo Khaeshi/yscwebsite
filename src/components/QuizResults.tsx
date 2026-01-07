@@ -51,8 +51,7 @@ export function QuizResults({ programScores, instrumentScores, onRetake, onClose
     }
     message += `. I'm interested in enrolling. Can you provide more details?`;
     
-    // Replace with your actual Facebook page username
-    const facebookPageUsername = 'YSCcommunity'; // Update this with your actual page
+    const facebookPageUsername = 'YSCcommunity';
     return `https://m.me/${facebookPageUsername}?text=${encodeURIComponent(message)}`;
   };
 
