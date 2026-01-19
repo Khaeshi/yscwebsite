@@ -1,5 +1,3 @@
-'use client'
-
 import { useState, useEffect, useRef } from 'react';
 import { ImageWithFallback } from '../figma/ImageWithFallback.tsx';
 import { Piano, Violin, Guitar, Flute } from '../../config.ts'
@@ -242,7 +240,7 @@ export default function InstrumentCarousel() {
               >
                 <div className="from-purple-50 to-pink-50 rounded-2xl p-6 transition-all duration-300">
                   <div className="aspect-square mb-4 rounded-xl overflow-hidden bg-white">
-                    <ImageWithFallback
+                    <ImageWithFallback 
                       src={instrument.imageUrl}
                       alt={instrument.name}
                       className="w-full h-full object-cover"
