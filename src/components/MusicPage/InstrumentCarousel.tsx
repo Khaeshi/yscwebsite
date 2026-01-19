@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useEffect, useRef } from 'react';
 import { ImageWithFallback } from '../figma/ImageWithFallback.tsx';
 import { Piano, Violin, Guitar, Flute } from '../../config.ts'
