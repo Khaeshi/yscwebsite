@@ -4,14 +4,14 @@
 // Uses Layout.astro for shared Header/Footer. Dynamic data (testimonials) fetched server-side.
 // Interactive elements (e.g., map toggle) use client-loaded React components.
 
-import { TestimonialCard } from "../components/TestimonialCard";
-import { Card } from "../components/ui/card";
-import { ImageWithFallback } from "../components/figma/ImageWithFallback";
-import { ParallaxSection } from "../components/ParallaxSection";
+import { TestimonialCard } from "../components/TestimonialCard.tsx";
+import { Card } from "../components/ui/card.tsx";
+import { ImageWithFallback } from "../components/figma/ImageWithFallback.tsx";
+import { ParallaxSection } from "../components/ParallaxSection.tsx";
 import { Sparkles, Star, Heart, Users, Music, Trophy, Palette, ChefHat, Camera, ArrowRight, CheckCircle2, MessageCircle, HelpCircle } from "lucide-react";
 import { format } from 'date-fns';
-import { MapToggleButton } from "../components/MapToggleButton";
-import { homeimageUrl, photographyimageUrl } from "../config";
+import { MapToggleButton } from "../components/MapToggleButton.tsx";
+import { homeimageUrl, photographyimageUrl } from "../config.ts";
 import { EventModal } from "../components/EventModal.tsx"
 
 

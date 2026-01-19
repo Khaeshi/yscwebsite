@@ -1,6 +1,4 @@
-// BadgeDisplay.tsx
-import React from 'react';
-import { Badge } from "./badge";
+import { Badge } from "./badge.tsx";
 
 interface BadgeDisplayProps {
   color: string;
