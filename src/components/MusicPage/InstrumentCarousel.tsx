@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { ImageWithFallback } from '../figma/ImageWithFallback.tsx';
+import { Piano, Violin, Guitar, Flute } from '../../config.ts'
 
 interface Instrument {
   name: string;
@@ -10,42 +11,47 @@ interface Instrument {
 const instruments: Instrument[] = [
   {
     name: 'Piano',
-    imageUrl: 'https://images.unsplash.com/photo-1766825031819-2af1a924d18d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwaWFubyUyMGtleXMlMjBpbnN0cnVtZW50fGVufDF8fHx8MTc2ODQ4NTkzNHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    imageUrl: Piano,
     description: 'Learn classical and contemporary piano techniques'
   },
   {
     name: 'Violin',
-    imageUrl: 'https://images.unsplash.com/photo-1676201452253-e1c7874b89d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx2aW9saW4lMjBjbGFzc2ljYWwlMjBpbnN0cnVtZW50fGVufDF8fHx8MTc2ODQ4NTkzNXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    imageUrl: Violin,
     description: 'Master the art of string instruments'
   },
   {
     name: 'Flute',
-    imageUrl: 'https://images.unsplash.com/photo-1645772647876-76f184a402a1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmbHV0ZSUyMG11c2ljYWwlMjBpbnN0cnVtZW50fGVufDF8fHx8MTc2ODQ4NTkzNXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    imageUrl: Flute,
     description: 'Explore the beautiful sound of woodwinds'
   },
   {
+    name: 'Guitar',
+    imageUrl: Guitar,
+    description: 'Learn rhythm and melody through percussion'
+  },
+  {
     name: 'Ukulele',
-    imageUrl: 'https://images.unsplash.com/photo-1633448543112-1e250145c123?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx1a3VsZWxlJTIwaW5zdHJ1bWVudHxlbnwxfHx8fDE3Njg0ODU5MzV8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    imageUrl: Flute,
     description: 'Start your musical journey with this fun instrument'
   },
   {
     name: 'Cello',
-    imageUrl: 'https://images.unsplash.com/photo-1643666805740-f2f9e0600a4e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjZWxsbyUyMHN0cmluZyUyMGluc3RydW1lbnR8ZW58MXx8fHwxNzY4NDg1OTM1fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    imageUrl: Violin,
     description: 'Discover the deep, rich tones of the cello'
   },
   {
     name: 'Recorder',
-    imageUrl: 'https://images.unsplash.com/photo-1541991977-fba2ec087dc8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxyZWNvcmRlciUyMHdvb2R3aW5kJTIwaW5zdHJ1bWVudHxlbnwxfHx8fDE3Njg0ODU5MzZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    imageUrl: Flute,
     description: 'Perfect for beginners and young learners'
   },
   {
     name: 'Voice',
-    imageUrl: 'https://images.unsplash.com/photo-1629327896333-7ecec1515ae5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzaW5naW5nJTIwbWljcm9waG9uZSUyMHZvaWNlfGVufDF8fHx8MTc2ODQ4NTkzNnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    imageUrl: Piano,
     description: 'Develop your vocal skills and confidence'
   },
   {
     name: 'Saxophone',
-    imageUrl: 'https://images.unsplash.com/photo-1682268294570-616e9ca9791b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHh4eWxvcGhvbmUlMjBwZXJjdXNzaW9uJTIwaW5zdHJ1bWVudHxlbnwxfHx8fDE3Njg0ODU5MzZ8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral',
+    imageUrl: Guitar,
     description: 'Learn rhythm and melody through percussion'
   }
 ];
