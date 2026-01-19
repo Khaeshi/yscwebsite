@@ -4,6 +4,10 @@ export const aboutimageUrl = "/images/DSC00470.jpg";
 
 export const musicimageUrl = "/images/DSC00039.jpg";
 export const musicAward = "/images/DSC00470.jpg";
+export const Piano = "/images/Music/Piano.png"
+export const Violin = "/images/Music/Violin.png"
+export const Guitar = "/images/Music/Guitar.png"
+export const Flute = "/images/Music/Flute.png"
 
 export const badmintonimageUrl = "/images/DSC00001.jpg";
 export const JTTC ="/images/JT-Logo.png";
