@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { ImageWithFallback } from '../figma/ImageWithFallback.tsx';
-import { Piano, Violin, Guitar, Flute } from '../../config.ts'
+import { Piano, Violin, Guitar, Flute, Recorder, Saxophone, Ukelele, Cello, Voice } from '../../config.ts'
 
 interface Instrument {
   name: string;
@@ -31,27 +31,27 @@ const instruments: Instrument[] = [
   },
   {
     name: 'Ukulele',
-    imageUrl: Flute,
+    imageUrl: Ukelele,
     description: 'Start your musical journey with this fun instrument'
   },
   {
     name: 'Cello',
-    imageUrl: Violin,
+    imageUrl: Cello,
     description: 'Discover the deep, rich tones of the cello'
   },
   {
     name: 'Recorder',
-    imageUrl: Flute,
+    imageUrl: Recorder,
     description: 'Perfect for beginners and young learners'
   },
   {
     name: 'Voice',
-    imageUrl: Piano,
+    imageUrl: Voice,
     description: 'Develop your vocal skills and confidence'
   },
   {
     name: 'Saxophone',
-    imageUrl: Guitar,
+    imageUrl: Saxophone,
     description: 'Learn rhythm and melody through percussion'
   }
 ];

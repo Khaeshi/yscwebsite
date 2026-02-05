@@ -8,6 +8,12 @@ export const Piano = "/images/Music/Piano.png"
 export const Violin = "/images/Music/Violin.png"
 export const Guitar = "/images/Music/Guitar.png"
 export const Flute = "/images/Music/Flute.png"
+export const Ukelele = "/images/Music/Ukelele.png"
+export const Recorder = "/images/Music/Recorder.png"
+export const Saxophone = "/images/Music/Saxophone.png"
+export const Cello = "/images/Music/Cello.png"
+export const Voice = "/images/Music/Voice.png"
+
 
 export const badmintonimageUrl = "/images/DSC00001.jpg";
 export const JTTC ="/images/JT-Logo.png";
