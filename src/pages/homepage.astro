@@ -29,7 +29,6 @@ interface Testimonial {
   date: string;
 }
 
-// Server-side data fetching for testimonials (moved from useEffect)
 let testimonials: Testimonial[] = [];
 let loading = true;
 let error = null;
@@ -58,23 +57,24 @@ try {
     testimonials = reviews.map((review: any) => {
       const reviewerName = review.reviewer?.name || 'Anonymous';
       const createdDate = review.created_time ? new Date(review.created_time) : new Date();
+      const rating = review.rating || (review.recommendation_type === 'positive' ? 5 : 0);
       return {
         name: reviewerName,
         role: 'Customer',
         content: review.review_text || 'Recommended!',
-        rating: review.rating || 5,
-        isRecommended: review.recommendation_type === 'positive' || !review.rating,
+        rating: rating,
+        isRecommended: review.recommendation_type === 'positive' || rating,
         initials: getInitials(reviewerName),
         color: getRandomColor(),
         date: format(createdDate, 'MMMM dd, yyyy'),
       };
     });
-
+    console.log('✅ Processed', testimonials.length, 'testimonials');
     loading = false;
   }
 } catch (err: any) {
-  console.error('Full error response:', err);
-  error = 'Failed to load reviews. Check token permissions or try manual curation.';
+  console.error('Full error response:', err.message);
+  error = `Failed to load reviews: ${err.message}`;
   loading = false;
 }
 
