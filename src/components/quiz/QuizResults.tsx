@@ -1,5 +1,5 @@
-import { programInfo, instrumentInfo } from '../data/quizData.ts';
-import { Button } from '../components/ui/button.tsx';
+import { programInfo, instrumentInfo } from '../../data/quizData.ts';
+import { Button } from '../ui/button.tsx';
 import { Sparkles, RefreshCw, MessageCircle, ArrowRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 

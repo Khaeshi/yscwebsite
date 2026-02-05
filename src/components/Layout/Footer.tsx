@@ -1,5 +1,5 @@
 import { Facebook, Mail, Phone, MapPin, InstagramIcon } from "lucide-react";
-import logoImg  from "../assets/YSC.png";
+import logoImg  from "../../assets/YSC.png";
 import { motion } from "framer-motion";
 
 export function Footer() {

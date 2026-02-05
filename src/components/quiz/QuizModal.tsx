@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { QuizQuestion as QuizQuestionComponent } from './QuizQuestions.tsx';
-import { QuizResults } from '../components/QuizResults.tsx';
-import { generalQuestions, musicQuestions } from '../data/quizData.ts';
-import type { QuizQuestion } from '../data/quizData.ts';  
+import { QuizResults } from './QuizResults.tsx';
+import { generalQuestions, musicQuestions } from '../../data/quizData.ts';
+import type { QuizQuestion } from '../../data/quizData.ts';  
 import { X } from 'lucide-react';
 
 // ... rest of the file remains the same ...
@@ -18,7 +18,7 @@ export function QuizModal({ onClose }: QuizModalProps) {
     badminton: 0,
     arts: 0,
     cooking: 0,
-    photography: 0
+    photography: 0,
   });
   const [instrumentScores, setInstrumentScores] = useState<{ [key: string]: number }>({
     piano: 0,
