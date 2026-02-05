@@ -1,7 +1,7 @@
-import { Button } from "../components/ui/button.tsx";
+import { Button } from "../ui/button.tsx";
 import { Menu, X, Music, Trophy, Palette, ChefHat, Camera, MapPin, MessageCircle } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
-import logoImg from "../assets/YSC.png";
+import logoImg from "../../assets/YSC.png";
 import * as Scroll from 'react-scroll';
 
 

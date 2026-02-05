@@ -2,17 +2,14 @@
 
 import { InstructorProfile } from "../components/InstructorProfile.tsx";
 import { ProgramHistorySection } from "../components/ProgramHistorySection.tsx";
-import { EventBanner } from "../components/EventBanner.tsx";
 import { ParallaxHero } from "../components/ParallaxHero.tsx";
 import { ParallaxSection } from "../components/ParallaxSection.tsx"
-import { Button } from "../components/ui/button.tsx";
-// import { ImageWithFallback } from "../components/figma/ImageWithFallback.tsx";
 import { Heart, Music, Users, Award, GraduationCap } from "lucide-react";
 import Layout from "../layouts/Layout.astro";
-import { musicimageUrl, musicAward, Silayan } from '../config.ts'
-import  InstrumentCarousel from "../components/MusicPage/InstrumentCarousel.tsx";
+import { musicimageUrl, musicAward, Silayan, She } from '../config.ts'
+import  InstrumentCarousel from "../components/music/InstrumentCarousel.tsx";
 
-// Define types for instructors and milestones to retain TypeScript security
+
 interface Instructor {
   name: string;
   title: string;
@@ -31,7 +28,7 @@ interface Milestone {
 
 const instructors: Instructor[] = [
   {
-    name: "Silayan Pallones",
+    name: "Ma. Silayan Pallones",
     title: "Voice Major & YSC Builder",
     image: Silayan,
     specialization: ["Voice","Piano", "Music Theory", "Composition"],
@@ -43,6 +40,15 @@ const instructors: Instructor[] = [
       "Published composer with works performed internationally",
       "Associate in Music Ministry, Major in Voice"
     ]
+  },
+  {
+    name: "Ms. She Santos",
+    title: "Piano Instructor",
+    image: She,
+    specialization: ["Piano",],
+    experience: "2+ years teaching experience",
+    description: "",
+    achievements: []
   }
 ];
 

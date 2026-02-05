@@ -1,11 +1,14 @@
 ---
-// src/layouts/Layout.astro
-// Main layout for YSC Website pages.
-// Wraps shared elements like Header/Footer and provides SEO basics.
-// Customize props as needed (e.g., title, description).
 
-import { Header } from '../components/Header.tsx';
-import { Footer } from '../components/Footer.tsx';
+/**
+ * src/layouts/Layout.astro
+ * Main layout for YSC Website pages.
+ * Wraps shared elements like Header/Footer and provides SEO basics.
+ * Customize props as needed (e.g., title, description).
+ */
+
+import { Header } from '../components/Layout/Header.tsx';
+import { Footer } from '../components/Layout/Footer.tsx';
 import "../../styles/globals.css";
 
 interface Props {

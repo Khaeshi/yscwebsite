@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { QuizQuestion as QuizQuestionType } from '../data/quizData.ts';
+import type { QuizQuestion as QuizQuestionType } from '../../data/quizData.ts';
 
 interface QuizQuestionProps {
   question: QuizQuestionType;
