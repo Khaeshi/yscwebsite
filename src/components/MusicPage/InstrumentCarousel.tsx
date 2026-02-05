@@ -57,13 +57,13 @@ const instruments: Instrument[] = [
 ];
 
 export default function InstrumentCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(instruments.length); // Start from first clone set
+  const [currentIndex, setCurrentIndex] = useState(instruments.length); 
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
   const [translateX, setTranslateX] = useState(0);
   const [offset, setOffset] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [itemsPerView, setItemsPerView] = useState(3); // Default to 3, will update on mount
+  const [itemsPerView, setItemsPerView] = useState(3); 
   const carouselRef = useRef<HTMLDivElement>(null);
 
   // Create infinite loop by cloning items
