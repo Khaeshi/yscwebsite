@@ -14,7 +14,7 @@ const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 
 
 export const POST: APIRoute = async ({ params }) => {
 
-  const token = import.meta.env.TELEGRAM_BOT_TOKEN;
+  const token = process.env.TELEGRAM_BOT_TOKEN;
   console.log('Token value:', token);
   console.log('Token length:', token?.length);
   
@@ -38,7 +38,7 @@ export const POST: APIRoute = async ({ params }) => {
       }, 400);
     }
 
-    const TELEGRAM_BOT_TOKEN = import.meta.env.TELEGRAM_BOT_TOKEN;
+    const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
     if (!TELEGRAM_BOT_TOKEN) {
       return json({ success: false, message: 'TELEGRAM_BOT_TOKEN is not configured' }, 500);
     }

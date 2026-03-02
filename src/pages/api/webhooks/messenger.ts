@@ -7,7 +7,7 @@ import { handleMessengerWebhook, verifyMessengerSignature } from '../../../lib/m
  * Facebook will send a GET request to verify your webhook
  */
 export const GET: APIRoute = async ({ url }) => {
-  const VERIFY_TOKEN = import.meta.env.FACEBOOK_VERIFY_TOKEN || 'ysc_verify_token_12345';
+  const VERIFY_TOKEN = process.env.FACEBOOK_VERIFY_TOKEN || 'ysc_verify_token_12345';
 
   const mode = url.searchParams.get('hub.mode');
   const token = url.searchParams.get('hub.verify_token');
