@@ -33882,6 +33882,7 @@ async function connectDB() {
   return cache.conn;
 }
 export {
+  mongooseExports as a,
   connectDB as c,
   mongoose as m
 };

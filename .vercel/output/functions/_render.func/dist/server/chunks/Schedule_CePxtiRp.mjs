@@ -1,4 +1,4 @@
-import { m as mongoose } from "./client_DeOO0rEK.mjs";
+import { m as mongoose } from "./client_CsdkyRfW.mjs";
 const ScheduleSchema = new mongoose.Schema({
   studentId: {
     type: mongoose.Schema.Types.ObjectId,
