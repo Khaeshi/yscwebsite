@@ -1,6 +1,6 @@
-import { c as connectDB } from "../../chunks/client_CagqtE4a.mjs";
-import { S as Student } from "../../chunks/Student_5CRQLq8X.mjs";
-import { S as Schedule } from "../../chunks/Schedule_DLJUnlVr.mjs";
+import { c as connectDB } from "../../chunks/client_DeOO0rEK.mjs";
+import { S as Student } from "../../chunks/Student_CC1jOc6z.mjs";
+import { S as Schedule } from "../../chunks/Schedule_JZRfgAZ2.mjs";
 import { r } from "../../chunks/_@astro-renderers_B4KjVBz-.mjs";
 async function getDashboardStats() {
   await connectDB();

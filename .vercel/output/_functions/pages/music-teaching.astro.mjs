@@ -2,7 +2,7 @@ import { f as createComponent, l as renderComponent, r as renderTemplate, m as m
 import { I as InstructorProfile, P as ProgramHistorySection } from "../chunks/ProgramHistorySection_DZt8wC8U.mjs";
 import { P as ParallaxHero, A as Award } from "../chunks/ParallaxHero_DzPyPLHG.mjs";
 import { P as ParallaxSection } from "../chunks/ParallaxSection_CxInqIK5.mjs";
-import { $ as $$Layout } from "../chunks/Layout_3Hh_btxP.mjs";
+import { $ as $$Layout } from "../chunks/Layout_mRKKubIj.mjs";
 import { P as Piano, V as Violin, F as Flute, G as Guitar, U as Ukelele, C as Cello, R as Recorder, g as Voice, h as Saxophone, m as musicimageUrl, S as Silayan, i as She, j as musicAward } from "../chunks/config_DXHxkv4J.mjs";
 import { j as jsxRuntimeExports } from "../chunks/jsx-runtime_mS7YKmDK.mjs";
 import { a as reactExports } from "../chunks/_@astro-renderers_B4KjVBz-.mjs";

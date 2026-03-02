@@ -1,5 +1,5 @@
 import { e as createAstro, f as createComponent, l as renderComponent, r as renderTemplate } from "../../chunks/astro/server_Cfl3Ur0m.mjs";
-import { $ as $$AdminLayout } from "../../chunks/AdminLayout_CD6YVyAe.mjs";
+import { $ as $$AdminLayout } from "../../chunks/AdminLayout_4C0Bauqp.mjs";
 import { j as jsxRuntimeExports } from "../../chunks/jsx-runtime_mS7YKmDK.mjs";
 import { a as reactExports } from "../../chunks/_@astro-renderers_B4KjVBz-.mjs";
 import { r } from "../../chunks/_@astro-renderers_B4KjVBz-.mjs";

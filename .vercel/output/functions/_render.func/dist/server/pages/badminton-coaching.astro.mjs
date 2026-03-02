@@ -1,5 +1,5 @@
 import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead } from "../chunks/astro/server_Cfl3Ur0m.mjs";
-import { $ as $$Layout } from "../chunks/Layout_3Hh_btxP.mjs";
+import { $ as $$Layout } from "../chunks/Layout_mRKKubIj.mjs";
 import { I as InstructorProfile, P as ProgramHistorySection } from "../chunks/ProgramHistorySection_DZt8wC8U.mjs";
 import { P as ParallaxHero, T as Target, A as Award } from "../chunks/ParallaxHero_DzPyPLHG.mjs";
 import { P as ParallaxSection } from "../chunks/ParallaxSection_CxInqIK5.mjs";

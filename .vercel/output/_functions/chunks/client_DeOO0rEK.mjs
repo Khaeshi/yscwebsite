@@ -69,16 +69,16 @@ function requireCollection$3() {
   const EventEmitter = require$$0.EventEmitter;
   const STATES = requireConnectionState();
   const immediate2 = requireImmediate();
-  function Collection(name, conn2, opts) {
+  function Collection(name, conn, opts) {
     if (opts === void 0) {
       opts = {};
     }
     this.opts = opts;
     this.name = name;
     this.collectionName = name;
-    this.conn = conn2;
+    this.conn = conn;
     this.queue = [];
-    this.buffer = !conn2?._hasOpened;
+    this.buffer = !conn?._hasOpened;
     this.emitter = new EventEmitter();
     if (STATES.connected === this.conn.readyState) {
       this.onOpen();
@@ -191,7 +191,7 @@ function requireCollection$3() {
    * ignore
    */
   Collection.prototype._getBufferTimeoutMS = function _getBufferTimeoutMS() {
-    const conn2 = this.conn;
+    const conn = this.conn;
     const opts = this.opts;
     if (opts.bufferTimeoutMS != null) {
       return opts.bufferTimeoutMS;
@@ -199,7 +199,7 @@ function requireCollection$3() {
     if (opts?.schemaUserProvidedOptions?.bufferTimeoutMS != null) {
       return opts.schemaUserProvidedOptions.bufferTimeoutMS;
     }
-    return conn2._getBufferTimeoutMS();
+    return conn._getBufferTimeoutMS();
   };
   /*!
    * Module exports.
@@ -616,7 +616,7 @@ function requireCollection$2() {
   const stream = require$$0$1;
   const util = require$$1;
   const formatToObjectOptions = Object.freeze({ ...internalToObjectOptions, copyTrustedSymbol: false });
-  function NativeCollection(name, conn2, options2) {
+  function NativeCollection(name, conn, options2) {
     this.collection = null;
     this.Promise = options2.Promise || Promise;
     this.modelName = options2.modelName;
@@ -21126,11 +21126,11 @@ function requireConnection$1() {
       this.client._closeCalled = true;
       this.client._destroyCalled = destroy;
     }
-    const conn2 = this;
+    const conn = this;
     switch (this.readyState) {
       case STATES.disconnected:
         if (destroy) {
-          const index = this.base.connections.indexOf(conn2);
+          const index = this.base.connections.indexOf(conn);
           if (index !== -1) {
             this.base.connections.splice(index, 1);
           }
@@ -21144,7 +21144,7 @@ function requireConnection$1() {
         this.readyState = STATES.disconnecting;
         await this.doClose(force);
         if (destroy) {
-          const index = _this.base.connections.indexOf(conn2);
+          const index = _this.base.connections.indexOf(conn);
           if (index !== -1) {
             this.base.connections.splice(index, 1);
           }
@@ -21168,8 +21168,8 @@ function requireConnection$1() {
       case STATES.disconnecting:
         return new Promise((resolve) => {
           this.once("close", () => {
-            if (destroy && this.base.connections.indexOf(conn2) !== -1) {
-              this.base.connections.splice(this.base.connections.indexOf(conn2), 1);
+            if (destroy && this.base.connections.indexOf(conn) !== -1) {
+              this.base.connections.splice(this.base.connections.indexOf(conn), 1);
             }
             resolve();
           });
@@ -21705,20 +21705,20 @@ function requireConnection() {
   /*!
    * ignore
    */
-  function _setClient(conn2, client, options2, dbName) {
+  function _setClient(conn, client, options2, dbName) {
     const db = dbName != null ? client.db(dbName) : client.db();
-    conn2.db = db;
-    conn2.client = client;
-    conn2.host = client?.s?.options?.hosts?.[0]?.host;
-    conn2.port = client?.s?.options?.hosts?.[0]?.port;
-    conn2.name = dbName != null ? dbName : db.databaseName;
-    conn2._closeCalled = client._closeCalled;
+    conn.db = db;
+    conn.client = client;
+    conn.host = client?.s?.options?.hosts?.[0]?.host;
+    conn.port = client?.s?.options?.hosts?.[0]?.port;
+    conn.name = dbName != null ? dbName : db.databaseName;
+    conn._closeCalled = client._closeCalled;
     const _handleReconnect = () => {
-      if (conn2.readyState !== STATES.connected) {
-        conn2.readyState = STATES.connected;
-        conn2.emit("reconnect");
-        conn2.emit("reconnected");
-        conn2.onOpen();
+      if (conn.readyState !== STATES.connected) {
+        conn.readyState = STATES.connected;
+        conn.emit("reconnect");
+        conn.emit("reconnected");
+        conn.onOpen();
       }
     };
     const type2 = client?.topology?.description?.type || "";
@@ -21726,7 +21726,7 @@ function requireConnection() {
       client.on("serverDescriptionChanged", (ev) => {
         const newDescription = ev.newDescription;
         if (newDescription.type === "Unknown") {
-          conn2.readyState = STATES.disconnected;
+          conn.readyState = STATES.disconnected;
         } else {
           _handleReconnect();
         }
@@ -21734,29 +21734,29 @@ function requireConnection() {
     } else if (type2.startsWith("ReplicaSet")) {
       client.on("topologyDescriptionChanged", (ev) => {
         const description = ev.newDescription;
-        if (conn2.readyState === STATES.connected && description.type !== "ReplicaSetWithPrimary") {
-          conn2.readyState = STATES.disconnected;
-        } else if (conn2.readyState === STATES.disconnected && description.type === "ReplicaSetWithPrimary") {
+        if (conn.readyState === STATES.connected && description.type !== "ReplicaSetWithPrimary") {
+          conn.readyState = STATES.disconnected;
+        } else if (conn.readyState === STATES.disconnected && description.type === "ReplicaSetWithPrimary") {
           _handleReconnect();
         }
       });
     }
-    conn2._lastHeartbeatAt = null;
+    conn._lastHeartbeatAt = null;
     client.on("serverHeartbeatSucceeded", () => {
-      conn2._lastHeartbeatAt = Date.now();
-      for (const otherDb of conn2.otherDbs) {
-        otherDb._lastHeartbeatAt = conn2._lastHeartbeatAt;
+      conn._lastHeartbeatAt = Date.now();
+      for (const otherDb of conn.otherDbs) {
+        otherDb._lastHeartbeatAt = conn._lastHeartbeatAt;
       }
     });
     if (options2.monitorCommands) {
-      client.on("commandStarted", (data) => conn2.emit("commandStarted", data));
-      client.on("commandFailed", (data) => conn2.emit("commandFailed", data));
-      client.on("commandSucceeded", (data) => conn2.emit("commandSucceeded", data));
+      client.on("commandStarted", (data) => conn.emit("commandStarted", data));
+      client.on("commandFailed", (data) => conn.emit("commandFailed", data));
+      client.on("commandSucceeded", (data) => conn.emit("commandSucceeded", data));
     }
-    conn2.onOpen();
-    for (const i in conn2.collections) {
-      if (Object.hasOwn(conn2.collections, i)) {
-        conn2.collections[i].onOpen();
+    conn.onOpen();
+    for (const i in conn.collections) {
+      if (Object.hasOwn(conn.collections, i)) {
+        conn.collections[i].onOpen();
       }
     }
   }
@@ -30176,11 +30176,11 @@ function requireGetModelsMapForPopulate() {
       }
     }
   }
-  function _getModelFromConn(conn2, modelName) {
-    if (conn2.models[modelName] == null && conn2._parent != null) {
-      return _getModelFromConn(conn2._parent, modelName);
+  function _getModelFromConn(conn, modelName) {
+    if (conn.models[modelName] == null && conn._parent != null) {
+      return _getModelFromConn(conn._parent, modelName);
     }
-    return conn2.model(modelName);
+    return conn.model(modelName);
   }
   function matchIdsToRefPaths(ids, refPaths, refPathToFind) {
     if (!Array.isArray(refPaths)) {
@@ -31126,13 +31126,13 @@ function requireModel() {
       if (this.$init != null) {
         return this.$init;
       }
-      const conn2 = this.db;
+      const conn = this.db;
       const _ensureIndexes2 = async () => {
         const autoIndex = utils2.getOption(
           "autoIndex",
           this.schema.options,
-          conn2.config,
-          conn2.base.options
+          conn.config,
+          conn.base.options
         );
         if (!autoIndex) {
           return;
@@ -31143,8 +31143,8 @@ function requireModel() {
         const autoSearchIndex = utils2.getOption(
           "autoSearchIndex",
           this.schema.options,
-          conn2.config,
-          conn2.base.options
+          conn.config,
+          conn.base.options
         );
         if (!autoSearchIndex) {
           return;
@@ -31155,17 +31155,17 @@ function requireModel() {
         let autoCreate = utils2.getOption(
           "autoCreate",
           this.schema.options,
-          conn2.config
+          conn.config
           // No base.options here because we don't want to take the base value if the connection hasn't
           // set it yet
         );
         if (autoCreate == null) {
-          await conn2._waitForConnect(true);
+          await conn._waitForConnect(true);
           autoCreate = utils2.getOption(
             "autoCreate",
             this.schema.options,
-            conn2.config,
-            conn2.base.options
+            conn.config,
+            conn.base.options
           );
         }
         if (!autoCreate) {
@@ -33068,7 +33068,7 @@ function requireModel() {
         model2.Query.prototype[i] = methods[i];
       }
     }
-    Model.__subclass = function subclass(conn2, schema2, collection2) {
+    Model.__subclass = function subclass(conn, schema2, collection2) {
       const _this = this;
       const Model2 = function Model3(doc, fields, skipId) {
         if (!(this instanceof Model3)) {
@@ -33078,9 +33078,9 @@ function requireModel() {
       };
       Object.setPrototypeOf(Model2, _this);
       Object.setPrototypeOf(Model2.prototype, _this.prototype);
-      Model2.db = conn2;
-      Model2.prototype.db = conn2;
-      Model2.prototype[modelDbSymbol] = conn2;
+      Model2.db = conn;
+      Model2.prototype.db = conn;
+      Model2.prototype[modelDbSymbol] = conn;
       _this[subclassedSymbol] = _this[subclassedSymbol] || [];
       _this[subclassedSymbol].push(Model2);
       if (_this.discriminators != null) {
@@ -33099,7 +33099,7 @@ function requireModel() {
         schemaUserProvidedOptions: _userProvidedOptions,
         capped: s && options2.capped
       };
-      Model2.prototype.collection = conn2.collection(collection2, collectionOptions);
+      Model2.prototype.collection = conn.collection(collection2, collectionOptions);
       Model2.prototype.$collection = Model2.prototype.collection;
       Model2.prototype[modelCollectionSymbol] = Model2.prototype.collection;
       Model2.collection = Model2.prototype.collection;
@@ -33431,7 +33431,7 @@ function requireMongoose$1() {
       if (_mongoose.__driver === driver3) {
         return _mongoose;
       }
-      const openConnection = _mongoose.connections && _mongoose.connections.find((conn2) => conn2.readyState !== STATES.disconnected);
+      const openConnection = _mongoose.connections && _mongoose.connections.find((conn) => conn.readyState !== STATES.disconnected);
       if (openConnection) {
         const msg = "Cannot modify Mongoose driver if a connection is already open. Call `mongoose.disconnect()` before modifying the driver";
         throw new MongooseError(msg);
@@ -33542,14 +33542,14 @@ function requireMongoose$1() {
     Mongoose.prototype.createConnection = function createConnection(uri, options2) {
       const _mongoose = this instanceof Mongoose ? this : mongoose2;
       const Connection = _mongoose.__driver.Connection;
-      const conn2 = new Connection(_mongoose);
-      _mongoose.connections.push(conn2);
+      const conn = new Connection(_mongoose);
+      _mongoose.connections.push(conn);
       _mongoose.nextConnectionId++;
-      _mongoose.events.emit("createConnection", conn2);
+      _mongoose.events.emit("createConnection", conn);
       if (arguments.length > 0) {
-        conn2.openUri(uri, { ...options2, _fireAndForget: true });
+        conn.openUri(uri, { ...options2, _fireAndForget: true });
       }
-      return conn2;
+      return conn;
     };
     Mongoose.prototype.connect = async function connect(uri, options2) {
       if (typeof options2 === "function" || arguments.length >= 3 && typeof arguments[2] === "function") {
@@ -33559,8 +33559,8 @@ function requireMongoose$1() {
       if (_mongoose.connection == null) {
         _createDefaultConnection(_mongoose);
       }
-      const conn2 = _mongoose.connection;
-      return conn2.openUri(uri, options2).then(() => _mongoose);
+      const conn = _mongoose.connection;
+      return conn.openUri(uri, options2).then(() => _mongoose);
     };
     Mongoose.prototype.disconnect = async function disconnect() {
       if (arguments.length >= 1 && typeof arguments[0] === "function") {
@@ -33571,7 +33571,7 @@ function requireMongoose$1() {
       if (remaining <= 0) {
         return;
       }
-      await Promise.all(_mongoose.connections.map((conn2) => conn2.close()));
+      await Promise.all(_mongoose.connections.map((conn) => conn.close()));
     };
     Mongoose.prototype.startSession = function startSession() {
       const _mongoose = this instanceof Mongoose ? this : mongoose2;
@@ -33778,9 +33778,9 @@ function requireMongoose$1() {
       if (mongoose3.connection) {
         return;
       }
-      const conn2 = mongoose3.createConnection();
-      conn2[defaultConnectionSymbol] = true;
-      conn2.models = mongoose3.models;
+      const conn = mongoose3.createConnection();
+      conn[defaultConnectionSymbol] = true;
+      conn.models = mongoose3.models;
     }
     const mongoose2 = module.exports = new Mongoose({
       [defaultMongooseSymbol]: true
@@ -33861,35 +33861,25 @@ function requireMongoose() {
 }
 var mongooseExports = requireMongoose();
 const mongoose = /* @__PURE__ */ getDefaultExportFromCjs(mongooseExports);
-const MONGODB_URI = process.env.MONGODB_URI;
-if (!MONGODB_URI) {
-  throw new Error("Missing MONGODB_URI environment variable");
-}
+const MONGODB_URI = "mongodb+srv://kagtabss_db_user:cktabss12212003@cluster0.hfebfep.mongodb.net/YSC?retryWrites=true&w=majority&appName=Cluster0";
 function getURI() {
   const uri = MONGODB_URI;
   if (uri.includes("/YSC")) return uri;
-  if (uri.includes("?")) {
-    return uri.replace("?", "/YSC?");
-  }
+  if (uri.includes("?")) return uri.replace("?", "/YSC?");
   return uri.endsWith("/") ? `${uri}YSC` : `${uri}/YSC`;
 }
-const FINAL_URI = getURI();
-let conn = null;
+const cache = global.__mongooseCache ?? { promise: null, conn: null };
+global.__mongooseCache = cache;
 async function connectDB() {
-  if (conn && mongoose.connection.readyState === 1) {
-    return conn;
+  if (cache.conn) return cache.conn;
+  if (!cache.promise) {
+    cache.promise = mongoose.connect(getURI(), {
+      bufferCommands: false
+      // fail fast instead of buffering if not connected
+    });
   }
-  if (mongoose.connection.readyState !== 0) {
-    await mongoose.disconnect();
-  }
-  conn = await mongoose.connect(FINAL_URI, {
-    bufferCommands: false,
-    dbName: "YSC",
-    maxPoolSize: 5,
-    serverSelectionTimeoutMS: 1e4
-  });
-  console.log("DB connected to:", mongoose.connection.db?.databaseName);
-  return conn;
+  cache.conn = await cache.promise;
+  return cache.conn;
 }
 export {
   connectDB as c,

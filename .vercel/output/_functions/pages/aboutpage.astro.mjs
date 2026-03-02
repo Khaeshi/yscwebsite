@@ -1,7 +1,7 @@
 import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead, u as unescapeHTML, h as addAttribute } from "../chunks/astro/server_Cfl3Ur0m.mjs";
 import { P as ParallaxHero, T as Target, A as Award } from "../chunks/ParallaxHero_DzPyPLHG.mjs";
 import { P as ParallaxSection } from "../chunks/ParallaxSection_CxInqIK5.mjs";
-import { $ as $$Layout } from "../chunks/Layout_3Hh_btxP.mjs";
+import { $ as $$Layout } from "../chunks/Layout_mRKKubIj.mjs";
 import { a as aboutimageUrl, D as Desiree, S as Silayan, K as Katherine } from "../chunks/config_DXHxkv4J.mjs";
 import { j as jsxRuntimeExports } from "../chunks/jsx-runtime_mS7YKmDK.mjs";
 import { a as reactExports } from "../chunks/_@astro-renderers_B4KjVBz-.mjs";

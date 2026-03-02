@@ -1,7 +1,7 @@
 import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead, h as addAttribute } from "../../chunks/astro/server_Cfl3Ur0m.mjs";
 import { C as Card, I as ImageWithFallback, B as Badge } from "../../chunks/ImageWithFallback_DnT8B4a9.mjs";
 import { P as ParallaxHero, T as Target, A as Award } from "../../chunks/ParallaxHero_DzPyPLHG.mjs";
-import { $ as $$Layout } from "../../chunks/Layout_3Hh_btxP.mjs";
+import { $ as $$Layout } from "../../chunks/Layout_mRKKubIj.mjs";
 import { f as eventUrl } from "../../chunks/config_DXHxkv4J.mjs";
 import { c as createLucideIcon, P as Palette, T as Trophy, M as MapPin } from "../../chunks/index_tryOdpTZ.mjs";
 import { C as Calendar } from "../../chunks/calendar_CPFXlUdr.mjs";

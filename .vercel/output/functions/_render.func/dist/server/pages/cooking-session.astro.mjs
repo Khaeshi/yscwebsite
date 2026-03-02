@@ -2,7 +2,7 @@ import { f as createComponent, l as renderComponent, r as renderTemplate, m as m
 import { I as InstructorProfile, P as ProgramHistorySection } from "../chunks/ProgramHistorySection_DZt8wC8U.mjs";
 import { P as ParallaxHero, A as Award } from "../chunks/ParallaxHero_DzPyPLHG.mjs";
 import { P as ParallaxSection } from "../chunks/ParallaxSection_CxInqIK5.mjs";
-import { $ as $$Layout } from "../chunks/Layout_3Hh_btxP.mjs";
+import { $ as $$Layout } from "../chunks/Layout_mRKKubIj.mjs";
 import { e as cookingimageUrl, D as Desiree } from "../chunks/config_DXHxkv4J.mjs";
 import { c as createLucideIcon, C as ChefHat } from "../chunks/index_tryOdpTZ.mjs";
 import { U as Users } from "../chunks/users_CVZbG-IS.mjs";

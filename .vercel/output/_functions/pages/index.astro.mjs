@@ -1,6 +1,6 @@
 import { f as createComponent, l as renderComponent, r as renderTemplate } from "../chunks/astro/server_Cfl3Ur0m.mjs";
 import { $ as $$Homepage } from "../chunks/homepage_DLeXceTM.mjs";
-import { $ as $$Layout } from "../chunks/Layout_3Hh_btxP.mjs";
+import { $ as $$Layout } from "../chunks/Layout_mRKKubIj.mjs";
 import { r } from "../chunks/_@astro-renderers_B4KjVBz-.mjs";
 const $$Index = createComponent(($$result, $$props, $$slots) => {
   const pageTitle = "Homepage | Young Starter Club";

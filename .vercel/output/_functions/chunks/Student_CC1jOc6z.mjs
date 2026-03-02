@@ -1,4 +1,4 @@
-import { m as mongoose } from "./client_CagqtE4a.mjs";
+import { m as mongoose } from "./client_DeOO0rEK.mjs";
 const StudentSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true },
   telegramChatId: { type: String, trim: true },
