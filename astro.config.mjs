@@ -16,6 +16,9 @@ export default defineConfig({
   output: 'server',
   vite: {
     plugins: [tailwindcss()],
+    ssr: {
+      noExternal:['react', 'react-dom'],
+    }
   },
 
   site: 'https://youngstarterclub.asia',
