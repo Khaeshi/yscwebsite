@@ -12,8 +12,116 @@
 			"continue": true
 		},
 		{
+			"src": "^/_server-islands/([^/]+?)/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/_image/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/404/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/aboutpage/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/admin/login/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/admin/programs/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/admin/schedules/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/admin/settings/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/admin/students/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/admin/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/cron/send-reminders/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/schedules/test/([^/]+?)/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/schedules/([^/]+?)/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/schedules/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/students/([^/]+?)/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/students/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/webhooks/messenger/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/api/webhooks/telegram/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/arts-lesson/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/badminton-coaching/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/cooking-session/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/Events/event-guidelines/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/homepage/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/music-teaching/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/photography-classes/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/QuizProgram/find-your-program/?$",
+			"dest": "_render"
+		},
+		{
+			"src": "^/$",
+			"dest": "_render"
+		},
+		{
 			"src": "^/.*$",
-			"dest": "/404.html",
+			"dest": "_render",
 			"status": 404
 		}
 	]
