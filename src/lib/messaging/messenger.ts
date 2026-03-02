@@ -1,6 +1,6 @@
 // src/lib/messaging/messenger.ts
 
-const PAGE_ACCESS_TOKEN = import.meta.env.FACEBOOK_PAGE_ACCESS_TOKEN;
+const PAGE_ACCESS_TOKEN = process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
 const MESSENGER_API_URL = 'https://graph.facebook.com/v18.0/me/messages';
 
 /**
@@ -161,7 +161,7 @@ export function verifyMessengerSignature(
   signature: string,
   body: string
 ): boolean {
-  const APP_SECRET = import.meta.env.FACEBOOK_APP_SECRET;
+  const APP_SECRET = process.env.FACEBOOK_APP_SECRET;
   
   if (!APP_SECRET) {
     console.error('Facebook App Secret not configured');

@@ -1,7 +1,7 @@
 // src/lib/messaging/telegram.ts
 import type { Student, Schedule } from '../../types/models.ts';
 
-const TELEGRAM_BOT_TOKEN = import.meta.env.TELEGRAM_BOT_TOKEN;
+const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_API_URL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}`;
 
 export interface TelegramUser {

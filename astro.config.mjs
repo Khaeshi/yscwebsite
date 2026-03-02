@@ -16,7 +16,6 @@ export default defineConfig({
   output: 'server',
   vite: {
     plugins: [tailwindcss()],
-    envPrefix: 'PUBLIC_',
   },
 
   site: 'https://youngstarterclub.asia',
