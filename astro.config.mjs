@@ -6,14 +6,15 @@ import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
 import vercel from '@astrojs/vercel';
 
+const isProd = process.env.NODE_ENV === 'production' || process.env.VERCEL === '1';
+
 export default defineConfig({
   output: 'server',
   vite: {
     plugins: [tailwindcss()],
-    ssr: {
-      //this bundles everything, no exception
+    ssr: isProd ? {
       noExternal: true,
-    },
+    } : {},
   },
   site: 'https://youngstarterclub.asia',
   integrations: [react(), sitemap(), clerk()],
