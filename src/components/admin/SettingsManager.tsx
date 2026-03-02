@@ -66,11 +66,11 @@ export default function SettingsManager() {
     }
   }
 
-  const tabs: { id: Tab; label: string;}[] = [
-    { id: 'general',       label: 'General' },
-    { id: 'telegram',      label: 'Telegram Bot' },
-    { id: 'notifications', label: 'Notifications' },
-    { id: 'danger',        label: 'Danger Zone', },
+  const tabs: { id: Tab; label: string; icon: string }[] = [
+    { id: 'general',       label: 'General',       icon: '⚙️' },
+    { id: 'telegram',      label: 'Telegram Bot',  icon: '📱' },
+    { id: 'notifications', label: 'Notifications', icon: '🔔' },
+    { id: 'danger',        label: 'Danger Zone',   icon: '⚠️' },
   ];
 
   return (
@@ -97,6 +97,7 @@ export default function SettingsManager() {
                     ? 'bg-purple-50 text-purple-700 border border-purple-200'
                     : 'text-gray-600 hover:bg-gray-100'
                 }`}>
+                <span>{tab.icon}</span>
                 {tab.label}
               </button>
             ))}

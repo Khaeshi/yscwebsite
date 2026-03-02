@@ -8,11 +8,8 @@ interface Props {
     image?: string;
 }
 
-// Check authentication - redirect if not logged in
 const { userId } = Astro.locals.auth();
-if (!userId) {
-  return Astro.redirect('/admin/login');
-}
+if (!userId) return Astro.redirect('/admin/login');
 
 const currentPath = Astro.url.pathname;
 
@@ -23,12 +20,11 @@ const {
 } = Astro.props;
 
 const navItems = [
-  { label: 'Dashboard', href: '/admin', icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
-  { label: 'Students', href: '/admin/students', icon: 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z' },
-  { label: 'Programs', href: '/admin/programs', icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253' },
-  { label: 'Media Library', href: '/admin/media', icon: 'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z' },
-  { label: 'Schedules', href: '/admin/schedules', icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z' },
-  { label: 'Settings', href: '/admin/settings', icon: 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z' },
+  { label: 'Dashboard',    href: '/admin',           icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
+  { label: 'Students',     href: '/admin/students',  icon: 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z' },
+  { label: 'Programs',     href: '/admin/programs',  icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253' },
+  { label: 'Schedules',    href: '/admin/schedules', icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z' },
+  { label: 'Settings',     href: '/admin/settings',  icon: 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z' },
 ];
 
 const isActive = (href: string) => {
@@ -48,29 +44,37 @@ const isActive = (href: string) => {
     <meta name="robots" content="noindex, nofollow">
   </head>
   <body class="min-h-screen bg-gray-50">
+
+    <!-- Mobile overlay -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden" onclick="closeSidebar()"></div>
+
     <!-- Sidebar -->
-    <aside class="fixed top-0 left-0 z-50 h-screen w-64 bg-white border-r border-gray-200">
+    <aside id="sidebar" class="fixed top-0 left-0 z-50 h-screen w-64 bg-white border-r border-gray-200 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out">
       <div class="flex flex-col h-full">
         <!-- Logo -->
-        <div class="flex items-center h-16 px-6 border-b border-gray-200">
+        <div class="flex items-center justify-between h-16 px-5 border-b border-gray-200 flex-shrink-0">
           <a href="/admin" class="flex items-center gap-2">
-            <div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg"></div>
+            <div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex-shrink-0"></div>
             <span class="font-bold text-lg">YSC Admin</span>
           </a>
+          <!-- Close button (mobile only) -->
+          <button onclick="closeSidebar()" class="lg:hidden p-1.5 rounded-lg hover:bg-gray-100 text-gray-500">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         </div>
 
         <!-- Navigation -->
-        <nav class="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
+        <nav class="flex-1 px-3 py-5 space-y-1 overflow-y-auto">
           {navItems.map((item) => (
-            <a
-              href={item.href}
-              class={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+            <a href={item.href} onclick="closeSidebar()"
+              class={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors text-sm ${
                 isActive(item.href)
-                  ? 'bg-purple-50 text-purple-600 font-medium' 
-                  : 'text-gray-700 hover:bg-gray-100'
-              }`}
-            >
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  ? 'bg-purple-50 text-purple-600 font-semibold' 
+                  : 'text-gray-700 hover:bg-gray-100 font-medium'
+              }`}>
+              <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.icon} />
               </svg>
               <span>{item.label}</span>
@@ -78,17 +82,12 @@ const isActive = (href: string) => {
           ))}
         </nav>
 
-        <!-- Logout with Clerk UserButton -->
-        <div class="p-4 border-t border-gray-200">
-          <div class="flex items-center gap-3 px-4 py-3">
+        <!-- User button -->
+        <div class="p-4 border-t border-gray-200 flex-shrink-0">
+          <div class="flex items-center gap-3 px-2 py-2">
             <UserButton 
               afterSignOutUrl="/admin/login"
-              appearance={{
-                elements: {
-                  avatarBox: "w-10 h-10",
-                  userButtonPopoverCard: "shadow-lg",
-                }
-              }}
+              appearance={{ elements: { avatarBox: "w-8 h-8" } }}
             />
             <span class="text-sm font-medium text-gray-700">Admin</span>
           </div>
@@ -97,18 +96,52 @@ const isActive = (href: string) => {
     </aside>
 
     <!-- Main content -->
-    <div class="pl-64">
+    <div class="lg:pl-64 min-h-screen flex flex-col">
       <!-- Top bar -->
-      <header class="sticky top-0 z-30 h-16 bg-white border-b border-gray-200">
-        <div class="flex items-center justify-end h-full px-6">
-          <UserButton afterSignOutUrl="/admin/login" />
+      <header class="sticky top-0 z-30 h-14 lg:h-16 bg-white border-b border-gray-200 flex-shrink-0">
+        <div class="flex items-center justify-between h-full px-4 lg:px-6">
+          <!-- Hamburger (mobile only) -->
+          <button onclick="openSidebar()" class="lg:hidden p-2 rounded-lg hover:bg-gray-100 text-gray-600 -ml-1">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <!-- Page title on mobile (derived from current nav item) -->
+          <span class="lg:hidden text-sm font-semibold text-gray-800">
+            {navItems.find(n => isActive(n.href))?.label ?? 'Admin'}
+          </span>
+          <div class="flex items-center gap-3">
+            <UserButton afterSignOutUrl="/admin/login" />
+          </div>
         </div>
       </header>
 
       <!-- Page content -->
-      <main class="p-6">
+      <main class="flex-1 p-3 sm:p-4 lg:p-6">
         <slot />
       </main>
     </div>
+
+    <script>
+      function openSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        sidebar?.classList.remove('-translate-x-full');
+        overlay?.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        sidebar?.classList.add('-translate-x-full');
+        overlay?.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+
+      // Make functions available globally
+      (window as any).openSidebar = openSidebar;
+      (window as any).closeSidebar = closeSidebar;
+    </script>
   </body>
 </html>

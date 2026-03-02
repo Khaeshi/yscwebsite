@@ -152,13 +152,14 @@ export default function ProgramsManager() {
       {/* Stats */}
       <div className="grid grid-cols-3 gap-4 mb-8">
         {[
-          { label: 'Total', val: stats.total, color: 'text-blue-600' },
-          { label: 'Online', val: stats.online, color: 'text-purple-600' },
-          { label: 'Active', val: stats.active, color: 'text-green-600' },
+          { label: 'Total', val: stats.total, icon: '📚', color: 'text-blue-600' },
+          { label: 'Online', val: stats.online, icon: '💻', color: 'text-purple-600' },
+          { label: 'Active', val: stats.active, icon: '✅', color: 'text-green-600' },
         ].map(s => (
           <div key={s.label} className="bg-white rounded-xl border border-gray-200 p-5">
             <div className="flex items-center justify-between mb-3">
               <p className="text-gray-500 text-xs font-semibold uppercase tracking-wider">{s.label}</p>
+              <span className="text-xl">{s.icon}</span>
             </div>
             <p className={`text-3xl font-bold ${s.color}`}>{s.val}</p>
           </div>
