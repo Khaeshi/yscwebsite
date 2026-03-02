@@ -1,9 +1,8 @@
-import { e as createAstro, f as createComponent, l as renderComponent, r as renderTemplate } from "../../chunks/astro/server_DobZlz4c.mjs";
-import "piccolore";
-import { $ as $$AdminLayout } from "../../chunks/AdminLayout_CEkeqrfp.mjs";
-import { j as jsxRuntimeExports } from "../../chunks/jsx-runtime_w0bDR4SM.mjs";
-import { a as reactExports } from "../../chunks/_@astro-renderers_CovX3xsv.mjs";
-import { r } from "../../chunks/_@astro-renderers_CovX3xsv.mjs";
+import { e as createAstro, f as createComponent, l as renderComponent, r as renderTemplate } from "../../chunks/astro/server_CoVo9Zif.mjs";
+import { $ as $$AdminLayout } from "../../chunks/AdminLayout_C6XI2GIq.mjs";
+import { j as jsxRuntimeExports } from "../../chunks/jsx-runtime_DaxtJboG.mjs";
+import { a as reactExports } from "../../chunks/_@astro-renderers_DOBI-D1Y.mjs";
+import { r } from "../../chunks/_@astro-renderers_DOBI-D1Y.mjs";
 const EMPTY_FORM = { name: "", description: "", duration: "", type: "online", price: 0, active: true };
 const inputCls = "w-full border border-gray-200 rounded-lg px-3 py-2.5 text-gray-900 text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors placeholder-gray-400 bg-white";
 const labelCls = "block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5";

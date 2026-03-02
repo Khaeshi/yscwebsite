@@ -1,11 +1,88 @@
-import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead, h as addAttribute } from "../../chunks/astro/server_DobZlz4c.mjs";
-import "piccolore";
-import { C as Card, I as ImageWithFallback, B as Badge } from "../../chunks/ImageWithFallback_DmNFEcv8.mjs";
-import { P as ParallaxHero } from "../../chunks/ParallaxHero_BXsbs4v_.mjs";
-import { Palette, Calendar, Trophy, Gift, MapPin, FileText, Sparkles, Users, Lightbulb, Target, Star, Award, Clock, AlertCircle, CheckCircle2 } from "lucide-react";
-import { $ as $$Layout } from "../../chunks/Layout_DHOvI5Dg.mjs";
+import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead, h as addAttribute } from "../../chunks/astro/server_CoVo9Zif.mjs";
+import { C as Card, I as ImageWithFallback, B as Badge } from "../../chunks/ImageWithFallback_DApSdTYW.mjs";
+import { P as ParallaxHero, T as Target, A as Award } from "../../chunks/ParallaxHero_BLGZC7ec.mjs";
+import { $ as $$Layout } from "../../chunks/Layout_CSr6873l.mjs";
 import { f as eventUrl } from "../../chunks/config_DXHxkv4J.mjs";
-import { r } from "../../chunks/_@astro-renderers_CovX3xsv.mjs";
+import { c as createLucideIcon, P as Palette, T as Trophy, M as MapPin } from "../../chunks/index_Dwb88roV.mjs";
+import { C as Calendar } from "../../chunks/calendar_D5yRDPZd.mjs";
+import { S as Sparkles } from "../../chunks/sparkles_LXtXrKRG.mjs";
+import { U as Users } from "../../chunks/users_BNE7VzAO.mjs";
+import { S as Star, C as CircleCheck } from "../../chunks/star_BvTZ-5_i.mjs";
+import { r } from "../../chunks/_@astro-renderers_DOBI-D1Y.mjs";
+/**
+ * @license lucide-react v0.487.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$4 = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["line", { x1: "12", x2: "12", y1: "8", y2: "12", key: "1pkeuh" }],
+  ["line", { x1: "12", x2: "12.01", y1: "16", y2: "16", key: "4dfq90" }]
+];
+const CircleAlert = createLucideIcon("circle-alert", __iconNode$4);
+/**
+ * @license lucide-react v0.487.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$3 = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["polyline", { points: "12 6 12 12 16 14", key: "68esgv" }]
+];
+const Clock = createLucideIcon("clock", __iconNode$3);
+/**
+ * @license lucide-react v0.487.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$2 = [
+  ["path", { d: "M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z", key: "1rqfz7" }],
+  ["path", { d: "M14 2v4a2 2 0 0 0 2 2h4", key: "tnqrlb" }],
+  ["path", { d: "M10 9H8", key: "b1mrlr" }],
+  ["path", { d: "M16 13H8", key: "t4e002" }],
+  ["path", { d: "M16 17H8", key: "z1uh3a" }]
+];
+const FileText = createLucideIcon("file-text", __iconNode$2);
+/**
+ * @license lucide-react v0.487.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$1 = [
+  ["rect", { x: "3", y: "8", width: "18", height: "4", rx: "1", key: "bkv52" }],
+  ["path", { d: "M12 8v13", key: "1c76mn" }],
+  ["path", { d: "M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7", key: "6wjy6b" }],
+  [
+    "path",
+    {
+      d: "M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5",
+      key: "1ihvrl"
+    }
+  ]
+];
+const Gift = createLucideIcon("gift", __iconNode$1);
+/**
+ * @license lucide-react v0.487.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5",
+      key: "1gvzjb"
+    }
+  ],
+  ["path", { d: "M9 18h6", key: "x1upvd" }],
+  ["path", { d: "M10 22h4", key: "ceow96" }]
+];
+const Lightbulb = createLucideIcon("lightbulb", __iconNode);
 const $$EventGuidelines = createComponent(async ($$result, $$props, $$slots) => {
   const judgingCriteria = [
     {
@@ -115,19 +192,19 @@ How to Submit
 ` })} <h2 class="mb-4">Submission Guidelines</h2> <p class="text-muted-foreground text-lg max-w-2xl mx-auto">
 Follow these steps to submit your artwork
 </p> </div> <div class="max-w-4xl mx-auto"> ${renderComponent($$result2, "Card", Card, { "className": "p-8 border-2 border-blue-200" }, { "default": async ($$result3) => renderTemplate` <div class="space-y-6"> <div class="flex items-start gap-4"> <div class="bg-gradient-to-br from-blue-500 to-cyan-500 rounded-lg p-3 flex-shrink-0"> ${renderComponent($$result3, "MapPin", MapPin, { "className": "w-6 h-6 text-white" })} </div> <div> <h3 class="mb-2">Submission Location</h3> <p class="text-muted-foreground">
-Artworks can be submitted at <strong>YSC Studio</strong> </p> </div> </div> <div class="flex items-start gap-4"> <div class="bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg p-3 flex-shrink-0"> ${renderComponent($$result3, "Clock", Clock, { "className": "w-6 h-6 text-white" })} </div> <div> <h3 class="mb-2">Submission Deadline</h3> <p class="text-muted-foreground mb-2"> <strong>December 18, 2025 (Thursday)</strong> </p> <div class="bg-red-50 border border-red-200 rounded-lg p-3"> <p class="text-sm text-red-800"> ${renderComponent($$result3, "AlertCircle", AlertCircle, { "className": "w-4 h-4 inline mr-2" })} <strong>Important:</strong> Late submissions will NOT be eligible for 1st, 2nd, and 3rd places, 
+Artworks can be submitted at <strong>YSC Studio</strong> </p> </div> </div> <div class="flex items-start gap-4"> <div class="bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg p-3 flex-shrink-0"> ${renderComponent($$result3, "Clock", Clock, { "className": "w-6 h-6 text-white" })} </div> <div> <h3 class="mb-2">Submission Deadline</h3> <p class="text-muted-foreground mb-2"> <strong>December 18, 2025 (Thursday)</strong> </p> <div class="bg-red-50 border border-red-200 rounded-lg p-3"> <p class="text-sm text-red-800"> ${renderComponent($$result3, "AlertCircle", CircleAlert, { "className": "w-4 h-4 inline mr-2" })} <strong>Important:</strong> Late submissions will NOT be eligible for 1st, 2nd, and 3rd places, 
                   but will receive a consolation prize.
 </p> </div> </div> </div> <div class="flex items-start gap-4"> <div class="bg-gradient-to-br from-orange-500 to-red-500 rounded-lg p-3 flex-shrink-0"> ${renderComponent($$result3, "Trophy", Trophy, { "className": "w-6 h-6 text-white" })} </div> <div> <h3 class="mb-2">Awards Ceremony</h3> <p class="text-muted-foreground"> <strong>December 20, 2025 (Saturday)</strong> </p> <p class="text-sm text-muted-foreground mt-1">
 Join us for the exciting awards ceremony where winners will be announced!
-</p> </div> </div> </div> ` })} </div> </div> <!-- Important Notes --> <div class="bg-gradient-to-r from-red-50 to-orange-50 py-16 mb-16"> <div class="container mx-auto px-4"> ${renderComponent($$result2, "Card", Card, { "className": "p-8 border-2 border-red-200 max-w-4xl mx-auto" }, { "default": async ($$result3) => renderTemplate` <div class="flex items-start gap-4 mb-6"> <div class="bg-red-500 p-3 rounded-full flex-shrink-0"> ${renderComponent($$result3, "AlertCircle", AlertCircle, { "className": "w-6 h-6 text-white" })} </div> <div> <h3 class="mb-2">Important Notes</h3> <p class="text-muted-foreground">
+</p> </div> </div> </div> ` })} </div> </div> <!-- Important Notes --> <div class="bg-gradient-to-r from-red-50 to-orange-50 py-16 mb-16"> <div class="container mx-auto px-4"> ${renderComponent($$result2, "Card", Card, { "className": "p-8 border-2 border-red-200 max-w-4xl mx-auto" }, { "default": async ($$result3) => renderTemplate` <div class="flex items-start gap-4 mb-6"> <div class="bg-red-500 p-3 rounded-full flex-shrink-0"> ${renderComponent($$result3, "AlertCircle", CircleAlert, { "className": "w-6 h-6 text-white" })} </div> <div> <h3 class="mb-2">Important Notes</h3> <p class="text-muted-foreground">
 Please take note of these important points
-</p> </div> </div> <div class="space-y-4"> <div class="grid gap-3 md:grid-cols-2 lg:grid-cols-1"> <div class="flex items-start gap-3 p-4 bg-white rounded-lg border border-red-200"> ${renderComponent($$result3, "CheckCircle2", CheckCircle2, { "className": "w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" })} <p class="text-muted-foreground"> <strong>Public Display:</strong> All submitted artworks will be posted at the YSC Group
+</p> </div> </div> <div class="space-y-4"> <div class="grid gap-3 md:grid-cols-2 lg:grid-cols-1"> <div class="flex items-start gap-3 p-4 bg-white rounded-lg border border-red-200"> ${renderComponent($$result3, "CheckCircle2", CircleCheck, { "className": "w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" })} <p class="text-muted-foreground"> <strong>Public Display:</strong> All submitted artworks will be posted at the YSC Group
                 for everyone to appreciate and celebrate! 🎨
-</p> </div> <div class="flex items-start gap-3 p-4 bg-white rounded-lg border border-red-200"> ${renderComponent($$result3, "CheckCircle2", CheckCircle2, { "className": "w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" })} <p class="text-muted-foreground"> <strong>Material Requirements:</strong> Only professional art materials are accepted
+</p> </div> <div class="flex items-start gap-3 p-4 bg-white rounded-lg border border-red-200"> ${renderComponent($$result3, "CheckCircle2", CircleCheck, { "className": "w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" })} <p class="text-muted-foreground"> <strong>Material Requirements:</strong> Only professional art materials are accepted
                 (illustration board, watercolor paper, or canvas). Bond paper and ordinary paper are NOT allowed.
-</p> </div> <div class="flex items-start gap-3 p-4 bg-white rounded-lg border border-red-200"> ${renderComponent($$result3, "CheckCircle2", CheckCircle2, { "className": "w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" })} <p class="text-muted-foreground"> <strong>Originality:</strong> All artworks must be your own original creation.
+</p> </div> <div class="flex items-start gap-3 p-4 bg-white rounded-lg border border-red-200"> ${renderComponent($$result3, "CheckCircle2", CircleCheck, { "className": "w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" })} <p class="text-muted-foreground"> <strong>Originality:</strong> All artworks must be your own original creation.
                 Copied works will be disqualified from the competition.
-</p> </div> <div class="flex items-start gap-3 p-4 bg-white rounded-lg border border-red-200"> ${renderComponent($$result3, "CheckCircle2", CheckCircle2, { "className": "w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" })} <p class="text-muted-foreground"> <strong>Name Label:</strong> Don't forget to write your full name on the back of your artwork material!
+</p> </div> <div class="flex items-start gap-3 p-4 bg-white rounded-lg border border-red-200"> ${renderComponent($$result3, "CheckCircle2", CircleCheck, { "className": "w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" })} <p class="text-muted-foreground"> <strong>Name Label:</strong> Don't forget to write your full name on the back of your artwork material!
 </p> </div> </div> </div> ` })} </div> </div> </div>` })}`;
 }, "C:/Users/user/Desktop/OngoingProjects/YSCMIGRATE/yscwebsite/src/pages/Events/event-guidelines.astro", void 0);
 const $$file = "C:/Users/user/Desktop/OngoingProjects/YSCMIGRATE/yscwebsite/src/pages/Events/event-guidelines.astro";

@@ -1,13 +1,33 @@
-import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead } from "../chunks/astro/server_DobZlz4c.mjs";
-import "piccolore";
-import { $ as $$Layout } from "../chunks/Layout_DHOvI5Dg.mjs";
-import { I as InstructorProfile, P as ProgramHistorySection } from "../chunks/ProgramHistorySection_CE_LLY-4.mjs";
-import { P as ParallaxHero } from "../chunks/ParallaxHero_BXsbs4v_.mjs";
-import { P as ParallaxSection } from "../chunks/ParallaxSection_Bo61cpqn.mjs";
-import { I as ImageWithFallback } from "../chunks/ImageWithFallback_DmNFEcv8.mjs";
-import { Handshake, Target, Trophy, Users, Award } from "lucide-react";
+import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead } from "../chunks/astro/server_CoVo9Zif.mjs";
+import { $ as $$Layout } from "../chunks/Layout_CSr6873l.mjs";
+import { I as InstructorProfile, P as ProgramHistorySection } from "../chunks/ProgramHistorySection_DLdm7s9a.mjs";
+import { P as ParallaxHero, T as Target, A as Award } from "../chunks/ParallaxHero_BLGZC7ec.mjs";
+import { P as ParallaxSection } from "../chunks/ParallaxSection_CqyAxdqf.mjs";
+import { I as ImageWithFallback } from "../chunks/ImageWithFallback_DApSdTYW.mjs";
 import { c as badmintonimageUrl, J as JTTC, d as badmintonhistory } from "../chunks/config_DXHxkv4J.mjs";
-import { r } from "../chunks/_@astro-renderers_CovX3xsv.mjs";
+import { c as createLucideIcon, T as Trophy } from "../chunks/index_Dwb88roV.mjs";
+import { U as Users } from "../chunks/users_BNE7VzAO.mjs";
+import { r } from "../chunks/_@astro-renderers_DOBI-D1Y.mjs";
+/**
+ * @license lucide-react v0.487.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode = [
+  ["path", { d: "m11 17 2 2a1 1 0 1 0 3-3", key: "efffak" }],
+  [
+    "path",
+    {
+      d: "m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4",
+      key: "9pr0kb"
+    }
+  ],
+  ["path", { d: "m21 3 1 11h-2", key: "1tisrp" }],
+  ["path", { d: "M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3", key: "1uvwmv" }],
+  ["path", { d: "M3 4h8", key: "1ep09j" }]
+];
+const Handshake = createLucideIcon("handshake", __iconNode);
 const $$BadmintonCoaching = createComponent(($$result, $$props, $$slots) => {
   const coaches = [
     {

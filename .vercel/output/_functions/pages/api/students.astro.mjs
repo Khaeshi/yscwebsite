@@ -1,6 +1,7 @@
-import { MongoClient } from "mongodb";
-import { r } from "../../chunks/_@astro-renderers_CovX3xsv.mjs";
-const client = new MongoClient("mongodb+srv://kagtabss_db_user:cktabss12212003@cluster0.hfebfep.mongodb.net/YSC?retryWrites=true&w=majority&appName=Cluster0");
+import { b as requireLib } from "../../chunks/index_COQKGyuP.mjs";
+import { r } from "../../chunks/_@astro-renderers_DOBI-D1Y.mjs";
+var libExports = requireLib();
+const client = new libExports.MongoClient("mongodb+srv://kagtabss_db_user:cktabss12212003@cluster0.hfebfep.mongodb.net/YSC?retryWrites=true&w=majority&appName=Cluster0");
 const POST = async ({ request }) => {
   try {
     const body = await request.json();

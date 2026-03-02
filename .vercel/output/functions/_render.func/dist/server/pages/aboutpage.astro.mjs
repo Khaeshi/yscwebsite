@@ -1,13 +1,15 @@
-import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead, u as unescapeHTML, h as addAttribute } from "../chunks/astro/server_DobZlz4c.mjs";
-import "piccolore";
-import { P as ParallaxHero } from "../chunks/ParallaxHero_BXsbs4v_.mjs";
-import { P as ParallaxSection } from "../chunks/ParallaxSection_Bo61cpqn.mjs";
-import { $ as $$Layout } from "../chunks/Layout_DHOvI5Dg.mjs";
-import { Star, CheckCircle2, Sparkles, Heart, Target, Award, Users } from "lucide-react";
+import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead, u as unescapeHTML, h as addAttribute } from "../chunks/astro/server_CoVo9Zif.mjs";
+import { P as ParallaxHero, T as Target, A as Award } from "../chunks/ParallaxHero_BLGZC7ec.mjs";
+import { P as ParallaxSection } from "../chunks/ParallaxSection_CqyAxdqf.mjs";
+import { $ as $$Layout } from "../chunks/Layout_CSr6873l.mjs";
 import { a as aboutimageUrl, D as Desiree, S as Silayan, K as Katherine } from "../chunks/config_DXHxkv4J.mjs";
-import { j as jsxRuntimeExports } from "../chunks/jsx-runtime_w0bDR4SM.mjs";
-import { a as reactExports } from "../chunks/_@astro-renderers_CovX3xsv.mjs";
-import { r } from "../chunks/_@astro-renderers_CovX3xsv.mjs";
+import { j as jsxRuntimeExports } from "../chunks/jsx-runtime_DaxtJboG.mjs";
+import { a as reactExports } from "../chunks/_@astro-renderers_DOBI-D1Y.mjs";
+import { r } from "../chunks/_@astro-renderers_DOBI-D1Y.mjs";
+import { S as Star, C as CircleCheck } from "../chunks/star_BvTZ-5_i.mjs";
+import { S as Sparkles } from "../chunks/sparkles_LXtXrKRG.mjs";
+import { H as Heart } from "../chunks/heart_Bt-t2WJX.mjs";
+import { U as Users } from "../chunks/users_BNE7VzAO.mjs";
 const CoreValuesCarousel = ({ coreValues }) => {
   const [currentIndex, setCurrentIndex] = reactExports.useState(0);
   const [animating, setAnimating] = reactExports.useState(false);
@@ -67,7 +69,7 @@ const CoreValuesCarousel = ({ coreValues }) => {
                   padding: "10px"
                 },
                 children: /* @__PURE__ */ jsxRuntimeExports.jsx("ul", { className: "space-y-3 ml-6 mr-6", children: coreValues.slice(pageIndex * valuesPerSlide, (pageIndex + 1) * valuesPerSlide).map((value, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { className: "flex items-start gap-2", children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(CheckCircle2, { className: "w-5 h-5 text-orange-600 mt-0.5 flex-shrink-0" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(CircleCheck, { className: "w-5 h-5 text-orange-600 mt-0.5 flex-shrink-0" }),
                   /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
                     /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-muted-foreground", children: value.subtitle }),
                     /* @__PURE__ */ jsxRuntimeExports.jsx("br", {}),

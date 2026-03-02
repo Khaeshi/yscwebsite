@@ -1,12 +1,24 @@
-import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead } from "../chunks/astro/server_DobZlz4c.mjs";
-import "piccolore";
-import { I as InstructorProfile, P as ProgramHistorySection } from "../chunks/ProgramHistorySection_CE_LLY-4.mjs";
-import { P as ParallaxHero } from "../chunks/ParallaxHero_BXsbs4v_.mjs";
-import { P as ParallaxSection } from "../chunks/ParallaxSection_Bo61cpqn.mjs";
-import { ChefHat, Utensils, Award, Users } from "lucide-react";
-import { $ as $$Layout } from "../chunks/Layout_DHOvI5Dg.mjs";
+import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead } from "../chunks/astro/server_CoVo9Zif.mjs";
+import { I as InstructorProfile, P as ProgramHistorySection } from "../chunks/ProgramHistorySection_DLdm7s9a.mjs";
+import { P as ParallaxHero, A as Award } from "../chunks/ParallaxHero_BLGZC7ec.mjs";
+import { P as ParallaxSection } from "../chunks/ParallaxSection_CqyAxdqf.mjs";
+import { $ as $$Layout } from "../chunks/Layout_CSr6873l.mjs";
 import { e as cookingimageUrl, D as Desiree } from "../chunks/config_DXHxkv4J.mjs";
-import { r } from "../chunks/_@astro-renderers_CovX3xsv.mjs";
+import { c as createLucideIcon, C as ChefHat } from "../chunks/index_Dwb88roV.mjs";
+import { U as Users } from "../chunks/users_BNE7VzAO.mjs";
+import { r } from "../chunks/_@astro-renderers_DOBI-D1Y.mjs";
+/**
+ * @license lucide-react v0.487.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode = [
+  ["path", { d: "M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2", key: "cjf0a3" }],
+  ["path", { d: "M7 2v20", key: "1473qp" }],
+  ["path", { d: "M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7", key: "j28e5" }]
+];
+const Utensils = createLucideIcon("utensils", __iconNode);
 const $$CookingSession = createComponent(($$result, $$props, $$slots) => {
   const instructors = [
     {

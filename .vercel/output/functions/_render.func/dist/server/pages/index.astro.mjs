@@ -1,8 +1,7 @@
-import { f as createComponent, l as renderComponent, r as renderTemplate } from "../chunks/astro/server_DobZlz4c.mjs";
-import "piccolore";
-import { $ as $$Homepage } from "../chunks/homepage_DG2CBZCq.mjs";
-import { $ as $$Layout } from "../chunks/Layout_DHOvI5Dg.mjs";
-import { r } from "../chunks/_@astro-renderers_CovX3xsv.mjs";
+import { f as createComponent, l as renderComponent, r as renderTemplate } from "../chunks/astro/server_CoVo9Zif.mjs";
+import { $ as $$Homepage } from "../chunks/homepage_DSLUS0B8.mjs";
+import { $ as $$Layout } from "../chunks/Layout_CSr6873l.mjs";
+import { r } from "../chunks/_@astro-renderers_DOBI-D1Y.mjs";
 const $$Index = createComponent(($$result, $$props, $$slots) => {
   const pageTitle = "Homepage | Young Starter Club";
   const description = "Welcome to the Young Starter Club homepage!";

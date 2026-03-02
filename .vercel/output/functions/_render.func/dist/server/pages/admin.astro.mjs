@@ -1,10 +1,9 @@
-import { e as createAstro, f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead } from "../chunks/astro/server_DobZlz4c.mjs";
-import "piccolore";
-import { $ as $$AdminLayout } from "../chunks/AdminLayout_CEkeqrfp.mjs";
-import { c as connectDB } from "../chunks/client_B6eiqbcl.mjs";
-import { S as Student } from "../chunks/Student_BYlgW2Kz.mjs";
-import { S as Schedule } from "../chunks/Schedule_BiCOHfXk.mjs";
-import { r } from "../chunks/_@astro-renderers_CovX3xsv.mjs";
+import { e as createAstro, f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead } from "../chunks/astro/server_CoVo9Zif.mjs";
+import { $ as $$AdminLayout } from "../chunks/AdminLayout_C6XI2GIq.mjs";
+import { c as connectDB } from "../chunks/client_2qSNy_zs.mjs";
+import { S as Student } from "../chunks/Student_B3tjZemc.mjs";
+import { S as Schedule } from "../chunks/Schedule_Cvi5aeJn.mjs";
+import { r } from "../chunks/_@astro-renderers_DOBI-D1Y.mjs";
 async function getDashboardStats() {
   await connectDB();
   const [totalStudents, totalSchedules, activeSchedules] = await Promise.all([

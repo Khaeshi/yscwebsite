@@ -1,11 +1,23 @@
-import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead } from "../chunks/astro/server_DobZlz4c.mjs";
-import "piccolore";
-import { I as InstructorProfile, P as ProgramHistorySection } from "../chunks/ProgramHistorySection_CE_LLY-4.mjs";
-import { P as ParallaxHero } from "../chunks/ParallaxHero_BXsbs4v_.mjs";
-import { P as ParallaxSection } from "../chunks/ParallaxSection_Bo61cpqn.mjs";
-import { Camera, Image, Award, Users } from "lucide-react";
-import { $ as $$Layout } from "../chunks/Layout_DHOvI5Dg.mjs";
-import { r } from "../chunks/_@astro-renderers_CovX3xsv.mjs";
+import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead } from "../chunks/astro/server_CoVo9Zif.mjs";
+import { I as InstructorProfile, P as ProgramHistorySection } from "../chunks/ProgramHistorySection_DLdm7s9a.mjs";
+import { P as ParallaxHero, A as Award } from "../chunks/ParallaxHero_BLGZC7ec.mjs";
+import { P as ParallaxSection } from "../chunks/ParallaxSection_CqyAxdqf.mjs";
+import { $ as $$Layout } from "../chunks/Layout_CSr6873l.mjs";
+import { c as createLucideIcon, b as Camera } from "../chunks/index_Dwb88roV.mjs";
+import { U as Users } from "../chunks/users_BNE7VzAO.mjs";
+import { r } from "../chunks/_@astro-renderers_DOBI-D1Y.mjs";
+/**
+ * @license lucide-react v0.487.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode = [
+  ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", ry: "2", key: "1m3agn" }],
+  ["circle", { cx: "9", cy: "9", r: "2", key: "af1f0g" }],
+  ["path", { d: "m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21", key: "1xmnt7" }]
+];
+const Image = createLucideIcon("image", __iconNode);
 const $$PhotographyClasses = createComponent(($$result, $$props, $$slots) => {
   const instructors = [
     {

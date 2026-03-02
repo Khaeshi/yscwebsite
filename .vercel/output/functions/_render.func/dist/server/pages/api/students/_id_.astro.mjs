@@ -1,6 +1,6 @@
-import { c as connectDB } from "../../../chunks/client_B6eiqbcl.mjs";
-import { S as Student } from "../../../chunks/Student_BYlgW2Kz.mjs";
-import { r } from "../../../chunks/_@astro-renderers_CovX3xsv.mjs";
+import { c as connectDB } from "../../../chunks/client_2qSNy_zs.mjs";
+import { S as Student } from "../../../chunks/Student_B3tjZemc.mjs";
+import { r } from "../../../chunks/_@astro-renderers_DOBI-D1Y.mjs";
 const json = (data, status = 200) => new Response(JSON.stringify(data), {
   status,
   headers: { "Content-Type": "application/json" }

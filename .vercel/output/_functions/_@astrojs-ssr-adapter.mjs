@@ -1,4 +1,4 @@
-import { c, a } from "./chunks/_@astrojs-ssr-adapter_BKSSWiBB.mjs";
+import { c, a } from "./chunks/_@astrojs-ssr-adapter_1kqSpODi.mjs";
 export {
   c as createExports,
   a as start

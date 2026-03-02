@@ -1,4 +1,4 @@
-import { r } from "../../../chunks/_@astro-renderers_CovX3xsv.mjs";
+import { r } from "../../../chunks/_@astro-renderers_DOBI-D1Y.mjs";
 const PAGE_ACCESS_TOKEN = process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
 const MESSENGER_API_URL = "https://graph.facebook.com/v18.0/me/messages";
 async function sendMessengerMessage(recipientId, message) {

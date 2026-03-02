@@ -1,11 +1,10 @@
-import { e as createAstro, f as createComponent, l as renderComponent, r as renderTemplate } from "../../chunks/astro/server_DobZlz4c.mjs";
-import "piccolore";
-import { $ as $$AdminLayout } from "../../chunks/AdminLayout_CEkeqrfp.mjs";
-import { j as jsxRuntimeExports } from "../../chunks/jsx-runtime_w0bDR4SM.mjs";
-import { a as reactExports } from "../../chunks/_@astro-renderers_CovX3xsv.mjs";
-import { r } from "../../chunks/_@astro-renderers_CovX3xsv.mjs";
-import { c as connectDB } from "../../chunks/client_B6eiqbcl.mjs";
-import { S as Student } from "../../chunks/Student_BYlgW2Kz.mjs";
+import { e as createAstro, f as createComponent, l as renderComponent, r as renderTemplate } from "../../chunks/astro/server_CoVo9Zif.mjs";
+import { $ as $$AdminLayout } from "../../chunks/AdminLayout_C6XI2GIq.mjs";
+import { j as jsxRuntimeExports } from "../../chunks/jsx-runtime_DaxtJboG.mjs";
+import { a as reactExports } from "../../chunks/_@astro-renderers_DOBI-D1Y.mjs";
+import { r } from "../../chunks/_@astro-renderers_DOBI-D1Y.mjs";
+import { c as connectDB } from "../../chunks/client_2qSNy_zs.mjs";
+import { S as Student } from "../../chunks/Student_B3tjZemc.mjs";
 const EMPTY_FORM = { name: "", phone: "", email: "", telegramChatId: "", active: true };
 function ToastItem({ toast, onDismiss }) {
   reactExports.useEffect(() => {
@@ -400,7 +399,7 @@ const $$Index = createComponent(async ($$result, $$props, $$slots) => {
       email: s.email || "",
       telegramChatId: s.telegramChatId || "",
       active: s.active,
-      createdAt: s.createdAt.toISOString()
+      createdAt: s.createdAt ? new Date(s.createdAt).toISOString() : (/* @__PURE__ */ new Date()).toISOString()
     }));
   } catch (err) {
     console.error("Failed to load students:", err);

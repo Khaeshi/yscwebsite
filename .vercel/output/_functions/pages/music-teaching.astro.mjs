@@ -1,15 +1,34 @@
-import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead } from "../chunks/astro/server_DobZlz4c.mjs";
-import "piccolore";
-import { I as InstructorProfile, P as ProgramHistorySection } from "../chunks/ProgramHistorySection_CE_LLY-4.mjs";
-import { P as ParallaxHero } from "../chunks/ParallaxHero_BXsbs4v_.mjs";
-import { P as ParallaxSection } from "../chunks/ParallaxSection_Bo61cpqn.mjs";
-import { Music, GraduationCap, Users, Award, Heart } from "lucide-react";
-import { $ as $$Layout } from "../chunks/Layout_DHOvI5Dg.mjs";
+import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead } from "../chunks/astro/server_CoVo9Zif.mjs";
+import { I as InstructorProfile, P as ProgramHistorySection } from "../chunks/ProgramHistorySection_DLdm7s9a.mjs";
+import { P as ParallaxHero, A as Award } from "../chunks/ParallaxHero_BLGZC7ec.mjs";
+import { P as ParallaxSection } from "../chunks/ParallaxSection_CqyAxdqf.mjs";
+import { $ as $$Layout } from "../chunks/Layout_CSr6873l.mjs";
 import { P as Piano, V as Violin, F as Flute, G as Guitar, U as Ukelele, C as Cello, R as Recorder, g as Voice, h as Saxophone, m as musicimageUrl, S as Silayan, i as She, j as musicAward } from "../chunks/config_DXHxkv4J.mjs";
-import { j as jsxRuntimeExports } from "../chunks/jsx-runtime_w0bDR4SM.mjs";
-import { a as reactExports } from "../chunks/_@astro-renderers_CovX3xsv.mjs";
-import { r } from "../chunks/_@astro-renderers_CovX3xsv.mjs";
-import { I as ImageWithFallback } from "../chunks/ImageWithFallback_DmNFEcv8.mjs";
+import { j as jsxRuntimeExports } from "../chunks/jsx-runtime_DaxtJboG.mjs";
+import { a as reactExports } from "../chunks/_@astro-renderers_DOBI-D1Y.mjs";
+import { r } from "../chunks/_@astro-renderers_DOBI-D1Y.mjs";
+import { I as ImageWithFallback } from "../chunks/ImageWithFallback_DApSdTYW.mjs";
+import { c as createLucideIcon, a as Music } from "../chunks/index_Dwb88roV.mjs";
+import { U as Users } from "../chunks/users_BNE7VzAO.mjs";
+import { H as Heart } from "../chunks/heart_Bt-t2WJX.mjs";
+/**
+ * @license lucide-react v0.487.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode = [
+  [
+    "path",
+    {
+      d: "M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z",
+      key: "j76jl0"
+    }
+  ],
+  ["path", { d: "M22 10v6", key: "1lu8f3" }],
+  ["path", { d: "M6 12.5V16a6 3 0 0 0 12 0v-3.5", key: "1r8lef" }]
+];
+const GraduationCap = createLucideIcon("graduation-cap", __iconNode);
 const instruments = [
   {
     name: "Piano",
