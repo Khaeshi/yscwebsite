@@ -24,6 +24,5 @@ export default defineConfig({
   integrations: [react(), sitemap(), clerk()],
   adapter: vercel({
     webAnalytics: { enabled: true },
-    edgeMiddleware: true,
   }),
 });
