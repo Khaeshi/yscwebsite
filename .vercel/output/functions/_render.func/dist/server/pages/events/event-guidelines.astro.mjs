@@ -1,11 +1,11 @@
 import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead, h as addAttribute } from "../../chunks/astro/server_DobZlz4c.mjs";
 import "piccolore";
-import { C as Card, I as ImageWithFallback, B as Badge } from "../../chunks/ImageWithFallback_DxVTlUwb.mjs";
-import { P as ParallaxHero } from "../../chunks/ParallaxHero_CZ0ZJHsT.mjs";
+import { C as Card, I as ImageWithFallback, B as Badge } from "../../chunks/ImageWithFallback_DmNFEcv8.mjs";
+import { P as ParallaxHero } from "../../chunks/ParallaxHero_BXsbs4v_.mjs";
 import { Palette, Calendar, Trophy, Gift, MapPin, FileText, Sparkles, Users, Lightbulb, Target, Star, Award, Clock, AlertCircle, CheckCircle2 } from "lucide-react";
-import { $ as $$Layout } from "../../chunks/Layout_Bfcy0bh8.mjs";
+import { $ as $$Layout } from "../../chunks/Layout_DHOvI5Dg.mjs";
 import { f as eventUrl } from "../../chunks/config_DXHxkv4J.mjs";
-import { renderers } from "../../renderers.mjs";
+import { r } from "../../chunks/_@astro-renderers_CovX3xsv.mjs";
 const $$EventGuidelines = createComponent(async ($$result, $$props, $$slots) => {
   const judgingCriteria = [
     {
@@ -141,5 +141,5 @@ const _page = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePropert
 const page = () => _page;
 export {
   page,
-  renderers
+  r as renderers
 };

@@ -1,14 +1,14 @@
 import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead } from "../../chunks/astro/server_DobZlz4c.mjs";
 import "piccolore";
-import { $ as $$Layout } from "../../chunks/Layout_Bfcy0bh8.mjs";
-import { jsxs, jsx } from "react/jsx-runtime";
-import { useState, useEffect } from "react";
-import { B as Button } from "../../chunks/button_Dky8LmqV.mjs";
+import { $ as $$Layout } from "../../chunks/Layout_DHOvI5Dg.mjs";
+import { j as jsxRuntimeExports } from "../../chunks/jsx-runtime_w0bDR4SM.mjs";
+import { a as reactExports } from "../../chunks/_@astro-renderers_CovX3xsv.mjs";
+import { r } from "../../chunks/_@astro-renderers_CovX3xsv.mjs";
+import { B as Button } from "../../chunks/button_DVerbMlt.mjs";
 import { Sparkles, MessageCircle, ArrowRight, RefreshCw, X } from "lucide-react";
-import { renderers } from "../../renderers.mjs";
 function QuizQuestion({ question, onAnswer, questionNumber: _questionNumber }) {
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [isAnimating, setIsAnimating] = useState(false);
+  const [selectedAnswer, setSelectedAnswer] = reactExports.useState(null);
+  const [isAnimating, setIsAnimating] = reactExports.useState(false);
   const handleAnswerClick = (index) => {
     if (isAnimating) return;
     setSelectedAnswer(index);
@@ -19,9 +19,9 @@ function QuizQuestion({ question, onAnswer, questionNumber: _questionNumber }) {
       setIsAnimating(false);
     }, 500);
   };
-  return /* @__PURE__ */ jsxs("div", { className: "py-6", children: [
-    /* @__PURE__ */ jsx("h3", { className: "text-2xl mb-8 text-gray-800 text-center animate-fade-in", children: question.question }),
-    /* @__PURE__ */ jsx("div", { className: "space-y-4", children: question.answers.map((answer, index) => /* @__PURE__ */ jsxs(
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "py-6", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-2xl mb-8 text-gray-800 text-center animate-fade-in", children: question.question }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "space-y-4", children: question.answers.map((answer, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
       "button",
       {
         onClick: () => handleAnswerClick(index),
@@ -34,9 +34,9 @@ function QuizQuestion({ question, onAnswer, questionNumber: _questionNumber }) {
             `,
         style: { animationDelay: `${index * 0.1}s` },
         children: [
-          /* @__PURE__ */ jsx("div", { className: "text-4xl flex-shrink-0 transform group-hover:scale-110 transition-transform", children: answer.icon }),
-          /* @__PURE__ */ jsx("div", { className: "flex-1", children: /* @__PURE__ */ jsx("p", { className: "text-lg text-gray-800 group-hover:text-purple-700 transition-colors", children: answer.text }) }),
-          selectedAnswer === index && /* @__PURE__ */ jsx("div", { className: "flex-shrink-0", children: /* @__PURE__ */ jsx("div", { className: "w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center animate-bounce", children: /* @__PURE__ */ jsx(
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-4xl flex-shrink-0 transform group-hover:scale-110 transition-transform", children: answer.icon }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-1", children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-lg text-gray-800 group-hover:text-purple-700 transition-colors", children: answer.text }) }),
+          selectedAnswer === index && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-shrink-0", children: /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center animate-bounce", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
             "svg",
             {
               className: "w-4 h-4 text-white",
@@ -46,14 +46,14 @@ function QuizQuestion({ question, onAnswer, questionNumber: _questionNumber }) {
               strokeWidth: "2",
               viewBox: "0 0 24 24",
               stroke: "currentColor",
-              children: /* @__PURE__ */ jsx("path", { d: "M5 13l4 4L19 7" })
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { d: "M5 13l4 4L19 7" })
             }
           ) }) })
         ]
       },
       index
     )) }),
-    /* @__PURE__ */ jsx("style", { children: `
+    /* @__PURE__ */ jsxRuntimeExports.jsx("style", { children: `
         @keyframes fade-in {
           from {
             opacity: 0;
@@ -440,7 +440,7 @@ const instrumentInfo = {
   }
 };
 function QuizResults({ programScores, instrumentScores, onRetake, onClose }) {
-  const [showConfetti, setShowConfetti] = useState(false);
+  const [showConfetti, setShowConfetti] = reactExports.useState(false);
   const maxProgramScore = Math.max(...Object.values(programScores));
   const topProgramKey = Object.keys(programScores).find(
     (key) => programScores[key] === maxProgramScore
@@ -472,14 +472,14 @@ function QuizResults({ programScores, instrumentScores, onRetake, onClose }) {
     const facebookPageUsername = "YSCcommunity";
     return `https://m.me/${facebookPageUsername}?text=${encodeURIComponent(message)}`;
   };
-  useEffect(() => {
+  reactExports.useEffect(() => {
     setShowConfetti(true);
     const timer = setTimeout(() => setShowConfetti(false), 3e3);
     return () => clearTimeout(timer);
   }, []);
-  return /* @__PURE__ */ jsxs("div", { className: "fixed inset-0 bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 flex items-center justify-center z-50 p-4 overflow-y-auto", children: [
-    /* @__PURE__ */ jsxs("div", { className: "bg-white rounded-2xl shadow-2xl w-full max-w-3xl my-8 relative animate-scale-in", children: [
-      showConfetti && /* @__PURE__ */ jsx("div", { className: "absolute inset-0 pointer-events-none overflow-hidden rounded-2xl", children: [...Array(30)].map((_, i) => /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fixed inset-0 bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 flex items-center justify-center z-50 p-4 overflow-y-auto", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-white rounded-2xl shadow-2xl w-full max-w-3xl my-8 relative animate-scale-in", children: [
+      showConfetti && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute inset-0 pointer-events-none overflow-hidden rounded-2xl", children: [...Array(30)].map((_, i) => /* @__PURE__ */ jsxRuntimeExports.jsx(
         "div",
         {
           className: "absolute animate-confetti",
@@ -489,34 +489,34 @@ function QuizResults({ programScores, instrumentScores, onRetake, onClose }) {
             animationDelay: `${Math.random() * 2}s`,
             animationDuration: `${2 + Math.random() * 2}s`
           },
-          children: /* @__PURE__ */ jsx("span", { className: "text-2xl", children: ["🎉", "✨", "🎊", "⭐", "🌟"][Math.floor(Math.random() * 5)] })
+          children: /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-2xl", children: ["🎉", "✨", "🎊", "⭐", "🌟"][Math.floor(Math.random() * 5)] })
         },
         i
       )) }),
-      /* @__PURE__ */ jsxs("div", { className: "text-center pt-8 pb-6 px-6 border-b border-gray-200", children: [
-        /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-center gap-2 mb-2", children: [
-          /* @__PURE__ */ jsx(Sparkles, { className: "w-8 h-8 text-yellow-500" }),
-          /* @__PURE__ */ jsx("h2", { className: "text-3xl text-gray-800", children: "Your Perfect Match!" }),
-          /* @__PURE__ */ jsx(Sparkles, { className: "w-8 h-8 text-yellow-500" })
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-center pt-8 pb-6 px-6 border-b border-gray-200", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-center gap-2 mb-2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Sparkles, { className: "w-8 h-8 text-yellow-500" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { className: "text-3xl text-gray-800", children: "Your Perfect Match!" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Sparkles, { className: "w-8 h-8 text-yellow-500" })
         ] }),
-        /* @__PURE__ */ jsx("p", { className: "text-gray-600", children: "Based on your answers, we've found the ideal program for you" })
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-gray-600", children: "Based on your answers, we've found the ideal program for you" })
       ] }),
-      /* @__PURE__ */ jsxs("div", { className: "p-8", children: [
-        /* @__PURE__ */ jsxs("div", { className: `border-2 rounded-2xl p-8 ${topProgram.color} relative overflow-hidden`, children: [
-          /* @__PURE__ */ jsx("div", { className: "absolute top-0 right-0 text-9xl opacity-10", children: topProgram.emoji }),
-          /* @__PURE__ */ jsxs("div", { className: "relative z-10", children: [
-            /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-4 mb-4", children: [
-              /* @__PURE__ */ jsx("div", { className: "text-6xl", children: topProgram.icon }),
-              /* @__PURE__ */ jsxs("div", { children: [
-                /* @__PURE__ */ jsx("h3", { className: "text-3xl text-gray-800 mb-1", children: topProgram.name }),
-                /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-2", children: [
-                  /* @__PURE__ */ jsxs("div", { className: "bg-white px-3 py-1 rounded-full text-sm", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-8", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: `border-2 rounded-2xl p-8 ${topProgram.color} relative overflow-hidden`, children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute top-0 right-0 text-9xl opacity-10", children: topProgram.emoji }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative z-10", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-4 mb-4", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-6xl", children: topProgram.icon }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-3xl text-gray-800 mb-1", children: topProgram.name }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-white px-3 py-1 rounded-full text-sm", children: [
                     matchPercentage,
                     "% Match"
                   ] }),
-                  topInstrument && /* @__PURE__ */ jsxs("div", { className: "bg-purple-100 px-3 py-1 rounded-full text-sm flex items-center gap-1", children: [
-                    /* @__PURE__ */ jsx("span", { children: topInstrument.icon }),
-                    /* @__PURE__ */ jsxs("span", { children: [
+                  topInstrument && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-purple-100 px-3 py-1 rounded-full text-sm flex items-center gap-1", children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: topInstrument.icon }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
                       "Recommended: ",
                       topInstrument.name
                     ] })
@@ -524,9 +524,9 @@ function QuizResults({ programScores, instrumentScores, onRetake, onClose }) {
                 ] })
               ] })
             ] }),
-            /* @__PURE__ */ jsx("p", { className: "text-gray-700 mb-4", children: topProgram.description }),
-            topInstrument && /* @__PURE__ */ jsx("div", { className: "bg-white/70 rounded-lg p-4 mb-4", children: /* @__PURE__ */ jsxs("p", { className: "text-gray-700", children: [
-              /* @__PURE__ */ jsxs("strong", { className: "text-purple-700", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-gray-700 mb-4", children: topProgram.description }),
+            topInstrument && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "bg-white/70 rounded-lg p-4 mb-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-gray-700", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("strong", { className: "text-purple-700", children: [
                 "Why ",
                 topInstrument.name,
                 "?"
@@ -534,69 +534,69 @@ function QuizResults({ programScores, instrumentScores, onRetake, onClose }) {
               " ",
               topInstrument.description
             ] }) }),
-            /* @__PURE__ */ jsxs("div", { className: "mb-6", children: [
-              /* @__PURE__ */ jsx("h4", { className: "text-sm uppercase tracking-wide text-gray-600 mb-3", children: "Why it's perfect for you:" }),
-              /* @__PURE__ */ jsx("ul", { className: "space-y-2", children: topProgram.benefits.map((benefit, index) => /* @__PURE__ */ jsxs("li", { className: "flex items-start gap-2", children: [
-                /* @__PURE__ */ jsx("span", { className: "text-green-500 mt-1", children: "✓" }),
-                /* @__PURE__ */ jsx("span", { className: "text-gray-700", children: benefit })
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-6", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "text-sm uppercase tracking-wide text-gray-600 mb-3", children: "Why it's perfect for you:" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("ul", { className: "space-y-2", children: topProgram.benefits.map((benefit, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { className: "flex items-start gap-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-green-500 mt-1", children: "✓" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-gray-700", children: benefit })
               ] }, index)) })
             ] }),
-            /* @__PURE__ */ jsxs("div", { className: "flex flex-col sm:flex-row gap-3", children: [
-              /* @__PURE__ */ jsx(
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col sm:flex-row gap-3", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
                 Button,
                 {
                   asChild: true,
                   className: "flex-1 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white py-6 text-lg",
-                  children: /* @__PURE__ */ jsxs("a", { href: generateMessengerLink(), target: "_blank", rel: "noopener noreferrer", children: [
-                    /* @__PURE__ */ jsx(MessageCircle, { className: "w-5 h-5 mr-2" }),
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsxs("a", { href: generateMessengerLink(), target: "_blank", rel: "noopener noreferrer", children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(MessageCircle, { className: "w-5 h-5 mr-2" }),
                     "Enroll via Messenger"
                   ] })
                 }
               ),
-              /* @__PURE__ */ jsx(
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
                 Button,
                 {
                   asChild: true,
                   variant: "outline",
                   className: "flex-1 py-6 text-lg border-2",
-                  children: /* @__PURE__ */ jsxs("a", { href: topProgram.link, children: [
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsxs("a", { href: topProgram.link, children: [
                     "Learn More",
-                    /* @__PURE__ */ jsx(ArrowRight, { className: "w-5 h-5 ml-2" })
+                    /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowRight, { className: "w-5 h-5 ml-2" })
                   ] })
                 }
               )
             ] })
           ] })
         ] }),
-        runnerUp && /* @__PURE__ */ jsxs("div", { className: "mt-6", children: [
-          /* @__PURE__ */ jsx("h4", { className: "text-sm uppercase tracking-wide text-gray-600 mb-3 text-center", children: "You might also enjoy:" }),
-          /* @__PURE__ */ jsx("div", { className: `border rounded-lg p-6 ${runnerUp.color}`, children: /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between", children: [
-            /* @__PURE__ */ jsxs("div", { className: "flex items-center gap-3", children: [
-              /* @__PURE__ */ jsx("div", { className: "text-3xl", children: runnerUp.icon }),
-              /* @__PURE__ */ jsxs("div", { children: [
-                /* @__PURE__ */ jsx("h5", { className: "text-lg text-gray-800", children: runnerUp.name }),
-                /* @__PURE__ */ jsxs("p", { className: "text-sm text-gray-600", children: [
+        runnerUp && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-6", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("h4", { className: "text-sm uppercase tracking-wide text-gray-600 mb-3 text-center", children: "You might also enjoy:" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: `border rounded-lg p-6 ${runnerUp.color}`, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "text-3xl", children: runnerUp.icon }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("h5", { className: "text-lg text-gray-800", children: runnerUp.name }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-sm text-gray-600", children: [
                   runnerUpPercentage,
                   "% Match"
                 ] })
               ] })
             ] }),
-            /* @__PURE__ */ jsx(Button, { asChild: true, variant: "ghost", size: "sm", children: /* @__PURE__ */ jsxs("a", { href: runnerUp.link, children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { asChild: true, variant: "ghost", size: "sm", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("a", { href: runnerUp.link, children: [
               "View",
-              /* @__PURE__ */ jsx(ArrowRight, { className: "w-4 h-4 ml-1" })
+              /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowRight, { className: "w-4 h-4 ml-1" })
             ] }) })
           ] }) })
         ] }),
-        /* @__PURE__ */ jsxs("div", { className: "mt-8 flex flex-col sm:flex-row gap-3 justify-center", children: [
-          /* @__PURE__ */ jsxs(Button, { onClick: onRetake, variant: "outline", className: "gap-2", children: [
-            /* @__PURE__ */ jsx(RefreshCw, { className: "w-4 h-4" }),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-8 flex flex-col sm:flex-row gap-3 justify-center", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs(Button, { onClick: onRetake, variant: "outline", className: "gap-2", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(RefreshCw, { className: "w-4 h-4" }),
             "Retake Quiz"
           ] }),
-          /* @__PURE__ */ jsx(Button, { onClick: onClose, variant: "ghost", children: "Close" })
+          /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { onClick: onClose, variant: "ghost", children: "Close" })
         ] })
       ] })
     ] }),
-    /* @__PURE__ */ jsx("style", { children: `
+    /* @__PURE__ */ jsxRuntimeExports.jsx("style", { children: `
         @keyframes scale-in {
           from {
             opacity: 0;
@@ -630,15 +630,15 @@ function QuizResults({ programScores, instrumentScores, onRetake, onClose }) {
   ] });
 }
 function QuizModal({ onClose }) {
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [programScores, setProgramScores] = useState({
+  const [currentQuestionIndex, setCurrentQuestionIndex] = reactExports.useState(0);
+  const [programScores, setProgramScores] = reactExports.useState({
     music: 0,
     badminton: 0,
     arts: 0,
     cooking: 0,
     photography: 0
   });
-  const [instrumentScores, setInstrumentScores] = useState({
+  const [instrumentScores, setInstrumentScores] = reactExports.useState({
     piano: 0,
     guitar: 0,
     violin: 0,
@@ -647,9 +647,9 @@ function QuizModal({ onClose }) {
     saxophone: 0,
     ukulele: 0
   });
-  const [showResults, setShowResults] = useState(false);
-  const [questions, setQuestions] = useState(generalQuestions);
-  const [phase, setPhase] = useState("general");
+  const [showResults, setShowResults] = reactExports.useState(false);
+  const [questions, setQuestions] = reactExports.useState(generalQuestions);
+  const [phase, setPhase] = reactExports.useState("general");
   const currentQuestion = questions[currentQuestionIndex];
   const totalQuestions = questions.length;
   const progress = (currentQuestionIndex + 1) / totalQuestions * 100;
@@ -714,7 +714,7 @@ function QuizModal({ onClose }) {
     setPhase("general");
   };
   if (showResults) {
-    return /* @__PURE__ */ jsx(
+    return /* @__PURE__ */ jsxRuntimeExports.jsx(
       QuizResults,
       {
         programScores,
@@ -724,28 +724,28 @@ function QuizModal({ onClose }) {
       }
     );
   }
-  return /* @__PURE__ */ jsxs("div", { className: "fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4 backdrop-blur-sm", children: [
-    /* @__PURE__ */ jsxs("div", { className: "bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto relative animate-scale-in", children: [
-      /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4 backdrop-blur-sm", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto relative animate-scale-in", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
         "button",
         {
           onClick: onClose,
           className: "absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors z-10",
           "aria-label": "Close quiz",
-          children: /* @__PURE__ */ jsx(X, { className: "w-6 h-6 text-gray-600" })
+          children: /* @__PURE__ */ jsxRuntimeExports.jsx(X, { className: "w-6 h-6 text-gray-600" })
         }
       ),
-      /* @__PURE__ */ jsxs("div", { className: "sticky top-0 bg-white z-10 px-6 pt-6 pb-4 rounded-t-2xl", children: [
-        /* @__PURE__ */ jsxs("div", { className: "flex items-center justify-between mb-2", children: [
-          /* @__PURE__ */ jsxs("span", { className: "text-sm text-gray-600", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "sticky top-0 bg-white z-10 px-6 pt-6 pb-4 rounded-t-2xl", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between mb-2", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-sm text-gray-600", children: [
             "Question ",
             currentQuestionIndex + 1,
             " of ",
             totalQuestions
           ] }),
-          /* @__PURE__ */ jsx("span", { className: "text-sm text-purple-600", children: phase === "music" ? "🎵 Music Focus" : "🌟 Finding Your Match" })
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm text-purple-600", children: phase === "music" ? "🎵 Music Focus" : "🌟 Finding Your Match" })
         ] }),
-        /* @__PURE__ */ jsx("div", { className: "w-full bg-gray-200 rounded-full h-2 overflow-hidden", children: /* @__PURE__ */ jsx(
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-full bg-gray-200 rounded-full h-2 overflow-hidden", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
           "div",
           {
             className: "h-full bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 transition-all duration-500 ease-out",
@@ -753,7 +753,7 @@ function QuizModal({ onClose }) {
           }
         ) })
       ] }),
-      /* @__PURE__ */ jsx("div", { className: "px-6 pb-6", children: /* @__PURE__ */ jsx(
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "px-6 pb-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
         QuizQuestion,
         {
           question: currentQuestion,
@@ -762,7 +762,7 @@ function QuizModal({ onClose }) {
         }
       ) })
     ] }),
-    /* @__PURE__ */ jsx("style", { children: `
+    /* @__PURE__ */ jsxRuntimeExports.jsx("style", { children: `
         @keyframes scale-in {
           from {
             opacity: 0;
@@ -800,5 +800,5 @@ const _page = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePropert
 const page = () => _page;
 export {
   page,
-  renderers
+  r as renderers
 };

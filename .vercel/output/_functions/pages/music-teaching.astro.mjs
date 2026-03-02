@@ -1,15 +1,15 @@
 import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead } from "../chunks/astro/server_DobZlz4c.mjs";
 import "piccolore";
-import { I as InstructorProfile, P as ProgramHistorySection } from "../chunks/ProgramHistorySection_SS-j60By.mjs";
-import { P as ParallaxHero } from "../chunks/ParallaxHero_CZ0ZJHsT.mjs";
-import { P as ParallaxSection } from "../chunks/ParallaxSection_YIOqwsWN.mjs";
+import { I as InstructorProfile, P as ProgramHistorySection } from "../chunks/ProgramHistorySection_CE_LLY-4.mjs";
+import { P as ParallaxHero } from "../chunks/ParallaxHero_BXsbs4v_.mjs";
+import { P as ParallaxSection } from "../chunks/ParallaxSection_Bo61cpqn.mjs";
 import { Music, GraduationCap, Users, Award, Heart } from "lucide-react";
-import { $ as $$Layout } from "../chunks/Layout_Bfcy0bh8.mjs";
+import { $ as $$Layout } from "../chunks/Layout_DHOvI5Dg.mjs";
 import { P as Piano, V as Violin, F as Flute, G as Guitar, U as Ukelele, C as Cello, R as Recorder, g as Voice, h as Saxophone, m as musicimageUrl, S as Silayan, i as She, j as musicAward } from "../chunks/config_DXHxkv4J.mjs";
-import { jsxs, jsx } from "react/jsx-runtime";
-import { useState, useRef, useEffect } from "react";
-import { I as ImageWithFallback } from "../chunks/ImageWithFallback_DxVTlUwb.mjs";
-import { renderers } from "../renderers.mjs";
+import { j as jsxRuntimeExports } from "../chunks/jsx-runtime_w0bDR4SM.mjs";
+import { a as reactExports } from "../chunks/_@astro-renderers_CovX3xsv.mjs";
+import { r } from "../chunks/_@astro-renderers_CovX3xsv.mjs";
+import { I as ImageWithFallback } from "../chunks/ImageWithFallback_DmNFEcv8.mjs";
 const instruments = [
   {
     name: "Piano",
@@ -58,14 +58,14 @@ const instruments = [
   }
 ];
 function InstrumentCarousel() {
-  const [currentIndex, setCurrentIndex] = useState(instruments.length);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [translateX, setTranslateX] = useState(0);
-  const [offset, setOffset] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [itemsPerView, setItemsPerView] = useState(3);
-  const carouselRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = reactExports.useState(instruments.length);
+  const [isDragging, setIsDragging] = reactExports.useState(false);
+  const [startX, setStartX] = reactExports.useState(0);
+  const [translateX, setTranslateX] = reactExports.useState(0);
+  const [offset, setOffset] = reactExports.useState(0);
+  const [isTransitioning, setIsTransitioning] = reactExports.useState(false);
+  const [itemsPerView, setItemsPerView] = reactExports.useState(3);
+  const carouselRef = reactExports.useRef(null);
   const extendedInstruments = [
     ...instruments,
     // Clone at start for infinite scroll left
@@ -74,7 +74,7 @@ function InstrumentCarousel() {
     ...instruments
     // Clone at end for infinite scroll right
   ];
-  useEffect(() => {
+  reactExports.useEffect(() => {
     const updateItemsPerView = () => {
       const width = window.innerWidth;
       if (width >= 768) {
@@ -89,14 +89,14 @@ function InstrumentCarousel() {
     window.addEventListener("resize", updateItemsPerView);
     return () => window.removeEventListener("resize", updateItemsPerView);
   }, []);
-  useEffect(() => {
+  reactExports.useEffect(() => {
     if (isDragging) return;
     const interval = setInterval(() => {
       goToNext();
     }, 3e3);
     return () => clearInterval(interval);
   }, [isDragging]);
-  useEffect(() => {
+  reactExports.useEffect(() => {
     if (!isTransitioning) return;
     const timer = setTimeout(() => {
       setIsTransitioning(false);
@@ -163,8 +163,8 @@ function InstrumentCarousel() {
   const handleTouchEnd = () => {
     handleDragEnd();
   };
-  return /* @__PURE__ */ jsxs("div", { className: "relative select-none", children: [
-    /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative select-none", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
       "div",
       {
         className: "overflow-hidden cursor-grab active:cursor-grabbing",
@@ -176,7 +176,7 @@ function InstrumentCarousel() {
         onTouchStart: handleTouchStart,
         onTouchMove: handleTouchMove,
         onTouchEnd: handleTouchEnd,
-        children: /* @__PURE__ */ jsx(
+        children: /* @__PURE__ */ jsxRuntimeExports.jsx(
           "div",
           {
             className: "flex",
@@ -189,7 +189,7 @@ function InstrumentCarousel() {
               const centerIndex = Math.floor(itemsPerView / 2);
               const isCenter = position === centerIndex;
               const isInView = position >= 0 && position < itemsPerView;
-              return /* @__PURE__ */ jsx(
+              return /* @__PURE__ */ jsxRuntimeExports.jsx(
                 "div",
                 {
                   className: "px-3 transition-all duration-300",
@@ -200,8 +200,8 @@ function InstrumentCarousel() {
                     filter: isCenter ? "none" : "brightness(0.7)",
                     zIndex: isCenter ? 10 : 1
                   },
-                  children: /* @__PURE__ */ jsxs("div", { className: "from-purple-50 to-pink-50 rounded-2xl p-6 transition-all duration-300", children: [
-                    /* @__PURE__ */ jsx("div", { className: "aspect-square mb-4 rounded-xl overflow-hidden bg-white", children: /* @__PURE__ */ jsx(
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "from-purple-50 to-pink-50 rounded-2xl p-6 transition-all duration-300", children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "aspect-square mb-4 rounded-xl overflow-hidden bg-white", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
                       ImageWithFallback,
                       {
                         src: instrument.imageUrl,
@@ -209,8 +209,8 @@ function InstrumentCarousel() {
                         className: "w-full h-full object-cover"
                       }
                     ) }),
-                    /* @__PURE__ */ jsx("h3", { className: "text-center mb-2", children: instrument.name }),
-                    /* @__PURE__ */ jsx("p", { className: "text-muted-foreground text-center text-sm", children: instrument.description })
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "text-center mb-2", children: instrument.name }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground text-center text-sm", children: instrument.description })
                   ] })
                 },
                 `${instrument.name}-${index}`
@@ -220,7 +220,7 @@ function InstrumentCarousel() {
         )
       }
     ),
-    /* @__PURE__ */ jsx("p", { className: "text-center text-muted-foreground text-sm mt-6 opacity-60", children: "Swipe or drag to explore instruments" })
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-center text-muted-foreground text-sm mt-6 opacity-60", children: "Swipe or drag to explore instruments" })
   ] });
 }
 const $$MusicTeaching = createComponent(($$result, $$props, $$slots) => {
@@ -312,5 +312,5 @@ const _page = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePropert
 const page = () => _page;
 export {
   page,
-  renderers
+  r as renderers
 };

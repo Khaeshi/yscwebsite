@@ -1,13 +1,13 @@
 import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead } from "../chunks/astro/server_DobZlz4c.mjs";
 import "piccolore";
-import { $ as $$Layout } from "../chunks/Layout_Bfcy0bh8.mjs";
-import { I as InstructorProfile, P as ProgramHistorySection } from "../chunks/ProgramHistorySection_SS-j60By.mjs";
-import { P as ParallaxHero } from "../chunks/ParallaxHero_CZ0ZJHsT.mjs";
-import { P as ParallaxSection } from "../chunks/ParallaxSection_YIOqwsWN.mjs";
-import { I as ImageWithFallback } from "../chunks/ImageWithFallback_DxVTlUwb.mjs";
+import { $ as $$Layout } from "../chunks/Layout_DHOvI5Dg.mjs";
+import { I as InstructorProfile, P as ProgramHistorySection } from "../chunks/ProgramHistorySection_CE_LLY-4.mjs";
+import { P as ParallaxHero } from "../chunks/ParallaxHero_BXsbs4v_.mjs";
+import { P as ParallaxSection } from "../chunks/ParallaxSection_Bo61cpqn.mjs";
+import { I as ImageWithFallback } from "../chunks/ImageWithFallback_DmNFEcv8.mjs";
 import { Handshake, Target, Trophy, Users, Award } from "lucide-react";
 import { c as badmintonimageUrl, J as JTTC, d as badmintonhistory } from "../chunks/config_DXHxkv4J.mjs";
-import { renderers } from "../renderers.mjs";
+import { r } from "../chunks/_@astro-renderers_CovX3xsv.mjs";
 const $$BadmintonCoaching = createComponent(($$result, $$props, $$slots) => {
   const coaches = [
     {
@@ -102,5 +102,5 @@ const _page = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePropert
 const page = () => _page;
 export {
   page,
-  renderers
+  r as renderers
 };

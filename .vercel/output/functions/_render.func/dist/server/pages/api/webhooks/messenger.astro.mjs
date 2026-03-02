@@ -1,5 +1,5 @@
-import { renderers } from "../../../renderers.mjs";
-const PAGE_ACCESS_TOKEN = "EAAG...";
+import { r } from "../../../chunks/_@astro-renderers_CovX3xsv.mjs";
+const PAGE_ACCESS_TOKEN = process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
 const MESSENGER_API_URL = "https://graph.facebook.com/v18.0/me/messages";
 async function sendMessengerMessage(recipientId, message) {
   try {
@@ -62,13 +62,17 @@ async function handleMessengerWebhook(body) {
   return { success: true };
 }
 function verifyMessengerSignature(signature, body) {
-  const APP_SECRET = "your-app-secret";
+  const APP_SECRET = process.env.FACEBOOK_APP_SECRET;
+  if (!APP_SECRET) {
+    console.error("Facebook App Secret not configured");
+    return false;
+  }
   const crypto = require("crypto");
   const expectedSignature = crypto.createHmac("sha256", APP_SECRET).update(body).digest("hex");
   return signature === `sha256=${expectedSignature}`;
 }
 const GET = async ({ url }) => {
-  const VERIFY_TOKEN = "ysc_verify_token_12345";
+  const VERIFY_TOKEN = process.env.FACEBOOK_VERIFY_TOKEN || "ysc_verify_token_12345";
   const mode = url.searchParams.get("hub.mode");
   const token = url.searchParams.get("hub.verify_token");
   const challenge = url.searchParams.get("hub.challenge");
@@ -109,5 +113,5 @@ const _page = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePropert
 const page = () => _page;
 export {
   page,
-  renderers
+  r as renderers
 };

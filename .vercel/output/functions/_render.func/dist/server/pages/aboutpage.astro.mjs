@@ -1,19 +1,19 @@
 import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead, u as unescapeHTML, h as addAttribute } from "../chunks/astro/server_DobZlz4c.mjs";
 import "piccolore";
-import { P as ParallaxHero } from "../chunks/ParallaxHero_CZ0ZJHsT.mjs";
-import { P as ParallaxSection } from "../chunks/ParallaxSection_YIOqwsWN.mjs";
-import { $ as $$Layout } from "../chunks/Layout_Bfcy0bh8.mjs";
+import { P as ParallaxHero } from "../chunks/ParallaxHero_BXsbs4v_.mjs";
+import { P as ParallaxSection } from "../chunks/ParallaxSection_Bo61cpqn.mjs";
+import { $ as $$Layout } from "../chunks/Layout_DHOvI5Dg.mjs";
 import { Star, CheckCircle2, Sparkles, Heart, Target, Award, Users } from "lucide-react";
 import { a as aboutimageUrl, D as Desiree, S as Silayan, K as Katherine } from "../chunks/config_DXHxkv4J.mjs";
-import { jsxs, jsx } from "react/jsx-runtime";
-import { useState, useRef, useEffect } from "react";
-import { renderers } from "../renderers.mjs";
+import { j as jsxRuntimeExports } from "../chunks/jsx-runtime_w0bDR4SM.mjs";
+import { a as reactExports } from "../chunks/_@astro-renderers_CovX3xsv.mjs";
+import { r } from "../chunks/_@astro-renderers_CovX3xsv.mjs";
 const CoreValuesCarousel = ({ coreValues }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [animating, setAnimating] = useState(false);
+  const [currentIndex, setCurrentIndex] = reactExports.useState(0);
+  const [animating, setAnimating] = reactExports.useState(false);
   const valuesPerSlide = 3;
   const totalPages = Math.ceil(coreValues.length / valuesPerSlide);
-  const slideRef = useRef(null);
+  const slideRef = reactExports.useRef(null);
   const goToPage = (pageIndex) => {
     if (animating) return;
     const newIndex = pageIndex * valuesPerSlide;
@@ -26,7 +26,7 @@ const CoreValuesCarousel = ({ coreValues }) => {
       setAnimating(false);
     }, 300);
   };
-  useEffect(() => {
+  reactExports.useEffect(() => {
     const handleTransitionEnd = () => {
       setAnimating(false);
     };
@@ -38,10 +38,10 @@ const CoreValuesCarousel = ({ coreValues }) => {
     }
   }, []);
   const currentPageIndex = Math.floor(currentIndex / valuesPerSlide);
-  return /* @__PURE__ */ jsxs("div", { className: "relative bg-gradient-to-br from-orange-50 to-yellow-50 rounded-3xl p-8 shadow-lg border border-orange-100 hover:shadow-xl transition-shadow duration-300 overflow-hidden", children: [
-    /* @__PURE__ */ jsx("div", { className: "w-16 h-16 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-2xl flex items-center justify-center mb-6", children: /* @__PURE__ */ jsx(Star, { className: "w-8 h-8 text-white" }) }),
-    /* @__PURE__ */ jsx("h3", { className: "mb-4", children: /* @__PURE__ */ jsx("strong", { children: "Core Values" }) }),
-    /* @__PURE__ */ jsx(
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative bg-gradient-to-br from-orange-50 to-yellow-50 rounded-3xl p-8 shadow-lg border border-orange-100 hover:shadow-xl transition-shadow duration-300 overflow-hidden", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-16 h-16 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-2xl flex items-center justify-center mb-6", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Star, { className: "w-8 h-8 text-white" }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("h3", { className: "mb-4", children: /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "Core Values" }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
       "div",
       {
         ref: slideRef,
@@ -50,7 +50,7 @@ const CoreValuesCarousel = ({ coreValues }) => {
           width: "100%",
           height: "auto"
         },
-        children: /* @__PURE__ */ jsx(
+        children: /* @__PURE__ */ jsxRuntimeExports.jsx(
           "div",
           {
             className: "flex transition-transform duration-300",
@@ -58,7 +58,7 @@ const CoreValuesCarousel = ({ coreValues }) => {
               transform: `translateX(-${currentPageIndex * (100 / totalPages)}%)`,
               width: `${totalPages * 100}%`
             },
-            children: Array.from({ length: totalPages }).map((_, pageIndex) => /* @__PURE__ */ jsx(
+            children: Array.from({ length: totalPages }).map((_, pageIndex) => /* @__PURE__ */ jsxRuntimeExports.jsx(
               "div",
               {
                 style: {
@@ -66,12 +66,12 @@ const CoreValuesCarousel = ({ coreValues }) => {
                   boxSizing: "border-box",
                   padding: "10px"
                 },
-                children: /* @__PURE__ */ jsx("ul", { className: "space-y-3 ml-6 mr-6", children: coreValues.slice(pageIndex * valuesPerSlide, (pageIndex + 1) * valuesPerSlide).map((value, index) => /* @__PURE__ */ jsxs("li", { className: "flex items-start gap-2", children: [
-                  /* @__PURE__ */ jsx(CheckCircle2, { className: "w-5 h-5 text-orange-600 mt-0.5 flex-shrink-0" }),
-                  /* @__PURE__ */ jsxs("span", { children: [
-                    /* @__PURE__ */ jsx("span", { className: "text-muted-foreground", children: value.subtitle }),
-                    /* @__PURE__ */ jsx("br", {}),
-                    /* @__PURE__ */ jsx("span", { className: "text-muted-foreground leading-relaxed", children: value.details })
+                children: /* @__PURE__ */ jsxRuntimeExports.jsx("ul", { className: "space-y-3 ml-6 mr-6", children: coreValues.slice(pageIndex * valuesPerSlide, (pageIndex + 1) * valuesPerSlide).map((value, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { className: "flex items-start gap-2", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(CheckCircle2, { className: "w-5 h-5 text-orange-600 mt-0.5 flex-shrink-0" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-muted-foreground", children: value.subtitle }),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("br", {}),
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-muted-foreground leading-relaxed", children: value.details })
                   ] })
                 ] }, index)) })
               },
@@ -81,7 +81,7 @@ const CoreValuesCarousel = ({ coreValues }) => {
         )
       }
     ),
-    /* @__PURE__ */ jsx("div", { className: "flex justify-center mt-4", children: Array.from({ length: totalPages }).map((_, index) => /* @__PURE__ */ jsx(
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center mt-4", children: Array.from({ length: totalPages }).map((_, index) => /* @__PURE__ */ jsxRuntimeExports.jsx(
       "button",
       {
         onClick: () => goToPage(index),
@@ -244,5 +244,5 @@ const _page = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePropert
 const page = () => _page;
 export {
   page,
-  renderers
+  r as renderers
 };

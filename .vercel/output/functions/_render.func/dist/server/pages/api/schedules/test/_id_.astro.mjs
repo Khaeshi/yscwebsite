@@ -1,13 +1,13 @@
-import { c as connectDB } from "../../../../chunks/client_CKK2n-7R.mjs";
+import { c as connectDB } from "../../../../chunks/client_B6eiqbcl.mjs";
 import { S as Schedule } from "../../../../chunks/Schedule_BiCOHfXk.mjs";
-import { renderers } from "../../../../renderers.mjs";
+import { r } from "../../../../chunks/_@astro-renderers_CovX3xsv.mjs";
 const json = (data, status = 200) => new Response(JSON.stringify(data), {
   status,
   headers: { "Content-Type": "application/json" }
 });
 const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const POST = async ({ params }) => {
-  const token = "8498840101:AAHhTRTmuUSsmhSCSFsVskZpoVy0MyIrL3Y";
+  const token = process.env.TELEGRAM_BOT_TOKEN;
   console.log("Token value:", token);
   console.log("Token length:", token?.length);
   try {
@@ -23,8 +23,10 @@ const POST = async ({ params }) => {
         message: `${student.name} has no Telegram Chat ID set`
       }, 400);
     }
-    const TELEGRAM_BOT_TOKEN = "8498840101:AAHhTRTmuUSsmhSCSFsVskZpoVy0MyIrL3Y";
-    if (!TELEGRAM_BOT_TOKEN) ;
+    const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+    if (!TELEGRAM_BOT_TOKEN) {
+      return json({ success: false, message: "TELEGRAM_BOT_TOKEN is not configured" }, 500);
+    }
     const classEmoji = schedule.classType === "online" ? "💻" : "🏫";
     const dayName = DAYS[schedule.dayOfWeek] ?? "Unknown";
     const message = [
@@ -82,5 +84,5 @@ const _page = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePropert
 const page = () => _page;
 export {
   page,
-  renderers
+  r as renderers
 };

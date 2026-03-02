@@ -1,5 +1,5 @@
-import { renderers } from "../../../renderers.mjs";
-const TELEGRAM_BOT_TOKEN = "8498840101:AAHhTRTmuUSsmhSCSFsVskZpoVy0MyIrL3Y";
+import { r } from "../../../chunks/_@astro-renderers_CovX3xsv.mjs";
+const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_API_URL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}`;
 async function sendTelegramMessage(telegramId, message, options) {
   try {
@@ -79,5 +79,5 @@ const _page = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePropert
 const page = () => _page;
 export {
   page,
-  renderers
+  r as renderers
 };

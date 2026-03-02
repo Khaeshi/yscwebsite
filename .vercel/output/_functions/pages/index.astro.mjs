@@ -1,8 +1,8 @@
 import { f as createComponent, l as renderComponent, r as renderTemplate } from "../chunks/astro/server_DobZlz4c.mjs";
 import "piccolore";
-import { $ as $$Homepage } from "../chunks/homepage_CxeI53o9.mjs";
-import { $ as $$Layout } from "../chunks/Layout_Bfcy0bh8.mjs";
-import { renderers } from "../renderers.mjs";
+import { $ as $$Homepage } from "../chunks/homepage_DG2CBZCq.mjs";
+import { $ as $$Layout } from "../chunks/Layout_DHOvI5Dg.mjs";
+import { r } from "../chunks/_@astro-renderers_CovX3xsv.mjs";
 const $$Index = createComponent(($$result, $$props, $$slots) => {
   const pageTitle = "Homepage | Young Starter Club";
   const description = "Welcome to the Young Starter Club homepage!";
@@ -20,5 +20,5 @@ const _page = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePropert
 const page = () => _page;
 export {
   page,
-  renderers
+  r as renderers
 };

@@ -1,5 +1,5 @@
 import { MongoClient } from "mongodb";
-import { renderers } from "../../renderers.mjs";
+import { r } from "../../chunks/_@astro-renderers_CovX3xsv.mjs";
 const client = new MongoClient("mongodb+srv://kagtabss_db_user:cktabss12212003@cluster0.hfebfep.mongodb.net/YSC?retryWrites=true&w=majority&appName=Cluster0");
 const POST = async ({ request }) => {
   try {
@@ -56,5 +56,5 @@ const _page = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePropert
 const page = () => _page;
 export {
   page,
-  renderers
+  r as renderers
 };

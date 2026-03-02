@@ -1,6 +1,6 @@
-import { c as connectDB } from "../../../chunks/client_CKK2n-7R.mjs";
+import { c as connectDB } from "../../../chunks/client_B6eiqbcl.mjs";
 import { S as Schedule } from "../../../chunks/Schedule_BiCOHfXk.mjs";
-import { renderers } from "../../../renderers.mjs";
+import { r } from "../../../chunks/_@astro-renderers_CovX3xsv.mjs";
 const json = (data, status = 200) => new Response(JSON.stringify(data), {
   status,
   headers: { "Content-Type": "application/json" }
@@ -83,7 +83,7 @@ const POST = async ({ request }) => {
       success: true,
       time: phTime.toLocaleString("en-PH", { timeZone: "Asia/Manila" }),
       checked: validSchedules.length,
-      sent: results.filter((r) => r.status === "sent").length,
+      sent: results.filter((r2) => r2.status === "sent").length,
       results
     });
   } catch (error) {
@@ -101,5 +101,5 @@ const _page = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePropert
 const page = () => _page;
 export {
   page,
-  renderers
+  r as renderers
 };

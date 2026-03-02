@@ -2,7 +2,7 @@ import { f as createComponent, l as renderComponent, r as renderTemplate, e as c
 import "piccolore";
 /* empty css                                    */
 import { $ as $$InternalUIComponentRenderer } from "../../chunks/InternalUIComponentRenderer_BZcH9AQ0.mjs";
-import { renderers } from "../../renderers.mjs";
+import { r } from "../../chunks/_@astro-renderers_CovX3xsv.mjs";
 const $$Astro$1 = createAstro("https://youngstarterclub.asia");
 const $$SignIn = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$1, $$props, $$slots);
@@ -30,5 +30,5 @@ const _page = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.definePropert
 const page = () => _page;
 export {
   page,
-  renderers
+  r as renderers
 };
