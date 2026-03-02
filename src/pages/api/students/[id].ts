@@ -1,7 +1,7 @@
 // src/pages/api/students/[id].ts
 import type { APIRoute } from 'astro';
 import { connectDB } from '../../../lib/db/client.ts';
-import Student from '../../../lib/db/models/Student.ts';
+import { Student } from '../../../lib/db/models/index.ts';
 
 const json = (data: any, status = 200) =>
   new Response(JSON.stringify(data), {
