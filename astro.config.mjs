@@ -11,8 +11,8 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     ssr: {
-      // Always bundle react — dev handles it fine with React 18
-      noExternal: ['react', 'react-dom', 'react/jsx-runtime', 'react-dom/server'],
+      //this bundles everything, no exception
+      noExternal: true,
     },
   },
   site: 'https://youngstarterclub.asia',
