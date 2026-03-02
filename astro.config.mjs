@@ -9,6 +9,10 @@ import vercel from '@astrojs/vercel';
 const isProd = process.env.NODE_ENV === 'production' || process.env.VERCEL === '1';
 
 export default defineConfig({
+  prefetch: {
+    prefetchAll: true,     
+    defaultStrategy: 'hover'
+  },
   output: 'server',
   vite: {
     plugins: [tailwindcss()],
@@ -20,5 +24,6 @@ export default defineConfig({
   integrations: [react(), sitemap(), clerk()],
   adapter: vercel({
     webAnalytics: { enabled: true },
+    edgeMiddleware: true,
   }),
 });
