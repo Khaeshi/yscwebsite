@@ -4,7 +4,7 @@ import { defineConfig } from 'astro/config';
 import clerk from '@clerk/astro';
 import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
-import vercel from '@astrojs/vercel/serverless';
+import vercel from '@astrojs/vercel';
 
 export default defineConfig({
   output: 'server',
