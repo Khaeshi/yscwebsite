@@ -1,5 +1,5 @@
-import { b as requireLib } from "../../chunks/index_COQKGyuP.mjs";
-import { r } from "../../chunks/_@astro-renderers_DOBI-D1Y.mjs";
+import { b as requireLib } from "../../chunks/index_CIc-bjxN.mjs";
+import { r } from "../../chunks/_@astro-renderers_B4KjVBz-.mjs";
 var libExports = requireLib();
 const client = new libExports.MongoClient("mongodb+srv://kagtabss_db_user:cktabss12212003@cluster0.hfebfep.mongodb.net/YSC?retryWrites=true&w=majority&appName=Cluster0");
 const POST = async ({ request }) => {

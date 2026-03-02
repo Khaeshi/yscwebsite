@@ -1,7 +1,7 @@
-import { f as createComponent, l as renderComponent, r as renderTemplate, e as createAstro, k as renderHead } from "../../chunks/astro/server_CoVo9Zif.mjs";
+import { f as createComponent, l as renderComponent, r as renderTemplate, e as createAstro, k as renderHead } from "../../chunks/astro/server_Cfl3Ur0m.mjs";
 /* empty css                                    */
-import { $ as $$InternalUIComponentRenderer } from "../../chunks/InternalUIComponentRenderer_B2vWWpGe.mjs";
-import { r } from "../../chunks/_@astro-renderers_DOBI-D1Y.mjs";
+import { $ as $$InternalUIComponentRenderer } from "../../chunks/InternalUIComponentRenderer_DCWcCD0-.mjs";
+import { r } from "../../chunks/_@astro-renderers_B4KjVBz-.mjs";
 const $$Astro$1 = createAstro("https://youngstarterclub.asia");
 const $$SignIn = createComponent(($$result, $$props, $$slots) => {
   const Astro2 = $$result.createAstro($$Astro$1, $$props, $$slots);

@@ -1,4 +1,4 @@
-import { r } from "./chunks/_@astro-renderers_DOBI-D1Y.mjs";
+import { r } from "./chunks/_@astro-renderers_B4KjVBz-.mjs";
 export {
   r as renderers
 };

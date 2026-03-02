@@ -1,4 +1,4 @@
-import { r } from "../../../chunks/_@astro-renderers_DOBI-D1Y.mjs";
+import { r } from "../../../chunks/_@astro-renderers_B4KjVBz-.mjs";
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_API_URL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}`;
 async function sendTelegramMessage(telegramId, message, options) {

@@ -1,15 +1,15 @@
-import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead, u as unescapeHTML, h as addAttribute } from "../chunks/astro/server_CoVo9Zif.mjs";
-import { P as ParallaxHero, T as Target, A as Award } from "../chunks/ParallaxHero_BLGZC7ec.mjs";
-import { P as ParallaxSection } from "../chunks/ParallaxSection_CqyAxdqf.mjs";
-import { $ as $$Layout } from "../chunks/Layout_CSr6873l.mjs";
+import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead, u as unescapeHTML, h as addAttribute } from "../chunks/astro/server_Cfl3Ur0m.mjs";
+import { P as ParallaxHero, T as Target, A as Award } from "../chunks/ParallaxHero_DzPyPLHG.mjs";
+import { P as ParallaxSection } from "../chunks/ParallaxSection_CxInqIK5.mjs";
+import { $ as $$Layout } from "../chunks/Layout_3Hh_btxP.mjs";
 import { a as aboutimageUrl, D as Desiree, S as Silayan, K as Katherine } from "../chunks/config_DXHxkv4J.mjs";
-import { j as jsxRuntimeExports } from "../chunks/jsx-runtime_DaxtJboG.mjs";
-import { a as reactExports } from "../chunks/_@astro-renderers_DOBI-D1Y.mjs";
-import { r } from "../chunks/_@astro-renderers_DOBI-D1Y.mjs";
-import { S as Star, C as CircleCheck } from "../chunks/star_BvTZ-5_i.mjs";
-import { S as Sparkles } from "../chunks/sparkles_LXtXrKRG.mjs";
-import { H as Heart } from "../chunks/heart_Bt-t2WJX.mjs";
-import { U as Users } from "../chunks/users_BNE7VzAO.mjs";
+import { j as jsxRuntimeExports } from "../chunks/jsx-runtime_mS7YKmDK.mjs";
+import { a as reactExports } from "../chunks/_@astro-renderers_B4KjVBz-.mjs";
+import { r } from "../chunks/_@astro-renderers_B4KjVBz-.mjs";
+import { S as Star, C as CircleCheck } from "../chunks/star_duA439qC.mjs";
+import { S as Sparkles } from "../chunks/sparkles_CIAmSsCs.mjs";
+import { H as Heart } from "../chunks/heart_D8Ni6TjC.mjs";
+import { U as Users } from "../chunks/users_CVZbG-IS.mjs";
 const CoreValuesCarousel = ({ coreValues }) => {
   const [currentIndex, setCurrentIndex] = reactExports.useState(0);
   const [animating, setAnimating] = reactExports.useState(false);

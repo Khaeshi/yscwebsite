@@ -1,14 +1,14 @@
-import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead, h as addAttribute } from "../../chunks/astro/server_CoVo9Zif.mjs";
-import { C as Card, I as ImageWithFallback, B as Badge } from "../../chunks/ImageWithFallback_DApSdTYW.mjs";
-import { P as ParallaxHero, T as Target, A as Award } from "../../chunks/ParallaxHero_BLGZC7ec.mjs";
-import { $ as $$Layout } from "../../chunks/Layout_CSr6873l.mjs";
+import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead, h as addAttribute } from "../../chunks/astro/server_Cfl3Ur0m.mjs";
+import { C as Card, I as ImageWithFallback, B as Badge } from "../../chunks/ImageWithFallback_DnT8B4a9.mjs";
+import { P as ParallaxHero, T as Target, A as Award } from "../../chunks/ParallaxHero_DzPyPLHG.mjs";
+import { $ as $$Layout } from "../../chunks/Layout_3Hh_btxP.mjs";
 import { f as eventUrl } from "../../chunks/config_DXHxkv4J.mjs";
-import { c as createLucideIcon, P as Palette, T as Trophy, M as MapPin } from "../../chunks/index_Dwb88roV.mjs";
-import { C as Calendar } from "../../chunks/calendar_D5yRDPZd.mjs";
-import { S as Sparkles } from "../../chunks/sparkles_LXtXrKRG.mjs";
-import { U as Users } from "../../chunks/users_BNE7VzAO.mjs";
-import { S as Star, C as CircleCheck } from "../../chunks/star_BvTZ-5_i.mjs";
-import { r } from "../../chunks/_@astro-renderers_DOBI-D1Y.mjs";
+import { c as createLucideIcon, P as Palette, T as Trophy, M as MapPin } from "../../chunks/index_tryOdpTZ.mjs";
+import { C as Calendar } from "../../chunks/calendar_CPFXlUdr.mjs";
+import { S as Sparkles } from "../../chunks/sparkles_CIAmSsCs.mjs";
+import { U as Users } from "../../chunks/users_CVZbG-IS.mjs";
+import { S as Star, C as CircleCheck } from "../../chunks/star_duA439qC.mjs";
+import { r } from "../../chunks/_@astro-renderers_B4KjVBz-.mjs";
 /**
  * @license lucide-react v0.487.0 - ISC
  *

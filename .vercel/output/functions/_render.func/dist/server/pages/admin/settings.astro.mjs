@@ -1,8 +1,8 @@
-import { e as createAstro, f as createComponent, l as renderComponent, r as renderTemplate } from "../../chunks/astro/server_CoVo9Zif.mjs";
-import { $ as $$AdminLayout } from "../../chunks/AdminLayout_C6XI2GIq.mjs";
-import { j as jsxRuntimeExports } from "../../chunks/jsx-runtime_DaxtJboG.mjs";
-import { a as reactExports } from "../../chunks/_@astro-renderers_DOBI-D1Y.mjs";
-import { r } from "../../chunks/_@astro-renderers_DOBI-D1Y.mjs";
+import { e as createAstro, f as createComponent, l as renderComponent, r as renderTemplate } from "../../chunks/astro/server_Cfl3Ur0m.mjs";
+import { $ as $$AdminLayout } from "../../chunks/AdminLayout_CD6YVyAe.mjs";
+import { j as jsxRuntimeExports } from "../../chunks/jsx-runtime_mS7YKmDK.mjs";
+import { a as reactExports } from "../../chunks/_@astro-renderers_B4KjVBz-.mjs";
+import { r } from "../../chunks/_@astro-renderers_B4KjVBz-.mjs";
 function Toast({ toast, onDismiss }) {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: `flex items-center gap-3 px-4 py-3 rounded-xl shadow-lg text-sm font-medium border bg-white ${toast.type === "success" ? "border-green-200 text-green-800" : "border-red-200 text-red-800"}`, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: `w-2 h-2 rounded-full flex-shrink-0 ${toast.type === "success" ? "bg-green-500" : "bg-red-500"}` }),
@@ -52,10 +52,10 @@ function SettingsManager() {
     }
   }
   const tabs = [
-    { id: "general", label: "General" },
-    { id: "telegram", label: "Telegram Bot" },
-    { id: "notifications", label: "Notifications" },
-    { id: "danger", label: "Danger Zone" }
+    { id: "general", label: "General", icon: "⚙️" },
+    { id: "telegram", label: "Telegram Bot", icon: "📱" },
+    { id: "notifications", label: "Notifications", icon: "🔔" },
+    { id: "danger", label: "Danger Zone", icon: "⚠️" }
   ];
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "text-gray-900", children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "fixed top-4 right-4 z-[200] flex flex-col gap-2 w-72", children: toasts.map((t) => /* @__PURE__ */ jsxRuntimeExports.jsx(Toast, { toast: t, onDismiss: () => setToasts((p) => p.filter((x) => x.id !== t.id)) }, t.id)) }),
@@ -64,12 +64,15 @@ function SettingsManager() {
       /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-gray-500 text-sm mt-1", children: "Configure your school and system preferences" })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-6", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-48 flex-shrink-0", children: /* @__PURE__ */ jsxRuntimeExports.jsx("nav", { className: "space-y-1", children: tabs.map((tab) => /* @__PURE__ */ jsxRuntimeExports.jsx(
+      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-48 flex-shrink-0", children: /* @__PURE__ */ jsxRuntimeExports.jsx("nav", { className: "space-y-1", children: tabs.map((tab) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
         "button",
         {
           onClick: () => setActiveTab(tab.id),
           className: `w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium transition-colors text-left ${activeTab === tab.id ? "bg-purple-50 text-purple-700 border border-purple-200" : "text-gray-600 hover:bg-gray-100"}`,
-          children: tab.label
+          children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: tab.icon }),
+            tab.label
+          ]
         },
         tab.id
       )) }) }),

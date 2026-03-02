@@ -1,13 +1,13 @@
-import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead } from "../chunks/astro/server_CoVo9Zif.mjs";
-import { I as InstructorProfile, P as ProgramHistorySection } from "../chunks/ProgramHistorySection_DLdm7s9a.mjs";
-import { P as ParallaxHero, A as Award } from "../chunks/ParallaxHero_BLGZC7ec.mjs";
-import { P as ParallaxSection } from "../chunks/ParallaxSection_CqyAxdqf.mjs";
-import { $ as $$Layout } from "../chunks/Layout_CSr6873l.mjs";
+import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead } from "../chunks/astro/server_Cfl3Ur0m.mjs";
+import { I as InstructorProfile, P as ProgramHistorySection } from "../chunks/ProgramHistorySection_DZt8wC8U.mjs";
+import { P as ParallaxHero, A as Award } from "../chunks/ParallaxHero_DzPyPLHG.mjs";
+import { P as ParallaxSection } from "../chunks/ParallaxSection_CxInqIK5.mjs";
+import { $ as $$Layout } from "../chunks/Layout_3Hh_btxP.mjs";
 import { b as artsimageUrl } from "../chunks/config_DXHxkv4J.mjs";
-import { P as Palette } from "../chunks/index_Dwb88roV.mjs";
-import { S as Sparkles } from "../chunks/sparkles_LXtXrKRG.mjs";
-import { U as Users } from "../chunks/users_BNE7VzAO.mjs";
-import { r } from "../chunks/_@astro-renderers_DOBI-D1Y.mjs";
+import { P as Palette } from "../chunks/index_tryOdpTZ.mjs";
+import { S as Sparkles } from "../chunks/sparkles_CIAmSsCs.mjs";
+import { U as Users } from "../chunks/users_CVZbG-IS.mjs";
+import { r } from "../chunks/_@astro-renderers_B4KjVBz-.mjs";
 const $$ArtsLesson = createComponent(($$result, $$props, $$slots) => {
   const instructors = [
     {

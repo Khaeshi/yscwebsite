@@ -1,5 +1,5 @@
-import { a } from "../chunks/generic_BhDtGVjB.mjs";
-import { r } from "../chunks/_@astro-renderers_DOBI-D1Y.mjs";
+import { a } from "../chunks/generic_bmSwj780.mjs";
+import { r } from "../chunks/_@astro-renderers_B4KjVBz-.mjs";
 export {
   a as page,
   r as renderers

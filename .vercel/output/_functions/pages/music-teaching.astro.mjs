@@ -1,16 +1,16 @@
-import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead } from "../chunks/astro/server_CoVo9Zif.mjs";
-import { I as InstructorProfile, P as ProgramHistorySection } from "../chunks/ProgramHistorySection_DLdm7s9a.mjs";
-import { P as ParallaxHero, A as Award } from "../chunks/ParallaxHero_BLGZC7ec.mjs";
-import { P as ParallaxSection } from "../chunks/ParallaxSection_CqyAxdqf.mjs";
-import { $ as $$Layout } from "../chunks/Layout_CSr6873l.mjs";
+import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead } from "../chunks/astro/server_Cfl3Ur0m.mjs";
+import { I as InstructorProfile, P as ProgramHistorySection } from "../chunks/ProgramHistorySection_DZt8wC8U.mjs";
+import { P as ParallaxHero, A as Award } from "../chunks/ParallaxHero_DzPyPLHG.mjs";
+import { P as ParallaxSection } from "../chunks/ParallaxSection_CxInqIK5.mjs";
+import { $ as $$Layout } from "../chunks/Layout_3Hh_btxP.mjs";
 import { P as Piano, V as Violin, F as Flute, G as Guitar, U as Ukelele, C as Cello, R as Recorder, g as Voice, h as Saxophone, m as musicimageUrl, S as Silayan, i as She, j as musicAward } from "../chunks/config_DXHxkv4J.mjs";
-import { j as jsxRuntimeExports } from "../chunks/jsx-runtime_DaxtJboG.mjs";
-import { a as reactExports } from "../chunks/_@astro-renderers_DOBI-D1Y.mjs";
-import { r } from "../chunks/_@astro-renderers_DOBI-D1Y.mjs";
-import { I as ImageWithFallback } from "../chunks/ImageWithFallback_DApSdTYW.mjs";
-import { c as createLucideIcon, a as Music } from "../chunks/index_Dwb88roV.mjs";
-import { U as Users } from "../chunks/users_BNE7VzAO.mjs";
-import { H as Heart } from "../chunks/heart_Bt-t2WJX.mjs";
+import { j as jsxRuntimeExports } from "../chunks/jsx-runtime_mS7YKmDK.mjs";
+import { a as reactExports } from "../chunks/_@astro-renderers_B4KjVBz-.mjs";
+import { r } from "../chunks/_@astro-renderers_B4KjVBz-.mjs";
+import { I as ImageWithFallback } from "../chunks/ImageWithFallback_DnT8B4a9.mjs";
+import { c as createLucideIcon, a as Music } from "../chunks/index_tryOdpTZ.mjs";
+import { U as Users } from "../chunks/users_CVZbG-IS.mjs";
+import { H as Heart } from "../chunks/heart_D8Ni6TjC.mjs";
 /**
  * @license lucide-react v0.487.0 - ISC
  *

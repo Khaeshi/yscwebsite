@@ -1,5 +1,5 @@
-import { _ as _page } from "../chunks/homepage_DSLUS0B8.mjs";
-import { r } from "../chunks/_@astro-renderers_DOBI-D1Y.mjs";
+import { _ as _page } from "../chunks/homepage_DLeXceTM.mjs";
+import { r } from "../chunks/_@astro-renderers_B4KjVBz-.mjs";
 const page = () => _page;
 export {
   page,

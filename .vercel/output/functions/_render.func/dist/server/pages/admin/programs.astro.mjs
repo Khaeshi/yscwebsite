@@ -1,8 +1,8 @@
-import { e as createAstro, f as createComponent, l as renderComponent, r as renderTemplate } from "../../chunks/astro/server_CoVo9Zif.mjs";
-import { $ as $$AdminLayout } from "../../chunks/AdminLayout_C6XI2GIq.mjs";
-import { j as jsxRuntimeExports } from "../../chunks/jsx-runtime_DaxtJboG.mjs";
-import { a as reactExports } from "../../chunks/_@astro-renderers_DOBI-D1Y.mjs";
-import { r } from "../../chunks/_@astro-renderers_DOBI-D1Y.mjs";
+import { e as createAstro, f as createComponent, l as renderComponent, r as renderTemplate } from "../../chunks/astro/server_Cfl3Ur0m.mjs";
+import { $ as $$AdminLayout } from "../../chunks/AdminLayout_CD6YVyAe.mjs";
+import { j as jsxRuntimeExports } from "../../chunks/jsx-runtime_mS7YKmDK.mjs";
+import { a as reactExports } from "../../chunks/_@astro-renderers_B4KjVBz-.mjs";
+import { r } from "../../chunks/_@astro-renderers_B4KjVBz-.mjs";
 const EMPTY_FORM = { name: "", description: "", duration: "", type: "online", price: 0, active: true };
 const inputCls = "w-full border border-gray-200 rounded-lg px-3 py-2.5 text-gray-900 text-sm focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-colors placeholder-gray-400 bg-white";
 const labelCls = "block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5";
@@ -126,11 +126,14 @@ function ProgramsManager() {
       ] })
     ] }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "grid grid-cols-3 gap-4 mb-8", children: [
-      { label: "Total", val: stats.total, color: "text-blue-600" },
-      { label: "Online", val: stats.online, color: "text-purple-600" },
-      { label: "Active", val: stats.active, color: "text-green-600" }
+      { label: "Total", val: stats.total, icon: "📚", color: "text-blue-600" },
+      { label: "Online", val: stats.online, icon: "💻", color: "text-purple-600" },
+      { label: "Active", val: stats.active, icon: "✅", color: "text-green-600" }
     ].map((s) => /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-white rounded-xl border border-gray-200 p-5", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center justify-between mb-3", children: /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-gray-500 text-xs font-semibold uppercase tracking-wider", children: s.label }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between mb-3", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-gray-500 text-xs font-semibold uppercase tracking-wider", children: s.label }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xl", children: s.icon })
+      ] }),
       /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: `text-3xl font-bold ${s.color}`, children: s.val })
     ] }, s.label)) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-3 mb-4", children: [
