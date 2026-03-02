@@ -1,0 +1,36 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import StudentsManager from '../../../components/admin/StudentManager.tsx';
+import { connectDB } from '../../../lib/db/client.ts';
+import Student from '../../../lib/db/models/Student.ts';
+
+const { userId } = Astro.locals.auth();
+if (!userId) return Astro.redirect('/admin/login');
+
+let students: any[] = [];
+try {
+  await connectDB();
+  const raw = await Student.find().sort({ name: 1 }).lean();
+  students = raw.map((s: any) => ({
+  _id:            s._id.toString(),
+  name:           s.name,
+  phone:          s.phone          || '',
+  email:          s.email          || '',
+  telegramChatId: s.telegramChatId || '',
+  active:         s.active,
+  createdAt:      s.createdAt.toISOString(),
+}));
+} catch (err) {
+  console.error('Failed to load students:', err);
+}
+
+
+const pageTitle = 'Students | YSC Admin';
+const description = 'Manage students and Telegram connections';
+const image = "/YSC.ico";
+
+---
+
+<AdminLayout title={pageTitle} description={description} image={image}>
+  <StudentsManager client:load initialStudents={students} />
+</AdminLayout>
