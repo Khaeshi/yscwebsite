@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { connectDB } from '../../../lib/db/client.ts';
 import Schedule from '../../../lib/db/models/Schedule.ts';
+import Student from '../../../lib/db/models/Student.ts'; // ← THIS was missing
 
 const json = (data: any, status = 200) =>
   new Response(JSON.stringify(data), {
@@ -16,7 +17,6 @@ function escapeMd(text: string): string {
 
 export const POST: APIRoute = async ({ request }) => {
   try {
-    // Secure the endpoint with a secret key
     const authHeader = request.headers.get('x-cron-secret');
     const CRON_SECRET = process.env.CRON_SECRET;
 
@@ -35,38 +35,32 @@ export const POST: APIRoute = async ({ request }) => {
     const now = new Date();
     const phTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Manila' }));
 
-    const currentDay     = phTime.getDay();    // 0-6
-    const currentHour    = phTime.getHours();
-    const currentMinute  = phTime.getMinutes();
-    const currentTotal   = currentHour * 60 + currentMinute; // minutes since midnight
+    const currentDay    = phTime.getDay();
+    const currentHour   = phTime.getHours();
+    const currentMinute = phTime.getMinutes();
+    const currentTotal  = currentHour * 60 + currentMinute;
 
     console.log(`Cron running at PH time: ${phTime.toLocaleString()} | Day: ${DAYS[currentDay]} | ${currentHour}:${String(currentMinute).padStart(2, '0')}`);
 
-    // Fetch all active schedules with populated student
+    // Student must be imported above so Mongoose knows the schema before populate()
     const schedules = await Schedule.find({ active: true })
       .populate('studentId', 'name telegramChatId')
       .lean() as any[];
 
     const validSchedules = schedules.filter(s => s.studentId?.telegramChatId);
-
     const results: { name: string; class: string; status: string }[] = [];
 
     for (const schedule of validSchedules) {
       const [schedHour, schedMinute] = schedule.time.split(':').map(Number);
-      const schedTotal = schedHour * 60 + schedMinute;
-
-      // When should the reminder fire?
-      const reminderFiresAt = schedTotal - schedule.reminderMinutes;
-
-      // Check if current time matches the reminder window (within a 5-min window to account for cron timing)
-      const diff = currentTotal - reminderFiresAt;
-      const isRightDay = schedule.dayOfWeek === currentDay;
-      const isRightTime = diff >= 0 && diff < 5; // fires within a 5-minute window
+      const schedTotal       = schedHour * 60 + schedMinute;
+      const reminderFiresAt  = schedTotal - schedule.reminderMinutes;
+      const diff             = currentTotal - reminderFiresAt;
+      const isRightDay       = schedule.dayOfWeek === currentDay;
+      const isRightTime      = diff >= 0 && diff < 5;
 
       if (!isRightDay || !isRightTime) continue;
 
-      // Send Telegram message
-      const student = schedule.studentId;
+      const student    = schedule.studentId;
       const classEmoji = schedule.classType === 'online' ? '💻' : '🏫';
 
       const message = [
@@ -115,9 +109,9 @@ export const POST: APIRoute = async ({ request }) => {
 
     return json({
       success: true,
-      time: phTime.toLocaleString('en-PH', { timeZone: 'Asia/Manila' }),
+      time:    phTime.toLocaleString('en-PH', { timeZone: 'Asia/Manila' }),
       checked: validSchedules.length,
-      sent: results.filter(r => r.status === 'sent').length,
+      sent:    results.filter(r => r.status === 'sent').length,
       results,
     });
 
