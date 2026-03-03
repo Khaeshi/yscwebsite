@@ -57,10 +57,22 @@ export const GET: APIRoute = async ({ request }) => {
       const diff             = currentTotal - reminderFiresAt;
       const isRightDay       = schedule.dayOfWeek === currentDay;
       const isRightTime      = diff >= 0 && diff < 5;
+      const student    = schedule.studentId;
+
+      console.log({
+        name: student.name,
+        class: schedule.className,
+        isRightDay,
+        isRightTime,
+        currentTotal,
+        reminderFiresAt,
+        schedTotal,
+        dayOfWeek: schedule.dayOfWeek,
+        currentDay,
+      });
 
       if (!isRightDay || !isRightTime) continue;
-
-      const student    = schedule.studentId;
+      
       const classEmoji = schedule.classType === 'online' ? '💻' : '🏫';
 
       const message = [
