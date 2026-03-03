@@ -15,12 +15,12 @@ function escapeMd(text: string): string {
   return String(text).replace(/[_*[\]()~`>#+\-=|{}.!\\]/g, '\\$&');
 }
 
-export const POST: APIRoute = async ({ request }) => {
+export const GET: APIRoute = async ({ request }) => {
   try {
-    const authHeader = request.headers.get('x-cron-secret');
-    const CRON_SECRET = process.env.CRON_SECRET;
+    const url = new URL(request.url);
+    const secret = url.searchParams.get('secret');
 
-    if (!CRON_SECRET || authHeader !== CRON_SECRET) {
+    if (!process.env.CRON_SECRET || secret !== process.env.CRON_SECRET) {
       return json({ success: false, message: 'Unauthorized' }, 401);
     }
 
