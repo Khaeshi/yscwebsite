@@ -6,14 +6,38 @@ const json = (data, status = 200) => new Response(JSON.stringify(data), {
   headers: { "Content-Type": "application/json" }
 });
 const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const requestCounts = /* @__PURE__ */ new Map();
+function isRateLimited(ip) {
+  const now = Date.now();
+  const entry = requestCounts.get(ip);
+  if (!entry || now > entry.resetAt) {
+    requestCounts.set(ip, { count: 1, resetAt: now + 6e4 });
+    return false;
+  }
+  entry.count++;
+  return entry.count > 10;
+}
 function escapeMd(text) {
   return String(text).replace(/[_*[\]()~`>#+\-=|{}.!\\]/g, "\\$&");
 }
+function safeCompare(a, b) {
+  if (a.length !== b.length) return false;
+  let result = 0;
+  for (let i = 0; i < a.length; i++) {
+    result |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  }
+  return result === 0;
+}
 const GET = async ({ request }) => {
   try {
+    const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? request.headers.get("cf-connecting-ip") ?? "unknown";
+    if (isRateLimited(ip)) {
+      return json({ success: false, message: "Too many requests" }, 429);
+    }
     const url = new URL(request.url);
-    const secret = url.searchParams.get("secret");
-    if (!process.env.CRON_SECRET || secret !== process.env.CRON_SECRET) {
+    const secret = url.searchParams.get("secret") ?? "";
+    if (!process.env.CRON_SECRET || !safeCompare(secret, process.env.CRON_SECRET)) {
+      await new Promise((r2) => setTimeout(r2, 500));
       return json({ success: false, message: "Unauthorized" }, 401);
     }
     const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
@@ -31,6 +55,8 @@ const GET = async ({ request }) => {
     const schedules = await Schedule.find({ active: true }).populate("studentId", "name telegramChatId").lean();
     const validSchedules = schedules.filter((s) => s.studentId?.telegramChatId);
     const results = [];
+    const COOLDOWN_MS = 10 * 60 * 1e3;
+    const cooldownCutoff = new Date(now.getTime() - COOLDOWN_MS);
     for (const schedule of validSchedules) {
       const [schedHour, schedMinute] = schedule.time.split(":").map(Number);
       const schedTotal = schedHour * 60 + schedMinute;
@@ -38,8 +64,13 @@ const GET = async ({ request }) => {
       const diff = currentTotal - reminderFiresAt;
       const isRightDay = schedule.dayOfWeek === currentDay;
       const isRightTime = diff >= 0 && diff < 5;
-      if (!isRightDay || !isRightTime) continue;
       const student = schedule.studentId;
+      if (!isRightDay || !isRightTime) continue;
+      if (schedule.lastReminderSent && new Date(schedule.lastReminderSent) > cooldownCutoff) {
+        console.log(`⏭ Skipping ${student.name} for "${schedule.className}" — already sent recently`);
+        results.push({ name: student.name, class: schedule.className, status: "skipped:duplicate" });
+        continue;
+      }
       const classEmoji = schedule.classType === "online" ? "💻" : "🏫";
       const message = [
         `${classEmoji} *Class Reminder*`,
@@ -68,6 +99,9 @@ const GET = async ({ request }) => {
         );
         const data = await res.json();
         if (data.ok) {
+          await Schedule.findByIdAndUpdate(schedule._id, {
+            lastReminderSent: now
+          });
           console.log(`✅ Sent reminder to ${student.name} for ${schedule.className}`);
           results.push({ name: student.name, class: schedule.className, status: "sent" });
         } else {
