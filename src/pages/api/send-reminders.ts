@@ -123,3 +123,7 @@ export const GET: APIRoute = async ({ request }) => {
     }, 500);
   }
 };
+
+export const POST: APIRoute = async (context) => {
+  return GET(context);
+};
