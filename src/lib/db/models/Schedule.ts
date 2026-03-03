@@ -12,10 +12,11 @@ const ScheduleSchema = new mongoose.Schema({
   time:             { type: String, required: true },  // "HH:MM"
   duration:         { type: Number, default: 60 },     // minutes
   reminderMinutes:  { type: Number, default: 60 },
-  lastReminderSent: { type: Date, default: null },     // dedup: tracks last sent time
+  lastReminderSent: { type: Date, default: null },     
   active:           { type: Boolean, default: true },
 }, { timestamps: true });
 
-const Schedule = mongoose.models.Schedule || mongoose.model('Schedule', ScheduleSchema);
+delete mongoose.models.Schedule;
+const Schedule = mongoose.model('Schedule', ScheduleSchema);
 
 export default Schedule;
