@@ -1,5 +1,5 @@
-import { c as connectDB } from "../../chunks/client_CsdkyRfW.mjs";
-import { S as Schedule } from "../../chunks/Schedule_CePxtiRp.mjs";
+import { c as connectDB, S as Schedule } from "../../chunks/Schedule_CokxlCXY.mjs";
+import "../../chunks/Student_cGxgW7yn.mjs";
 import { r } from "../../chunks/_@astro-renderers_B4KjVBz-.mjs";
 const json = (data, status = 200) => new Response(JSON.stringify(data), {
   status,

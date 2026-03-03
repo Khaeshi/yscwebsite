@@ -1,4 +1,4 @@
-import { a as mongooseExports, m as mongoose } from "./client_CsdkyRfW.mjs";
+import { m as mongooseExports, a as mongoose } from "./Schedule_CokxlCXY.mjs";
 const StudentSchema = new mongooseExports.Schema(
   {
     name: { type: String, required: true, trim: true },

@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
-import { connectDB } from '../../../lib/db/client.ts';
-import { Student, Schedule } from '../../../lib/db/models/index.ts';
+import { connectDB } from '../../lib/db/client.ts';
+import { Student, Schedule } from '../../lib/db/models/index.ts';
 
 
 const json = (data: any, status = 200) =>
