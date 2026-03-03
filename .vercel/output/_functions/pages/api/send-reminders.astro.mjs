@@ -94,9 +94,13 @@ const GET = async ({ request }) => {
     }, 500);
   }
 };
+const POST = async (context) => {
+  return GET(context);
+};
 const _page = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  GET
+  GET,
+  POST
 }, Symbol.toStringTag, { value: "Module" }));
 const page = () => _page;
 export {
