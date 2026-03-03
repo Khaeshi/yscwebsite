@@ -1,4 +1,4 @@
-import { c as connectDB, S as Schedule } from "../../../chunks/Schedule_CokxlCXY.mjs";
+import { c as connectDB, S as Schedule } from "../../../chunks/Schedule_6N9T0X2Z.mjs";
 import { r } from "../../../chunks/_@astro-renderers_B4KjVBz-.mjs";
 const json = (data, status = 200) => new Response(JSON.stringify(data), {
   status,

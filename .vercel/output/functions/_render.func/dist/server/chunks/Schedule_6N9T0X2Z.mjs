@@ -33895,6 +33895,7 @@ const ScheduleSchema = new mongoose.Schema({
   duration: { type: Number, default: 60 },
   // minutes
   reminderMinutes: { type: Number, default: 60 },
+  lastReminderSent: { type: Date, default: null },
   active: { type: Boolean, default: true }
 }, { timestamps: true });
 const Schedule = mongoose.models.Schedule || mongoose.model("Schedule", ScheduleSchema);

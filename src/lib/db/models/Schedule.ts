@@ -16,7 +16,6 @@ const ScheduleSchema = new mongoose.Schema({
   active:           { type: Boolean, default: true },
 }, { timestamps: true });
 
-delete mongoose.models.Schedule;
-const Schedule = mongoose.model('Schedule', ScheduleSchema);
+const Schedule = mongoose.models.Schedule || mongoose.model('Schedule', ScheduleSchema);
 
 export default Schedule;
