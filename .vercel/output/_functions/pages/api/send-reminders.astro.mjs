@@ -9,11 +9,11 @@ const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", 
 function escapeMd(text) {
   return String(text).replace(/[_*[\]()~`>#+\-=|{}.!\\]/g, "\\$&");
 }
-const POST = async ({ request }) => {
+const GET = async ({ request }) => {
   try {
-    const authHeader = request.headers.get("x-cron-secret");
-    const CRON_SECRET = process.env.CRON_SECRET;
-    if (!CRON_SECRET || authHeader !== CRON_SECRET) {
+    const url = new URL(request.url);
+    const secret = url.searchParams.get("secret");
+    if (!process.env.CRON_SECRET || secret !== process.env.CRON_SECRET) {
       return json({ success: false, message: "Unauthorized" }, 401);
     }
     const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
@@ -96,7 +96,7 @@ const POST = async ({ request }) => {
 };
 const _page = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  POST
+  GET
 }, Symbol.toStringTag, { value: "Module" }));
 const page = () => _page;
 export {
