@@ -1,20 +1,38 @@
-import { clerkMiddleware, createRouteMatcher } from '@clerk/astro/server';
+import { defineMiddleware } from 'astro:middleware';
+import { lucia } from './lib/auth.ts';
 
-// Protect all /admin routes
-const isProtectedRoute = createRouteMatcher([
-  '/admin(.*)',
-]);
+export const onRequest = defineMiddleware(async (context, next) => {
+  const { pathname } = context.url;
 
-export const onRequest = clerkMiddleware((auth, context) => {
-  const { redirectToSignIn, userId } = auth();
+  const sessionId = context.cookies.get(lucia.sessionCookieName)?.value ?? null;
 
-  // Allow sign-in page
-  if (context.url.pathname.includes('/sign-in') || context.url.pathname.includes('/sign-up')) {
-    return;
+  if (sessionId) {
+    const { session, user } = await lucia.validateSession(sessionId);
+
+    if (session && session.fresh) {
+      const cookie = lucia.createSessionCookie(session.id);
+      context.cookies.set(cookie.name, cookie.value, cookie.attributes);
+    }
+    if (!session) {
+      const cookie = lucia.createBlankSessionCookie();
+      context.cookies.set(cookie.name, cookie.value, cookie.attributes);
+    }
+
+    context.locals.user    = user;
+    context.locals.session = session;
+  } else {
+    context.locals.user    = null;
+    context.locals.session = null;
   }
 
-  // Protect admin routes
-  if (!userId && isProtectedRoute(context.request)) {
-    return redirectToSignIn();
+  if (pathname.startsWith('/admin') && pathname !== '/admin/login') {
+    if (!context.locals.user) {
+      return context.redirect('/admin/login');
+    }
+    if (context.locals.user.role !== 'admin') {
+      return context.redirect('/admin/login');
+    }
   }
+
+  return next();
 });
