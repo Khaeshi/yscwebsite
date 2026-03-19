@@ -2,6 +2,7 @@
 import { connectDB } from '../../lib/db/client.ts';
 import Event from '../../lib/db/models/Event.ts';
 import Registration from '../../lib/db/models/Registration.ts';
+import '../../styles/globals.css';
 
 await connectDB();
 const events = await Event.find({ status: 'published' }).sort({ startDate: 1 }).lean() as any[];
@@ -22,7 +23,6 @@ const countMap = Object.fromEntries(counts.map(c => [String(c._id), c.count]));
   <title>Events — Young Starter Club</title>
   <meta name="description" content="Join our music classes and events at Young Starter Club." />
   <link rel="icon" href="/YSC.ico" />
-  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 min-h-screen">
 
