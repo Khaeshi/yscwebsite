@@ -1,0 +1,249 @@
+---
+import { connectDB } from '../../lib/db/client.ts';
+import Event from '../../lib/db/models/Event.ts';
+import Registration from '../../lib/db/models/Registration.ts';
+
+await connectDB();
+const event = await Event.findOne({ slug: Astro.params.slug, status: 'published' }).lean() as any;
+if (!event) return Astro.redirect('/events');
+
+const approvedCount = await Registration.countDocuments({ eventId: event._id, status: 'approved' });
+const isFull = event.maxSlots ? approvedCount >= event.maxSlots : false;
+const spotsLeft = event.maxSlots ? event.maxSlots - approvedCount : null;
+
+const startStr = event.startDate
+  ? new Date(event.startDate).toLocaleDateString('en-PH', { year:'numeric', month:'long', day:'numeric' }) : null;
+const endStr = event.endDate
+  ? new Date(event.endDate).toLocaleDateString('en-PH', { year:'numeric', month:'long', day:'numeric' }) : null;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{event.title} — Young Starter Club</title>
+  <meta name="description" content={event.description || `Register for ${event.title} at Young Starter Club.`} />
+  <link rel="icon" href="/YSC.ico" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+  <!-- Nav -->
+  <nav class="bg-white border-b border-gray-200 sticky top-0 z-30">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg"></div>
+        <span class="font-bold text-gray-900">Young Starter Club</span>
+      </a>
+      <a href="/events" class="text-sm text-gray-500 hover:text-purple-600 transition-colors">← All Events</a>
+    </div>
+  </nav>
+
+  <!-- Cover -->
+  {event.coverPhoto && (
+    <div class="w-full h-56 sm:h-72 lg:h-80 overflow-hidden">
+      <img src={event.coverPhoto} alt={event.title} class="w-full h-full object-cover" />
+    </div>
+  )}
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+    <!-- Left: Event details -->
+    <div class="lg:col-span-2">
+      {event.instrument && <p class="text-sm font-bold text-purple-600 uppercase tracking-widest mb-2">🎵 {event.instrument}</p>}
+      <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">{event.title}</h1>
+
+      <!-- Info pills -->
+      <div class="flex flex-wrap gap-3 mb-6">
+        {startStr && (
+          <span class="inline-flex items-center gap-1.5 bg-purple-50 text-purple-700 text-sm font-medium px-3 py-1.5 rounded-full">
+            📅 {startStr}{endStr ? ` – ${endStr}` : ''}
+          </span>
+        )}
+        {event.schedule && (
+          <span class="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 text-sm font-medium px-3 py-1.5 rounded-full">
+            ⏰ {event.schedule}
+          </span>
+        )}
+        {event.location && (
+          <span class="inline-flex items-center gap-1.5 bg-green-50 text-green-700 text-sm font-medium px-3 py-1.5 rounded-full">
+            📍 {event.location}
+          </span>
+        )}
+        {spotsLeft !== null && (
+          <span class={`inline-flex items-center gap-1.5 text-sm font-medium px-3 py-1.5 rounded-full ${isFull ? 'bg-red-100 text-red-600' : 'bg-amber-50 text-amber-700'}`}>
+            👥 {isFull ? 'Fully Booked' : `${spotsLeft} spots left`}
+          </span>
+        )}
+      </div>
+
+      {event.description && (
+        <div class="prose prose-gray max-w-none">
+          <p class="text-gray-600 leading-relaxed text-base">{event.description}</p>
+        </div>
+      )}
+
+      <!-- What to expect -->
+      <div class="mt-8 bg-white rounded-2xl border border-gray-200 p-6">
+        <h2 class="font-bold text-gray-900 mb-4">What to Expect</h2>
+        <ul class="space-y-3 text-sm text-gray-600">
+          <li class="flex items-start gap-2"><span class="text-purple-500 mt-0.5">✓</span> Morning sessions only — ideal for young learners</li>
+          <li class="flex items-start gap-2"><span class="text-purple-500 mt-0.5">✓</span> Small class sizes for personalized instruction</li>
+          <li class="flex items-start gap-2"><span class="text-purple-500 mt-0.5">✓</span> Beginner-friendly curriculum designed for kids</li>
+          <li class="flex items-start gap-2"><span class="text-purple-500 mt-0.5">✓</span> Certified and experienced music teachers</li>
+          {event.contactPhone && <li class="flex items-start gap-2"><span class="text-purple-500 mt-0.5">📱</span> Contact us at <strong>{event.contactPhone}</strong> for more info</li>}
+        </ul>
+      </div>
+    </div>
+
+    <!-- Right: Registration form -->
+    <div class="lg:col-span-1">
+      <div class="sticky top-20">
+        <div class="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+
+          <div class="bg-gradient-to-r from-purple-600 to-pink-600 px-5 py-4">
+            <h2 class="text-white font-bold text-lg">
+              {isFull ? 'Registration Closed' : 'Register Now'}
+            </h2>
+            {!isFull && <p class="text-purple-100 text-xs mt-0.5">Free · Takes 2 minutes</p>}
+          </div>
+
+          {isFull ? (
+            <div class="p-6 text-center">
+              <div class="text-4xl mb-3">😔</div>
+              <p class="font-semibold text-gray-700">All slots are filled</p>
+              <p class="text-sm text-gray-400 mt-1">Please check back or contact us for future batches.</p>
+              {event.contactPhone && <p class="text-sm font-semibold text-purple-600 mt-3">{event.contactPhone}</p>}
+            </div>
+          ) : (
+            <div class="p-5">
+
+              <!-- Success state (hidden by default) -->
+              <div id="success-state" class="hidden text-center py-4">
+                <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <svg class="w-7 h-7 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <h3 class="font-bold text-gray-900 text-base mb-1">Registration Received!</h3>
+                <p class="text-sm text-gray-500">Check your email for a confirmation. We'll be in touch shortly.</p>
+              </div>
+
+              <form id="reg-form" class="space-y-3.5">
+
+                <div>
+                  <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Full Name <span class="text-red-400">*</span></label>
+                  <input name="fullName" type="text" required placeholder="Juan dela Cruz"
+                    class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500" />
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Email Address <span class="text-red-400">*</span></label>
+                  <input name="email" type="email" required placeholder="juan@email.com"
+                    class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500" />
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Phone Number <span class="text-red-400">*</span></label>
+                  <input name="phone" type="tel" required placeholder="+63 912 345 6789"
+                    class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500" />
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Date of Birth <span class="text-red-400">*</span></label>
+                  <input name="dateOfBirth" type="date" required
+                    class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500" />
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Parent / Guardian Name <span class="text-red-400">*</span></label>
+                  <input name="parentGuardian" type="text" required placeholder="Maria dela Cruz"
+                    class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500" />
+                </div>
+
+                <div>
+                  <label class="block text-xs font-semibold text-gray-500 uppercase mb-1">Instrument / Interest</label>
+                  <input name="instrumentInterest" type="text" placeholder={`e.g. ${event.instrument || 'Piano'}`}
+                    class="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-purple-500" />
+                </div>
+
+                <!-- Privacy consent -->
+                <div class="bg-gray-50 rounded-xl p-3 border border-gray-200">
+                  <label class="flex items-start gap-3 cursor-pointer">
+                    <input name="consent" type="checkbox" required class="mt-0.5 accent-purple-600 flex-shrink-0" />
+                    <span class="text-xs text-gray-500 leading-relaxed">
+                      I agree that the information I provide will be collected and used solely for the purpose of this registration. Your data is protected in accordance with the <strong class="text-gray-700">Data Privacy Act of 2012 (Republic Act No. 10173)</strong> and will not be shared with third parties without your consent.
+                    </span>
+                  </label>
+                </div>
+
+                <div id="form-error" class="hidden p-3 bg-red-50 border border-red-200 rounded-lg text-xs text-red-600"></div>
+
+                <button type="submit" id="submit-btn"
+                  class="w-full py-3 bg-purple-600 text-white font-bold rounded-xl hover:bg-purple-700 active:scale-95 transition-all text-sm">
+                  Submit Registration
+                </button>
+
+              </form>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-200 py-8 text-center text-sm text-gray-400 mt-8">
+    © {new Date().getFullYear()} Young Starter Club. All rights reserved.
+  </footer>
+
+  <script define:vars={{ eventId: String(event._id) }}>
+    const form      = document.getElementById('reg-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const errEl     = document.getElementById('form-error');
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errEl.classList.add('hidden');
+      submitBtn.disabled    = true;
+      submitBtn.textContent = 'Submitting...';
+
+      const fd = new FormData(form);
+      const payload = {
+        eventId,
+        fullName:           fd.get('fullName'),
+        email:              fd.get('email'),
+        phone:              fd.get('phone'),
+        dateOfBirth:        fd.get('dateOfBirth'),
+        parentGuardian:     fd.get('parentGuardian'),
+        instrumentInterest: fd.get('instrumentInterest'),
+        consentGiven:       fd.get('consent') === 'on',
+      };
+
+      try {
+        const res  = await fetch('/api/registrations', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify(payload),
+        });
+        const data = await res.json();
+
+        if (data.success) {
+          form.classList.add('hidden');
+          document.getElementById('success-state').classList.remove('hidden');
+        } else {
+          errEl.textContent = data.message;
+          errEl.classList.remove('hidden');
+          submitBtn.disabled    = false;
+          submitBtn.textContent = 'Submit Registration';
+        }
+      } catch {
+        errEl.textContent     = 'Something went wrong. Please try again.';
+        errEl.classList.remove('hidden');
+        submitBtn.disabled    = false;
+        submitBtn.textContent = 'Submit Registration';
+      }
+    });
+  </script>
+
+</body>
+</html>

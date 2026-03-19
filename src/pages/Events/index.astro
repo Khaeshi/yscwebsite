@@ -1,0 +1,126 @@
+---
+import { connectDB } from '../../lib/db/client.ts';
+import Event from '../../lib/db/models/Event.ts';
+import Registration from '../../lib/db/models/Registration.ts';
+
+await connectDB();
+const events = await Event.find({ status: 'published' }).sort({ startDate: 1 }).lean() as any[];
+
+const ids    = events.map(e => e._id);
+const counts = await Registration.aggregate([
+  { $match: { eventId: { $in: ids }, status: 'approved' } },
+  { $group: { _id: '$eventId', count: { $sum: 1 } } },
+]);
+const countMap = Object.fromEntries(counts.map(c => [String(c._id), c.count]));
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Events — Young Starter Club</title>
+  <meta name="description" content="Join our music classes and events at Young Starter Club." />
+  <link rel="icon" href="/YSC.ico" />
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+  <!-- Nav -->
+  <nav class="bg-white border-b border-gray-200 sticky top-0 z-30">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2">
+        <div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg"></div>
+        <span class="font-bold text-gray-900">Young Starter Club</span>
+      </a>
+      <a href="/" class="text-sm text-gray-500 hover:text-purple-600 transition-colors">← Back to Home</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="bg-gradient-to-br from-purple-600 via-purple-700 to-pink-600 text-white py-16 sm:py-24 px-4">
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="text-purple-200 text-sm font-semibold uppercase tracking-widest mb-3">Young Starter Club</p>
+      <h1 class="text-4xl sm:text-5xl font-bold mb-4 leading-tight">Upcoming Events</h1>
+      <p class="text-purple-100 text-lg">Register for our music classes and summer programs. Morning sessions only — limited slots available.</p>
+    </div>
+  </div>
+
+  <!-- Events -->
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12 sm:py-16">
+
+    {events.length === 0 ? (
+      <div class="text-center py-20">
+        <div class="text-5xl mb-4">🎵</div>
+        <h2 class="text-xl font-bold text-gray-700 mb-2">No events right now</h2>
+        <p class="text-gray-400">Check back soon for upcoming classes and programs.</p>
+      </div>
+    ) : (
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {events.map(event => {
+          const approved = countMap[String(event._id)] ?? 0;
+          const isFull   = event.maxSlots ? approved >= event.maxSlots : false;
+          const spotsLeft = event.maxSlots ? event.maxSlots - approved : null;
+
+          return (
+            <a href={`/events/${event.slug}`}
+              class="group bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-200">
+
+              <!-- Cover -->
+              <div class="relative h-48 bg-gradient-to-br from-purple-100 to-pink-100 overflow-hidden">
+                {event.coverPhoto
+                  ? <img src={event.coverPhoto} alt={event.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                  : <div class="w-full h-full flex items-center justify-center text-5xl">🎵</div>
+                }
+                {isFull && (
+                  <div class="absolute inset-0 bg-black/50 flex items-center justify-center">
+                    <span class="bg-white text-gray-900 font-bold text-sm px-4 py-1.5 rounded-full">Fully Booked</span>
+                  </div>
+                )}
+                {!isFull && spotsLeft !== null && spotsLeft <= 5 && (
+                  <span class="absolute top-3 right-3 bg-red-500 text-white text-xs font-bold px-2.5 py-1 rounded-full">Only {spotsLeft} left!</span>
+                )}
+              </div>
+
+              <div class="p-5">
+                {event.instrument && <p class="text-xs font-bold text-purple-600 uppercase tracking-wider mb-1">🎵 {event.instrument}</p>}
+                <h2 class="text-lg font-bold text-gray-900 group-hover:text-purple-700 transition-colors">{event.title}</h2>
+
+                {event.description && <p class="text-sm text-gray-500 mt-1.5 line-clamp-2">{event.description}</p>}
+
+                <div class="mt-4 space-y-1.5">
+                  {event.startDate && (
+                    <p class="text-xs text-gray-500 flex items-center gap-1.5">
+                      <span>📅</span>
+                      {new Date(event.startDate).toLocaleDateString('en-PH', { year:'numeric', month:'long', day:'numeric' })}
+                      {event.endDate && ` – ${new Date(event.endDate).toLocaleDateString('en-PH', { year:'numeric', month:'long', day:'numeric' })}`}
+                    </p>
+                  )}
+                  {event.schedule && <p class="text-xs text-gray-500 flex items-center gap-1.5"><span>⏰</span>{event.schedule}</p>}
+                  {event.location && <p class="text-xs text-gray-500 flex items-center gap-1.5"><span>📍</span>{event.location}</p>}
+                </div>
+
+                <div class="mt-4 pt-4 border-t border-gray-100 flex items-center justify-between">
+                  {spotsLeft !== null
+                    ? <span class="text-xs text-gray-500">{spotsLeft} of {event.maxSlots} spots left</span>
+                    : <span class="text-xs text-gray-400">Open registration</span>
+                  }
+                  <span class={`text-sm font-semibold ${isFull ? 'text-gray-400' : 'text-purple-600 group-hover:text-purple-700'}`}>
+                    {isFull ? 'Fully Booked' : 'Register →'}
+                  </span>
+                </div>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    )}
+  </div>
+
+  <!-- Footer -->
+  <footer class="border-t border-gray-200 py-8 text-center text-sm text-gray-400">
+    © {new Date().getFullYear()} Young Starter Club. All rights reserved.
+  </footer>
+
+</body>
+</html>
