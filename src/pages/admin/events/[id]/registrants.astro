@@ -1,0 +1,464 @@
+---
+import AdminLayout from '../../../../layouts/AdminLayout.astro';
+import { connectDB } from '../../../../lib/db/client.js';
+import Event from '../../../../lib/db/models/Event.js';
+
+const { userId } = Astro.locals.auth();
+if (!userId) return Astro.redirect('/admin/login');
+
+await connectDB();
+const event = await Event.findById(Astro.params.id).lean() as any;
+if (!event) return Astro.redirect('/admin/events');
+
+const eventId    = String(event._id);
+const eventTitle = String(event.title);
+const instrument = String(event.instrument ?? '');
+---
+
+<AdminLayout title={`${eventTitle} — Registrants | YSC`} description="Event Registrants">
+
+  <!-- Data bridge: pass server vars to client via data attributes -->
+  <div id="page-data" data-event-id={eventId} data-event-title={eventTitle} class="hidden"></div>
+
+  <div class="max-w-7xl mx-auto">
+
+    <div class="flex items-center gap-3 mb-2">
+      <a href="/admin/events" class="text-sm text-gray-400 hover:text-purple-600 transition-colors flex items-center gap-1">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+        Events
+      </a>
+      <span class="text-gray-300">/</span>
+      <span class="text-sm text-gray-600 font-medium truncate">{eventTitle}</span>
+    </div>
+
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6">
+      <div>
+        <h1 class="text-2xl font-bold text-gray-900">{eventTitle}</h1>
+        <p class="text-sm text-gray-500 mt-0.5">
+          {instrument && <span class="text-purple-600 font-medium">🎵 {instrument} · </span>}
+          Registrants
+        </p>
+      </div>
+      <button id="export-btn"
+        class="inline-flex items-center gap-2 border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 px-4 py-2 rounded-xl text-sm font-semibold transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+        </svg>
+        Export CSV
+      </button>
+    </div>
+
+    <!-- Stats -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+      <div class="bg-white rounded-xl border border-gray-200 p-4">
+        <p class="text-xs text-gray-500">Total</p>
+        <p id="s-total" class="text-2xl font-bold text-gray-900 mt-1">—</p>
+      </div>
+      <div class="bg-white rounded-xl border border-gray-200 p-4">
+        <p class="text-xs text-gray-500">Pending</p>
+        <p id="s-pending" class="text-2xl font-bold text-amber-500 mt-1">—</p>
+      </div>
+      <div class="bg-white rounded-xl border border-gray-200 p-4">
+        <p class="text-xs text-gray-500">Approved</p>
+        <p id="s-approved" class="text-2xl font-bold text-green-600 mt-1">—</p>
+      </div>
+      <div class="bg-white rounded-xl border border-gray-200 p-4">
+        <p class="text-xs text-gray-500">Rejected</p>
+        <p id="s-rejected" class="text-2xl font-bold text-red-500 mt-1">—</p>
+      </div>
+    </div>
+
+    <!-- Chart -->
+    <div class="bg-white rounded-xl border border-gray-200 p-5 mb-6">
+      <h2 class="text-sm font-bold text-gray-700 mb-4">Registration Timeline</h2>
+      <div style="height:200px;position:relative">
+        <canvas id="reg-chart"></canvas>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <div class="px-5 py-4 border-b border-gray-100 flex items-center gap-2 flex-wrap">
+        <button class="filter-tab active" data-filter="all">All</button>
+        <button class="filter-tab" data-filter="pending">Pending</button>
+        <button class="filter-tab" data-filter="approved">Approved</button>
+        <button class="filter-tab" data-filter="rejected">Rejected</button>
+      </div>
+      <div id="tbl-loading" class="py-12 text-center">
+        <div class="w-6 h-6 border-2 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+      </div>
+      <div id="tbl-empty" class="hidden py-12 text-center text-sm text-gray-400">No registrants yet</div>
+      <div id="tbl-wrapper" class="hidden overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="bg-gray-50 border-b border-gray-100">
+            <tr>
+              <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase whitespace-nowrap">Name</th>
+              <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase whitespace-nowrap">Email</th>
+              <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase whitespace-nowrap">Phone</th>
+              <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase whitespace-nowrap">Age</th>
+              <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase whitespace-nowrap">Guardian</th>
+              <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase whitespace-nowrap">Interest</th>
+              <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase whitespace-nowrap">Registered</th>
+              <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase whitespace-nowrap">Status</th>
+              <th class="text-left px-4 py-3 text-xs font-semibold text-gray-500 uppercase whitespace-nowrap">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="tbl-body" class="divide-y divide-gray-50"></tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</AdminLayout>
+
+<!-- Action modal -->
+<div id="action-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+  <div class="absolute inset-0 bg-black/40 backdrop-blur-sm" id="action-backdrop"></div>
+  <div class="relative bg-white rounded-2xl shadow-xl w-full max-w-sm p-6">
+    <h3 id="action-title" class="text-base font-bold text-gray-900 mb-1"></h3>
+    <p id="action-desc" class="text-sm text-gray-500 mb-4"></p>
+    <div class="mb-4">
+      <label class="block text-xs font-semibold text-gray-500 uppercase mb-1.5">Internal Note (optional)</label>
+      <textarea id="action-note" rows="2" placeholder="e.g. Slots are full"
+        class="w-full text-sm border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"></textarea>
+    </div>
+    <div class="flex gap-3">
+      <button id="action-cancel" class="flex-1 px-4 py-2 border border-gray-200 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-50">Cancel</button>
+      <button id="action-confirm" class="flex-1 px-4 py-2 text-white rounded-lg text-sm font-semibold transition-colors">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast" class="fixed bottom-5 right-5 z-50 hidden">
+  <div class="bg-gray-900 text-white text-sm font-medium px-4 py-3 rounded-lg shadow-lg flex items-center gap-2">
+    <span id="toast-icon"></span>
+    <span id="toast-msg"></span>
+  </div>
+</div>
+
+<style>
+  .filter-tab {
+    padding: 6px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    border: 1px solid #e5e7eb;
+    background: white;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-transform: capitalize;
+  }
+  .filter-tab.active {
+    background: #7c3aed;
+    color: white;
+    border-color: #7c3aed;
+  }
+</style>
+
+<script>
+  // ── Read server data from data attributes (no define:vars needed) ──────────
+  const pageData   = document.getElementById('page-data') as HTMLElement;
+  const EVENT_ID   = pageData.dataset.eventId ?? '';
+  const EVENT_TITLE = pageData.dataset.eventTitle ?? '';
+
+  // ── State ─────────────────────────────────────────────────────────────────
+  interface Registration {
+    _id: string;
+    fullName: string;
+    email: string;
+    phone: string;
+    dateOfBirth: string;
+    parentGuardian: string;
+    instrumentInterest: string;
+    status: 'pending' | 'approved' | 'rejected';
+    createdAt: string;
+    confirmedAt: string | null;
+  }
+
+  interface PendingAction {
+    id: string;
+    status: 'approved' | 'rejected';
+  }
+
+  let allRegs: Registration[]      = [];
+  let activeFilter                 = 'all';
+  let pendingAction: PendingAction | null = null;
+
+  // ── Helpers ───────────────────────────────────────────────────────────────
+  function showToast(msg: string, ok = true): void {
+    const t    = document.getElementById('toast') as HTMLElement;
+    const icon = document.getElementById('toast-icon') as HTMLElement;
+    const text = document.getElementById('toast-msg') as HTMLElement;
+    icon.textContent = ok ? '✅' : '❌';
+    text.textContent = msg;
+    t.classList.remove('hidden');
+    setTimeout(() => t.classList.add('hidden'), 3500);
+  }
+
+  function calcAge(dob: string): number {
+    return Math.floor((Date.now() - new Date(dob).getTime()) / (1000 * 60 * 60 * 24 * 365.25));
+  }
+
+  function fmtDate(d: string): string {
+    return new Date(d).toLocaleDateString('en-PH', { year: 'numeric', month: 'short', day: 'numeric' });
+  }
+
+  function statusBadge(s: string): string {
+    const map: Record<string, string> = {
+      pending:  'bg-amber-100 text-amber-700',
+      approved: 'bg-green-100 text-green-700',
+      rejected: 'bg-red-100 text-red-500',
+    };
+    return `<span class="inline-flex px-2 py-0.5 rounded-full text-xs font-semibold ${map[s] ?? ''} capitalize">${s}</span>`;
+  }
+
+  function getEl<T extends HTMLElement>(id: string): T {
+    return document.getElementById(id) as T;
+  }
+
+  // ── Load data ─────────────────────────────────────────────────────────────
+  async function loadRegistrants(): Promise<void> {
+    const res  = await fetch(`/api/registrations?eventId=${EVENT_ID}`);
+    const data = await res.json();
+    allRegs    = data.registrations ?? [];
+    updateStats();
+    renderTable();
+    renderChart();
+  }
+
+  function updateStats(): void {
+    getEl('s-total').textContent    = String(allRegs.length);
+    getEl('s-pending').textContent  = String(allRegs.filter(r => r.status === 'pending').length);
+    getEl('s-approved').textContent = String(allRegs.filter(r => r.status === 'approved').length);
+    getEl('s-rejected').textContent = String(allRegs.filter(r => r.status === 'rejected').length);
+  }
+
+  // ── Table ─────────────────────────────────────────────────────────────────
+  function renderTable(): void {
+    const filtered = activeFilter === 'all'
+      ? allRegs
+      : allRegs.filter(r => r.status === activeFilter);
+
+    getEl('tbl-loading').classList.add('hidden');
+
+    if (filtered.length === 0) {
+      getEl('tbl-empty').classList.remove('hidden');
+      getEl('tbl-wrapper').classList.add('hidden');
+      return;
+    }
+
+    getEl('tbl-empty').classList.add('hidden');
+    getEl('tbl-wrapper').classList.remove('hidden');
+
+    getEl('tbl-body').innerHTML = filtered.map(r => `
+      <tr class="hover:bg-gray-50 transition-colors">
+        <td class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap">${r.fullName}</td>
+        <td class="px-4 py-3 text-gray-600 whitespace-nowrap">${r.email}</td>
+        <td class="px-4 py-3 text-gray-600 whitespace-nowrap">${r.phone}</td>
+        <td class="px-4 py-3 text-gray-600">${r.dateOfBirth ? calcAge(r.dateOfBirth) + ' yrs' : '—'}</td>
+        <td class="px-4 py-3 text-gray-600 whitespace-nowrap">${r.parentGuardian}</td>
+        <td class="px-4 py-3 text-gray-500 max-w-[140px] truncate">${r.instrumentInterest || '—'}</td>
+        <td class="px-4 py-3 text-gray-500 whitespace-nowrap">${fmtDate(r.createdAt)}</td>
+        <td class="px-4 py-3">${statusBadge(r.status)}</td>
+        <td class="px-4 py-3">
+          <div class="flex items-center gap-1">
+            ${r.status !== 'approved' ? `<button data-action="approve" data-id="${r._id}" data-name="${r.fullName}" class="px-2.5 py-1 text-xs font-semibold bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">Approve</button>` : ''}
+            ${r.status !== 'rejected' ? `<button data-action="reject"  data-id="${r._id}" data-name="${r.fullName}" class="px-2.5 py-1 text-xs font-semibold bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors">Reject</button>`  : ''}
+          </div>
+        </td>
+      </tr>
+    `).join('');
+
+    document.querySelectorAll<HTMLButtonElement>('[data-action]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        openActionModal(
+          btn.dataset.id ?? '',
+          btn.dataset.action ?? '',
+          btn.dataset.name ?? ''
+        );
+      });
+    });
+  }
+
+  // ── Chart ─────────────────────────────────────────────────────────────────
+  function renderChart(): void {
+    const dayMap: Record<string, number> = {};
+    allRegs.forEach(r => {
+      const day = new Date(r.createdAt).toLocaleDateString('en-PH', { month: 'short', day: 'numeric' });
+      dayMap[day] = (dayMap[day] ?? 0) + 1;
+    });
+
+    const labels = Object.keys(dayMap);
+    const values = Object.values(dayMap);
+    if (labels.length === 0) return;
+
+    const drawChart = (): void => {
+      const canvas = document.getElementById('reg-chart') as HTMLCanvasElement;
+      const ctx    = canvas.getContext('2d');
+      if (!ctx) return;
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      new (window as any).Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Registrations',
+            data: values,
+            backgroundColor: 'rgba(124,58,237,0.15)',
+            borderColor: '#7c3aed',
+            borderWidth: 2,
+            borderRadius: 6,
+          }],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { beginAtZero: true, ticks: { stepSize: 1 }, grid: { color: '#f3f4f6' } },
+            x: { grid: { display: false } },
+          },
+        },
+      });
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (!(window as any).Chart) {
+      const s   = document.createElement('script');
+      s.src     = 'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js';
+      s.onload  = drawChart;
+      document.head.appendChild(s);
+    } else {
+      drawChart();
+    }
+  }
+
+  // ── Filter tabs ───────────────────────────────────────────────────────────
+  document.querySelectorAll<HTMLButtonElement>('.filter-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeFilter = btn.dataset.filter ?? 'all';
+      document.querySelectorAll<HTMLButtonElement>('.filter-tab').forEach(b => {
+        b.classList.toggle('active', b.dataset.filter === activeFilter);
+      });
+      renderTable();
+    });
+  });
+
+  // ── Action modal ──────────────────────────────────────────────────────────
+  function openActionModal(id: string, action: string, name: string): void {
+    pendingAction = {
+      id,
+      status: action === 'approve' ? 'approved' : 'rejected',
+    };
+
+    getEl('action-title').textContent = action === 'approve' ? `Approve ${name}?` : `Reject ${name}?`;
+    getEl('action-desc').textContent  = action === 'approve'
+      ? 'A confirmation email will be sent to the registrant.'
+      : 'The registrant will not receive an email for rejections.';
+
+    getEl<HTMLTextAreaElement>('action-note').value = '';
+
+    const confirmBtn      = getEl<HTMLButtonElement>('action-confirm');
+    confirmBtn.textContent = action === 'approve' ? 'Approve & Send Email' : 'Reject';
+    confirmBtn.className   = `flex-1 px-4 py-2 text-white rounded-lg text-sm font-semibold transition-colors ${
+      action === 'approve' ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'
+    }`;
+
+    const modal = getEl('action-modal');
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+
+  function closeActionModal(): void {
+    const modal = getEl('action-modal');
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    pendingAction = null;
+  }
+
+  getEl('action-cancel').addEventListener('click', closeActionModal);
+  getEl('action-backdrop').addEventListener('click', closeActionModal);
+
+  getEl('action-confirm').addEventListener('click', async () => {
+    if (!pendingAction) return;
+
+    const btn  = getEl<HTMLButtonElement>('action-confirm');
+    const note = getEl<HTMLTextAreaElement>('action-note').value.trim();
+
+    btn.disabled    = true;
+    btn.textContent = 'Saving...';
+
+    try {
+      const res  = await fetch(`/api/registrations/${pendingAction.id}`, {
+        method:  'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ status: pendingAction.status, statusNote: note }),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        const idx = allRegs.findIndex(r => r._id === pendingAction?.id);
+        if (idx !== -1) allRegs[idx] = { ...allRegs[idx], ...data.registration };
+        updateStats();
+        renderTable();
+        closeActionModal();
+        showToast(
+          pendingAction.status === 'approved'
+            ? 'Approved — confirmation email sent'
+            : 'Registration rejected'
+        );
+      } else {
+        showToast(data.message, false);
+      }
+    } catch {
+      showToast('Action failed', false);
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  // ── CSV Export ────────────────────────────────────────────────────────────
+  getEl('export-btn').addEventListener('click', () => {
+    if (allRegs.length === 0) { showToast('No registrants to export', false); return; }
+
+    const headers = [
+      'Full Name', 'Email', 'Phone', 'Date of Birth', 'Age',
+      'Parent/Guardian', 'Instrument Interest', 'Status',
+      'Registered On', 'Confirmed At',
+    ];
+
+    const rows = allRegs.map(r => [
+      r.fullName,
+      r.email,
+      r.phone,
+      r.dateOfBirth ? new Date(r.dateOfBirth).toLocaleDateString('en-PH') : '',
+      r.dateOfBirth ? String(calcAge(r.dateOfBirth)) : '',
+      r.parentGuardian,
+      r.instrumentInterest ?? '',
+      r.status,
+      new Date(r.createdAt).toLocaleDateString('en-PH'),
+      r.confirmedAt ? new Date(r.confirmedAt).toLocaleDateString('en-PH') : '',
+    ]);
+
+    const csv  = [headers, ...rows]
+      .map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(','))
+      .join('\n');
+
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href     = url;
+    a.download = `${EVENT_TITLE.replace(/[^a-z0-9]/gi, '_')}_registrants.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('Exported successfully');
+  });
+
+  // ── Init ──────────────────────────────────────────────────────────────────
+  loadRegistrants();
+</script>
