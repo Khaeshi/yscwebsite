@@ -6,11 +6,11 @@ import { S3Client, DeleteObjectCommand } from '@aws-sdk/client-s3';
 const json = (data: any, status = 200) =>
   new Response(JSON.stringify(data), { status, headers: { 'Content-Type': 'application/json' } });
 
-const s3 = new S3Client({
-  region: import.meta.env.AWS_REGION,
+const getS3 = () => new S3Client({
+  region: process.env.AWS_REGION,
   credentials: {
-    accessKeyId:     import.meta.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: import.meta.env.AWS_SECRET_ACCESS_KEY,
+    accessKeyId:     process.env.AWS_ACCESS_KEY_ID!,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
   },
 });
 
@@ -52,8 +52,8 @@ export const DELETE: APIRoute = async ({ locals, params }) => {
     if (!event) return json({ success: false, message: 'Event not found' }, 404);
 
     if (event.coverPhotoKey) {
-      await s3.send(new DeleteObjectCommand({
-        Bucket: import.meta.env.AWS_S3_BUCKET,
+      await getS3().send(new DeleteObjectCommand({
+        Bucket: process.env.AWS_S3_BUCKET!,
         Key:    event.coverPhotoKey,
       })).catch(() => {});
     }

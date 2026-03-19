@@ -1,10 +1,8 @@
-// src/pages/api/students.ts
 import type { APIRoute } from 'astro';
 import { MongoClient } from 'mongodb';
 
-const client = new MongoClient(import.meta.env.MONGODB_URI);
-
 export const POST: APIRoute = async ({ request }) => {
+  const client = new MongoClient(process.env.MONGODB_URI!);
   try {
     const body = await request.json();
 
@@ -37,10 +35,13 @@ export const POST: APIRoute = async ({ request }) => {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
     });
+  } finally {
+    await client.close();
   }
 };
 
 export const GET: APIRoute = async () => {
+  const client = new MongoClient(process.env.MONGODB_URI!);
   try {
     await client.connect();
     const db = client.db('YSC');
@@ -55,5 +56,7 @@ export const GET: APIRoute = async () => {
       status: 500,
       headers: { 'Content-Type': 'application/json' },
     });
+  } finally {
+    await client.close();
   }
 };
