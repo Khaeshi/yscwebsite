@@ -2,8 +2,8 @@
 import AdminLayout from '../../../layouts/AdminLayout.astro';
 import ProgramsManager from '../../../components/admin/ProgramsManager.tsx';
 
-const { userId } = Astro.locals.auth();
-if (!userId) return Astro.redirect('/admin/login');
+const user = Astro.locals.user;
+if (!user) return Astro.redirect('/admin/login');
 ---
 
 <AdminLayout title="Programs | YSC Admin" description="Manage programs and courses">
