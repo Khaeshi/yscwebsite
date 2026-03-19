@@ -1,7 +1,9 @@
 import type { APIRoute } from 'astro';
 
 async function handle(request: Request, params: any) {
-  const clerkFrontendApi = 'https://frontend-api.clerk.services';
+  // Get this from your publishable key - decode the base64 part after pk_live_
+  // e.g. if key is pk_live_Y2xl... decode Y2xl... to get the host
+  const clerkFrontendApi = 'https://clerk.youngstarterclub.asia'; // ← your actual clerk subdomain
   const path = params.path ?? '';
   const url = new URL(request.url);
   const targetUrl = `${clerkFrontendApi}/${path}${url.search}`;
