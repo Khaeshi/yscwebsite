@@ -1,10 +1,45 @@
 ---
-import { SignIn } from '@clerk/astro/components';
+import { lucia } from '../../../lib/auth.ts';
 
 // If already logged in, redirect to admin
-const { userId } = Astro.locals.auth();
-if (userId) {
-  return Astro.redirect('/admin');
+const sessionId = Astro.cookies.get(lucia.sessionCookieName)?.value ?? null;
+if (sessionId) {
+  const { session } = await lucia.validateSession(sessionId);
+  if (session) return Astro.redirect('/admin');
+}
+
+let error = '';
+
+if (Astro.request.method === 'POST') {
+  const form     = await Astro.request.formData();
+  const email    = form.get('email')?.toString() ?? '';
+  const password = form.get('password')?.toString() ?? '';
+
+  try {
+    const { MongoClient, ObjectId } = await import('mongodb');
+    const { Argon2id } = await import('oslo/password');
+
+    const client = new MongoClient(import.meta.env.MONGODB_URI);
+    await client.connect();
+    const user = await client.db('YSC').collection('users').findOne({ email });
+    await client.close();
+
+    if (!user) {
+      error = 'Invalid email or password';
+    } else {
+      const valid = await new Argon2id().verify(user.hashedPassword, password);
+      if (!valid) {
+        error = 'Invalid email or password';
+      } else {
+        const session = await lucia.createSession(user._id.toString(), {});
+        const cookie  = lucia.createSessionCookie(session.id);
+        Astro.cookies.set(cookie.name, cookie.value, cookie.attributes);
+        return Astro.redirect('/admin');
+      }
+    }
+  } catch (err: any) {
+    error = err.message;
+  }
 }
 ---
 
@@ -15,35 +50,89 @@ if (userId) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Login - YSC</title>
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      margin: 0;
-      padding: 0;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
+      padding: 1rem;
     }
     .container {
       max-width: 400px;
       width: 100%;
-      padding: 20px;
     }
     .logo {
       text-align: center;
-      margin-bottom: 30px;
+      margin-bottom: 2rem;
     }
     .logo h1 {
       color: white;
-      font-size: 32px;
-      margin: 0;
+      font-size: 2rem;
       text-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     .logo p {
-      color: rgba(255,255,255,0.9);
-      margin: 10px 0 0 0;
-      font-size: 14px;
+      color: rgba(255,255,255,0.85);
+      margin-top: 0.5rem;
+      font-size: 0.9rem;
+    }
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    }
+    .card h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 1.5rem;
+    }
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.35rem;
+    }
+    input {
+      width: 100%;
+      padding: 0.65rem 0.85rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: #111827;
+      outline: none;
+      transition: border-color 0.15s;
+      margin-bottom: 1rem;
+    }
+    input:focus { border-color: #667eea; }
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.15s;
+      margin-top: 0.5rem;
+    }
+    button:hover { opacity: 0.9; }
+    .error {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #dc2626;
+      padding: 0.65rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      margin-bottom: 1rem;
     }
   </style>
 </head>
@@ -53,15 +142,18 @@ if (userId) {
       <h1>🎵 YSC Admin</h1>
       <p>Young Starter Club</p>
     </div>
-    
-    <!-- Clerk Sign In Component -->
-    <!-- signUpUrl="" hides the signup option -->
-    <SignIn 
-      signUpUrl=""
-      routing="path"
-      path="/admin/login"
-      afterSignInUrl="/admin"
-    />
+
+    <div class="card">
+      <h2>Sign in to your account</h2>
+      {error && <p class="error">{error}</p>}
+      <form method="POST">
+        <label>Email</label>
+        <input type="email" name="email" required autofocus placeholder="admin@youngstarterclub.asia" />
+        <label>Password</label>
+        <input type="password" name="password" required placeholder="••••••••" />
+        <button type="submit">Sign In</button>
+      </form>
+    </div>
   </div>
 </body>
 </html>
