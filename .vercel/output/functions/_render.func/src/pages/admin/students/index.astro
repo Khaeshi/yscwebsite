@@ -1,0 +1,11 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import StudentsManager from '../../../components/admin/StudentManager.tsx';
+
+const { userId } = Astro.locals.auth();
+if (!userId) return Astro.redirect('/admin/login');
+---
+
+<AdminLayout title="Students | YSC Admin" description="Manage students and Telegram connections">
+  <StudentsManager client:load />  <!-- no initialStudents, fetches via API -->
+</AdminLayout>

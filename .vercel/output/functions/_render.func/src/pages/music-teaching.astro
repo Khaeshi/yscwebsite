@@ -1,0 +1,220 @@
+---
+
+import { InstructorProfile } from "../components/InstructorProfile.tsx";
+import { ProgramHistorySection } from "../components/ProgramHistorySection.tsx";
+import { ParallaxHero } from "../components/ParallaxHero.tsx";
+import { ParallaxSection } from "../components/ParallaxSection.tsx"
+import { Heart, Music, Users, Award, GraduationCap } from "lucide-react";
+import Layout from "../layouts/Layout.astro";
+import { musicimageUrl, musicAward, Silayan, She } from '../config.ts'
+import  InstrumentCarousel from "../components/music/InstrumentCarousel.tsx";
+
+
+interface Instructor {
+  name: string;
+  title: string;
+  image: string;
+  specialization: string[];
+  experience: string;
+  description: string;
+  achievements: string[];
+}
+
+interface Milestone {
+  year: string;
+  title: string;
+  description: string;
+}
+
+const instructors: Instructor[] = [
+  {
+    name: "Ma. Silayan Pallones",
+    title: "Voice Major & YSC Builder",
+    image: Silayan,
+    specialization: ["Voice","Piano", "Music Theory", "Composition"],
+    experience: "16+ years teaching experience",
+    description: "Multi-skilled musician, ",
+    achievements: [
+      "8+ students participated JSC",
+      "Former concert performer",
+      "Published composer with works performed internationally",
+      "Associate in Music Ministry, Major in Voice"
+    ]
+  },
+  {
+    name: "Ms. She Santos",
+    title: "Piano Instructor",
+    image: She,
+    specialization: ["Piano",],
+    experience: "2+ years teaching experience",
+    description: "",
+    achievements: []
+  }
+];
+
+const historyMilestones: Milestone[] = [
+  {
+    year: "2010",
+    title: "Foundation",
+    description: "Started with just 10 students and one piano in a small studio, driven by a passion for making music education accessible to all."
+  },
+  {
+    year: "2015",
+    title: "Expansion",
+    description: "Grew to accommodate 20+ students with a diverse range of instruments including piano, guitar, violin, and voice."
+  },
+  {
+    year: "2020",
+    title: "Digital Innovation",
+    description: "Successfully transitioned to hybrid learning during the pandemic, making lessons accessible online while maintaining quality."
+  },
+  {
+    year: "2025",
+    title: "Recognition",
+    description: "Achieved 60+ successful students."
+  }
+];
+
+
+
+const pageTitle = "Music | Young Starter Club";
+const description = "Learn more about Music with Young Starter Club";
+const image = "/assets/YSC.png";
+
+---
+<Layout title={pageTitle} description={description} image={image}>
+  <div class="min-h-screen bg-white">
+
+    <!-- Hero Section - Parallax -->
+    <ParallaxHero 
+      imageUrl={musicimageUrl} 
+      title="Discover the Joy of Music"
+      subtitle={`Learn to play piano, guitar, violin, and more with our team of experienced, certified instructors. 
+        From complete beginners to advanced students preparing for competitions, we provide personalized 
+        instruction tailored to your musical journey.`}
+      stats={[
+        { number: "50+", label: "Students Taught" },
+        { number: "10", label: "Students Competing" },
+        { number: "10+", label: "Years Experience" },
+        { number: "Yearly", label: "Recitals" },
+      ]}
+      showBackButton={true};
+      client:load
+    />
+
+    <!-- Event Banner -->
+    <!-- <section class="py-12 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <EventBanner />
+      </div>
+    </section> -->
+
+    <!-- Program Features -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="mb-4">What We Offer</h2>
+          <p class="text-muted-foreground max-w-2xl mx-auto">
+            Comprehensive music education designed to help you achieve your musical goals
+          </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 border border-purple-100">
+            <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mb-4">
+              <Music className="w-6 h-6 text-white" />
+            </div>
+            <h3 class="mb-3">Multiple Instruments</h3>
+            <p class="text-muted-foreground">Piano, guitar, violin, voice, and more. Find the perfect instrument for your musical journey.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 border border-purple-100">
+            <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mb-4">
+              <GraduationCap className="w-6 h-6 text-white" />
+            </div>
+            <h3 class="mb-3">Competition Preparations</h3>
+            <p class="text-muted-foreground">JSC and music school preparation with Music Degree examiners guiding you to success.</p>
+          </div>
+          
+          <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 border border-purple-100">
+            <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mb-4">
+              <Users className="w-6 h-6 text-white" />
+            </div>
+            <h3 class="mb-3">Performance Opportunities</h3>
+            <p class="text-muted-foreground">Annual recitals and showcases to build confidence and share your musical talents.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    {/* Instrument Carousel Section */}
+    <section class="py-20 bg-gradient-to-br from-purple-50 to-pink-50">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-8">
+          <h2 class="mb-4">Explore Our Instruments</h2>
+          <p class="text-muted-foreground max-w-2xl mx-auto">
+            Discover the wide variety of instruments we teach. From classical to contemporary, find the perfect match for your musical aspirations.
+          </p>
+        </div>     
+         <InstrumentCarousel client:load/> 
+      </div>
+    </section>
+
+    <!-- Instructors Section -->
+    <section class="py-20 bg-gradient-to-br from-purple-50 to-pink-50">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <h2 class="mb-4">Meet Our Music Teachers</h2>
+          <p class="text-muted-foreground max-w-2xl mx-auto">
+            Learn from passionate, experienced instructors dedicated to your musical growth
+          </p>
+        </div>
+        
+        <div class="space-y-8">
+          {instructors.map((instructor, index) => (
+            <InstructorProfile key={index} {...instructor} />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- History Section -->
+    <section class="py-20 bg-white">
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+        <ProgramHistorySection
+          image={musicAward}
+          foundedYear="2010"
+          milestones={historyMilestones}
+          stats={[
+            { icon: Users, value: "60+", label: "Students" },
+            { icon: Award, value: "95%", label: "Pass Rate" },
+            { icon: Music, value: "6+", label: "Recitals" }
+          ]}
+        />
+      </div>
+    </section>
+
+    {/* CTA Section */}
+    <ParallaxSection
+      imageUrl="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdHVkZW50cyUyMGxlYXJuaW5nJTIwdG9nZXRoZXJ8ZW58MXx8fHwxNzY0NTc3NTQyfDA&ixlib=rb-4.1.0&q=80&w=1080"
+      className="py-20"
+    >
+      <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <Heart className="w-12 h-12 mx-auto mb-6 text-yellow-300" />
+        <h2 class="mb-6 text-white">Join Our Music Classes</h2>
+        <p class="mb-8 max-w-2xl mx-auto text-white/90">
+          Become part of the Young Starter Club Music department. Let's discover your passion together!
+        </p>
+        <a 
+            href="https://www.facebook.com/YSCcommunity" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="inline-flex items-center gap-2 bg-white text-purple-600 hover:bg-yellow-300 hover:text-purple-700 shadow-xl px-5 py-2 rounded-lg font-medium text-sm"
+          >
+            Message Us on Facebook
+          </a>  
+      </div>
+    </ParallaxSection>
+  </div>
+</Layout>
