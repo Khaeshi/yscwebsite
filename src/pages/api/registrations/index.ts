@@ -7,7 +7,7 @@ import { Resend } from 'resend';
 const json = (data: any, status = 200) =>
   new Response(JSON.stringify(data), { status, headers: { 'Content-Type': 'application/json' } });
 
-const resend = new Resend(import.meta.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const GET: APIRoute = async ({ request, locals }) => {
   try {
@@ -70,7 +70,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Send acknowledgement email (non-blocking)
     resend.emails.send({
-      from:    `Young Starter Club <${import.meta.env.RESEND_FROM_EMAIL}>`,
+      from:    `Young Starter Club <${process.env.RESEND_FROM_EMAIL}>`,
       to:      email,
       subject: `Registration Received — ${event.title}`,
       html:    buildAckEmail({ fullName, event }),
