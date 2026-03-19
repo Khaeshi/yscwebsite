@@ -1,5 +1,5 @@
 import { e as createAstro, f as createComponent, l as renderComponent, r as renderTemplate } from "../../chunks/astro/server_Cfl3Ur0m.mjs";
-import { $ as $$AdminLayout } from "../../chunks/AdminLayout_4C0Bauqp.mjs";
+import { $ as $$AdminLayout } from "../../chunks/AdminLayout_DhGSSYVQ.mjs";
 import { j as jsxRuntimeExports } from "../../chunks/jsx-runtime_mS7YKmDK.mjs";
 import { a as reactExports } from "../../chunks/_@astro-renderers_B4KjVBz-.mjs";
 import { r } from "../../chunks/_@astro-renderers_B4KjVBz-.mjs";
@@ -304,9 +304,9 @@ const $$Index = createComponent(($$result, $$props, $$slots) => {
   Astro2.self = $$Index;
   const { userId } = Astro2.locals.auth();
   if (!userId) return Astro2.redirect("/admin/login");
-  return renderTemplate`${renderComponent($$result, "AdminLayout", $$AdminLayout, { "title": "Students | YSC Admin", "description": "Manage students and Telegram connections" }, { "default": ($$result2) => renderTemplate` ${renderComponent($$result2, "StudentsManager", StudentsManager, { "client:load": true, "client:component-hydration": "load", "client:component-path": "C:/Users/user/Desktop/OngoingProjects/YSCMIGRATE/yscwebsite/src/components/admin/StudentManager.tsx", "client:component-export": "default" })}  ` })}`;
-}, "C:/Users/user/Desktop/OngoingProjects/YSCMIGRATE/yscwebsite/src/pages/admin/students/index.astro", void 0);
-const $$file = "C:/Users/user/Desktop/OngoingProjects/YSCMIGRATE/yscwebsite/src/pages/admin/students/index.astro";
+  return renderTemplate`${renderComponent($$result, "AdminLayout", $$AdminLayout, { "title": "Students | YSC Admin", "description": "Manage students and Telegram connections" }, { "default": ($$result2) => renderTemplate` ${renderComponent($$result2, "StudentsManager", StudentsManager, { "client:load": true, "client:component-hydration": "load", "client:component-path": "C:/Users/Escanorrrrr/OneDrive/Desktop/Khaesey Files/yscwebsite/src/components/admin/StudentManager.tsx", "client:component-export": "default" })}  ` })}`;
+}, "C:/Users/Escanorrrrr/OneDrive/Desktop/Khaesey Files/yscwebsite/src/pages/admin/students/index.astro", void 0);
+const $$file = "C:/Users/Escanorrrrr/OneDrive/Desktop/Khaesey Files/yscwebsite/src/pages/admin/students/index.astro";
 const $$url = "/admin/students";
 const _page = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,

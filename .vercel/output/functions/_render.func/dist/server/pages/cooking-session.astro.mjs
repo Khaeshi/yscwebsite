@@ -2,7 +2,7 @@ import { f as createComponent, l as renderComponent, r as renderTemplate, m as m
 import { I as InstructorProfile, P as ProgramHistorySection } from "../chunks/ProgramHistorySection_DZt8wC8U.mjs";
 import { P as ParallaxHero, A as Award } from "../chunks/ParallaxHero_DzPyPLHG.mjs";
 import { P as ParallaxSection } from "../chunks/ParallaxSection_CxInqIK5.mjs";
-import { $ as $$Layout } from "../chunks/Layout_mRKKubIj.mjs";
+import { $ as $$Layout } from "../chunks/Layout_CFCoM0FF.mjs";
 import { e as cookingimageUrl, D as Desiree } from "../chunks/config_DXHxkv4J.mjs";
 import { c as createLucideIcon, C as ChefHat } from "../chunks/index_tryOdpTZ.mjs";
 import { U as Users } from "../chunks/users_CVZbG-IS.mjs";
@@ -51,7 +51,7 @@ const $$CookingSession = createComponent(($$result, $$props, $$slots) => {
     { number: "50+", label: "Recipes Taught" },
     { number: "18+", label: "Years Experience" },
     { number: "8+", label: "Monthly Classes" }
-  ], "showBackButton": true, "client:load": true, "client:component-hydration": "load", "client:component-path": "C:/Users/user/Desktop/OngoingProjects/YSCMIGRATE/yscwebsite/src/components/ParallaxHero.tsx", "client:component-export": "ParallaxHero" })}   <section class="py-20 bg-white"> <div class="container mx-auto px-4 sm:px-6 lg:px-8"> <div class="text-center mb-12"> <h2 class="mb-4">Culinary Skills for Life</h2> <p class="text-muted-foreground max-w-2xl mx-auto">
+  ], "showBackButton": true, "client:load": true, "client:component-hydration": "load", "client:component-path": "C:/Users/Escanorrrrr/OneDrive/Desktop/Khaesey Files/yscwebsite/src/components/ParallaxHero.tsx", "client:component-export": "ParallaxHero" })}   <section class="py-20 bg-white"> <div class="container mx-auto px-4 sm:px-6 lg:px-8"> <div class="text-center mb-12"> <h2 class="mb-4">Culinary Skills for Life</h2> <p class="text-muted-foreground max-w-2xl mx-auto">
 Learn essential cooking skills in a fun, safe, and supportive environment
 </p> </div> <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"> <div class="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-2xl p-8 border border-orange-100"> <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-lg flex items-center justify-center mb-4"> ${renderComponent($$result2, "ChefHat", ChefHat, { "className": "w-6 h-6 text-white" })} </div> <h3 class="mb-3">Hands-On Learning</h3> <p class="text-muted-foreground">Cook complete dishes from start to finish, developing real-world culinary skills.</p> </div> <div class="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-2xl p-8 border border-orange-100"> <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-lg flex items-center justify-center mb-4"> ${renderComponent($$result2, "Utensils", Utensils, { "className": "w-6 h-6 text-white" })} </div> <h3 class="mb-3">World Cuisines</h3> <p class="text-muted-foreground">Explore flavors from around the globe, learning about cultures through food.</p> </div> <div class="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-2xl p-8 border border-orange-100"> <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-yellow-500 rounded-lg flex items-center justify-center mb-4"> ${renderComponent($$result2, "Award", Award, { "className": "w-6 h-6 text-white" })} </div> <h3 class="mb-3">Take Home Your Food</h3> <p class="text-muted-foreground">Share your delicious creations with family and friends after every class.</p> </div> </div> </div> </section>  <section class="py-20 bg-gradient-to-br from-orange-50 to-yellow-50"> <div class="container mx-auto px-4 sm:px-6 lg:px-8"> <div class="text-center mb-12"> <h2 class="mb-4">Meet Our Culinary Team</h2> <p class="text-muted-foreground max-w-2xl mx-auto">
 Learn from professional chefs who are passionate about food education
@@ -64,8 +64,8 @@ Join our culinary community and discover the joy of cooking. Contact us on Faceb
 </p> <a href="https://www.facebook.com/YSCcommunity" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-white text-orange-600 hover:bg-white/90 hover:text-orange-700 shadow-xl px-5 py-2 rounded-lg font-medium text-sm">
 Message Us on Facebook
 </a> </div> ` })} </div> ` })}`;
-}, "C:/Users/user/Desktop/OngoingProjects/YSCMIGRATE/yscwebsite/src/pages/cooking-session.astro", void 0);
-const $$file = "C:/Users/user/Desktop/OngoingProjects/YSCMIGRATE/yscwebsite/src/pages/cooking-session.astro";
+}, "C:/Users/Escanorrrrr/OneDrive/Desktop/Khaesey Files/yscwebsite/src/pages/cooking-session.astro", void 0);
+const $$file = "C:/Users/Escanorrrrr/OneDrive/Desktop/Khaesey Files/yscwebsite/src/pages/cooking-session.astro";
 const $$url = "/cooking-session";
 const _page = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,

@@ -1,5 +1,5 @@
 import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead } from "../../chunks/astro/server_Cfl3Ur0m.mjs";
-import { $ as $$Layout } from "../../chunks/Layout_mRKKubIj.mjs";
+import { $ as $$Layout } from "../../chunks/Layout_CFCoM0FF.mjs";
 import { j as jsxRuntimeExports } from "../../chunks/jsx-runtime_mS7YKmDK.mjs";
 import { a as reactExports } from "../../chunks/_@astro-renderers_B4KjVBz-.mjs";
 import { r } from "../../chunks/_@astro-renderers_B4KjVBz-.mjs";
@@ -800,9 +800,9 @@ const $$FindYourProgram = createComponent(($$result, $$props, $$slots) => {
   const pageTitle = "Quiz | Young Starter Club";
   const description = "Take a quiz to identify your desired program with YSC!";
   const image = "/assets/YSC.png";
-  return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": pageTitle, "description": description, "image": image }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<div class="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">  ${renderComponent($$result2, "QuizModal", QuizModal, { "client:load": true, "onClose": handleCloseQuiz, "client:component-hydration": "load", "client:component-path": "C:/Users/user/Desktop/OngoingProjects/YSCMIGRATE/yscwebsite/src/components/quiz/QuizModal.tsx", "client:component-export": "QuizModal" })} </div> ` })}`;
-}, "C:/Users/user/Desktop/OngoingProjects/YSCMIGRATE/yscwebsite/src/pages/QuizProgram/find-your-program.astro", void 0);
-const $$file = "C:/Users/user/Desktop/OngoingProjects/YSCMIGRATE/yscwebsite/src/pages/QuizProgram/find-your-program.astro";
+  return renderTemplate`${renderComponent($$result, "Layout", $$Layout, { "title": pageTitle, "description": description, "image": image }, { "default": ($$result2) => renderTemplate` ${maybeRenderHead()}<div class="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">  ${renderComponent($$result2, "QuizModal", QuizModal, { "client:load": true, "onClose": handleCloseQuiz, "client:component-hydration": "load", "client:component-path": "C:/Users/Escanorrrrr/OneDrive/Desktop/Khaesey Files/yscwebsite/src/components/quiz/QuizModal.tsx", "client:component-export": "QuizModal" })} </div> ` })}`;
+}, "C:/Users/Escanorrrrr/OneDrive/Desktop/Khaesey Files/yscwebsite/src/pages/QuizProgram/find-your-program.astro", void 0);
+const $$file = "C:/Users/Escanorrrrr/OneDrive/Desktop/Khaesey Files/yscwebsite/src/pages/QuizProgram/find-your-program.astro";
 const $$url = "/QuizProgram/find-your-program";
 const _page = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,

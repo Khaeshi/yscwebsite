@@ -1,5 +1,5 @@
 import { f as createComponent, l as renderComponent, r as renderTemplate, m as maybeRenderHead } from "../chunks/astro/server_Cfl3Ur0m.mjs";
-import { $ as $$Layout } from "../chunks/Layout_mRKKubIj.mjs";
+import { $ as $$Layout } from "../chunks/Layout_CFCoM0FF.mjs";
 import { I as InstructorProfile, P as ProgramHistorySection } from "../chunks/ProgramHistorySection_DZt8wC8U.mjs";
 import { P as ParallaxHero, T as Target, A as Award } from "../chunks/ParallaxHero_DzPyPLHG.mjs";
 import { P as ParallaxSection } from "../chunks/ParallaxSection_CxInqIK5.mjs";
@@ -88,7 +88,7 @@ const $$BadmintonCoaching = createComponent(($$result, $$props, $$slots) => {
     { number: "50+", label: "Championships Awardee" },
     { number: "25+", label: "Years Experienced Coaches" },
     { number: "High Quality", label: "Beginner to Pro Lessons" }
-  ], "showBackButton": true, "client:load": true, "client:component-hydration": "load", "client:component-path": "C:/Users/user/Desktop/OngoingProjects/YSCMIGRATE/yscwebsite/src/components/ParallaxHero.tsx", "client:component-export": "ParallaxHero" })}  <section class="py-16 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50"> <div class="container mx-auto px-4 sm:px-6 lg:px-8"> <div class="text-center max-w-4xl mx-auto"> <div class="inline-flex items-center gap-2 bg-white/80 px-4 py-2 rounded-full mb-6 backdrop-blur-sm"> ${renderComponent($$result2, "Handshake", Handshake, { "className": "w-5 h-5 text-blue-600" })} <span class="text-sm text-blue-600">Partnership</span> </div> <h3 class="mb-8">In Partnership With</h3> <div class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8">   <div class="rounded-2xl pr-4"> ${renderComponent($$result2, "ImageWithFallback", ImageWithFallback, { "src": JTTC, "alt": "JT Badminton Logo", "className": "h-24 w-auto mx-auto drop-shadow-lg" })} <h2 class="mb-2 text-center">JT Badminton</h2>  </div>  <div class="rounded-2xl pl-4"> ${renderComponent($$result2, "ImageWithFallback", ImageWithFallback, { "src": "", "alt": "South City Homes Recreation Center", "className": "h-24 w-auto mx-auto" })} <h2 class="mb-2 text-center"> 
+  ], "showBackButton": true, "client:load": true, "client:component-hydration": "load", "client:component-path": "C:/Users/Escanorrrrr/OneDrive/Desktop/Khaesey Files/yscwebsite/src/components/ParallaxHero.tsx", "client:component-export": "ParallaxHero" })}  <section class="py-16 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50"> <div class="container mx-auto px-4 sm:px-6 lg:px-8"> <div class="text-center max-w-4xl mx-auto"> <div class="inline-flex items-center gap-2 bg-white/80 px-4 py-2 rounded-full mb-6 backdrop-blur-sm"> ${renderComponent($$result2, "Handshake", Handshake, { "className": "w-5 h-5 text-blue-600" })} <span class="text-sm text-blue-600">Partnership</span> </div> <h3 class="mb-8">In Partnership With</h3> <div class="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8">   <div class="rounded-2xl pr-4"> ${renderComponent($$result2, "ImageWithFallback", ImageWithFallback, { "src": JTTC, "alt": "JT Badminton Logo", "className": "h-24 w-auto mx-auto drop-shadow-lg" })} <h2 class="mb-2 text-center">JT Badminton</h2>  </div>  <div class="rounded-2xl pl-4"> ${renderComponent($$result2, "ImageWithFallback", ImageWithFallback, { "src": "", "alt": "South City Homes Recreation Center", "className": "h-24 w-auto mx-auto" })} <h2 class="mb-2 text-center"> 
 South City Homes <br>
 Recreation Center
 </h2> </div> </div> </div> </div> </section>   <section class="py-20 bg-white"> <div class="container mx-auto px-4 sm:px-6 lg:px-8"> <div class="text-center mb-12"> <h2 class="mb-4">Training Excellence</h2> <p class="text-muted-foreground max-w-2xl mx-auto">
@@ -101,7 +101,7 @@ Compete in friendly tournaments and get ready for inter-school and regional comp
 Minimum of 1 and maximum of 6 students per session ensures personalized attention and effective skill development.
 </p> </div> </div> </div> </section>  <section class="py-20 bg-gradient-to-br from-blue-50 to-cyan-50"> <div class="container mx-auto px-4 sm:px-6 lg:px-8"> <div class="text-center mb-12"> <h2 class="mb-4">Meet Our Coaches</h2> <p class="text-muted-foreground max-w-2xl mx-auto">
 Train with experienced coaches who have competed at the highest levels
-</p> </div> <div class="space-y-8"> ${coaches.map((coach, index) => renderTemplate`${renderComponent($$result2, "InstructorProfile", InstructorProfile, { "key": index, ...coach, "client:visible": true, "client:component-hydration": "visible", "client:component-path": "C:/Users/user/Desktop/OngoingProjects/YSCMIGRATE/yscwebsite/src/components/InstructorProfile.tsx", "client:component-export": "InstructorProfile" })}`)} </div> </div> </section>  <section class="py-20 bg-white"> <div class="container mx-auto px-4 sm:px-6 lg:px-8"> ${renderComponent($$result2, "ProgramHistorySection", ProgramHistorySection, { "image": badmintonhistory, "foundedYear": "2012", "milestones": historyMilestones, "stats": [
+</p> </div> <div class="space-y-8"> ${coaches.map((coach, index) => renderTemplate`${renderComponent($$result2, "InstructorProfile", InstructorProfile, { "key": index, ...coach, "client:visible": true, "client:component-hydration": "visible", "client:component-path": "C:/Users/Escanorrrrr/OneDrive/Desktop/Khaesey Files/yscwebsite/src/components/InstructorProfile.tsx", "client:component-export": "InstructorProfile" })}`)} </div> </div> </section>  <section class="py-20 bg-white"> <div class="container mx-auto px-4 sm:px-6 lg:px-8"> ${renderComponent($$result2, "ProgramHistorySection", ProgramHistorySection, { "image": badmintonhistory, "foundedYear": "2012", "milestones": historyMilestones, "stats": [
     { icon: Users, value: "150+", label: "Students" },
     { icon: Trophy, value: "25+", label: "Championship Awards Won" },
     { icon: Award, value: "50+", label: "Tournaments Participated" }
@@ -110,8 +110,8 @@ Join our badminton coaching program and train with the best. Contact us on Faceb
 </p> <a href="https://www.facebook.com/YSCcommunity" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-white text-blue-600 hover:bg-white/90 hover:text-blue-700 shadow-xl px-6 py-3 rounded-lg font-medium text-sm">
 Message Us on Facebook
 </a> </div> ` })} </div> ` })}`;
-}, "C:/Users/user/Desktop/OngoingProjects/YSCMIGRATE/yscwebsite/src/pages/badminton-coaching.astro", void 0);
-const $$file = "C:/Users/user/Desktop/OngoingProjects/YSCMIGRATE/yscwebsite/src/pages/badminton-coaching.astro";
+}, "C:/Users/Escanorrrrr/OneDrive/Desktop/Khaesey Files/yscwebsite/src/pages/badminton-coaching.astro", void 0);
+const $$file = "C:/Users/Escanorrrrr/OneDrive/Desktop/Khaesey Files/yscwebsite/src/pages/badminton-coaching.astro";
 const $$url = "/badminton-coaching";
 const _page = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,

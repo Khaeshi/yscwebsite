@@ -2,7 +2,7 @@ import { f as createComponent, l as renderComponent, r as renderTemplate, m as m
 import { I as InstructorProfile, P as ProgramHistorySection } from "../chunks/ProgramHistorySection_DZt8wC8U.mjs";
 import { P as ParallaxHero, A as Award } from "../chunks/ParallaxHero_DzPyPLHG.mjs";
 import { P as ParallaxSection } from "../chunks/ParallaxSection_CxInqIK5.mjs";
-import { $ as $$Layout } from "../chunks/Layout_mRKKubIj.mjs";
+import { $ as $$Layout } from "../chunks/Layout_CFCoM0FF.mjs";
 import { P as Piano, V as Violin, F as Flute, G as Guitar, U as Ukelele, C as Cello, R as Recorder, g as Voice, h as Saxophone, m as musicimageUrl, S as Silayan, i as She, j as musicAward } from "../chunks/config_DXHxkv4J.mjs";
 import { j as jsxRuntimeExports } from "../chunks/jsx-runtime_mS7YKmDK.mjs";
 import { a as reactExports } from "../chunks/_@astro-renderers_B4KjVBz-.mjs";
@@ -300,7 +300,7 @@ const $$MusicTeaching = createComponent(($$result, $$props, $$slots) => {
     { number: "10", label: "Students Competing" },
     { number: "10+", label: "Years Experience" },
     { number: "Yearly", label: "Recitals" }
-  ], "showBackButton": true, ";": true, "client:load": true, "client:component-hydration": "load", "client:component-path": "C:/Users/user/Desktop/OngoingProjects/YSCMIGRATE/yscwebsite/src/components/ParallaxHero.tsx", "client:component-export": "ParallaxHero" })} <!-- Event Banner --> <!-- <section class="py-12 bg-white">
+  ], "showBackButton": true, ";": true, "client:load": true, "client:component-hydration": "load", "client:component-path": "C:/Users/Escanorrrrr/OneDrive/Desktop/Khaesey Files/yscwebsite/src/components/ParallaxHero.tsx", "client:component-export": "ParallaxHero" })} <!-- Event Banner --> <!-- <section class="py-12 bg-white">
       <div class="container mx-auto px-4 sm:px-6 lg:px-8">
         <EventBanner />
       </div>
@@ -308,7 +308,7 @@ const $$MusicTeaching = createComponent(($$result, $$props, $$slots) => {
 Comprehensive music education designed to help you achieve your musical goals
 </p> </div> <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"> <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 border border-purple-100"> <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mb-4"> ${renderComponent($$result2, "Music", Music, { "className": "w-6 h-6 text-white" })} </div> <h3 class="mb-3">Multiple Instruments</h3> <p class="text-muted-foreground">Piano, guitar, violin, voice, and more. Find the perfect instrument for your musical journey.</p> </div> <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 border border-purple-100"> <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mb-4"> ${renderComponent($$result2, "GraduationCap", GraduationCap, { "className": "w-6 h-6 text-white" })} </div> <h3 class="mb-3">Competition Preparations</h3> <p class="text-muted-foreground">JSC and music school preparation with Music Degree examiners guiding you to success.</p> </div> <div class="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 border border-purple-100"> <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex items-center justify-center mb-4"> ${renderComponent($$result2, "Users", Users, { "className": "w-6 h-6 text-white" })} </div> <h3 class="mb-3">Performance Opportunities</h3> <p class="text-muted-foreground">Annual recitals and showcases to build confidence and share your musical talents.</p> </div> </div> </div> </section>  <section class="py-20 bg-gradient-to-br from-purple-50 to-pink-50"> <div class="container mx-auto px-4 sm:px-6 lg:px-8"> <div class="text-center mb-8"> <h2 class="mb-4">Explore Our Instruments</h2> <p class="text-muted-foreground max-w-2xl mx-auto">
 Discover the wide variety of instruments we teach. From classical to contemporary, find the perfect match for your musical aspirations.
-</p> </div> ${renderComponent($$result2, "InstrumentCarousel", InstrumentCarousel, { "client:load": true, "client:component-hydration": "load", "client:component-path": "C:/Users/user/Desktop/OngoingProjects/YSCMIGRATE/yscwebsite/src/components/music/InstrumentCarousel.tsx", "client:component-export": "default" })} </div> </section> <!-- Instructors Section --> <section class="py-20 bg-gradient-to-br from-purple-50 to-pink-50"> <div class="container mx-auto px-4 sm:px-6 lg:px-8"> <div class="text-center mb-12"> <h2 class="mb-4">Meet Our Music Teachers</h2> <p class="text-muted-foreground max-w-2xl mx-auto">
+</p> </div> ${renderComponent($$result2, "InstrumentCarousel", InstrumentCarousel, { "client:load": true, "client:component-hydration": "load", "client:component-path": "C:/Users/Escanorrrrr/OneDrive/Desktop/Khaesey Files/yscwebsite/src/components/music/InstrumentCarousel.tsx", "client:component-export": "default" })} </div> </section> <!-- Instructors Section --> <section class="py-20 bg-gradient-to-br from-purple-50 to-pink-50"> <div class="container mx-auto px-4 sm:px-6 lg:px-8"> <div class="text-center mb-12"> <h2 class="mb-4">Meet Our Music Teachers</h2> <p class="text-muted-foreground max-w-2xl mx-auto">
 Learn from passionate, experienced instructors dedicated to your musical growth
 </p> </div> <div class="space-y-8"> ${instructors.map((instructor, index) => renderTemplate`${renderComponent($$result2, "InstructorProfile", InstructorProfile, { "key": index, ...instructor })}`)} </div> </div> </section> <!-- History Section --> <section class="py-20 bg-white"> <div class="container mx-auto px-4 sm:px-6 lg:px-8"> ${renderComponent($$result2, "ProgramHistorySection", ProgramHistorySection, { "image": musicAward, "foundedYear": "2010", "milestones": historyMilestones, "stats": [
     { icon: Users, value: "60+", label: "Students" },
@@ -319,8 +319,8 @@ Become part of the Young Starter Club Music department. Let's discover your pass
 </p> <a href="https://www.facebook.com/YSCcommunity" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-white text-purple-600 hover:bg-yellow-300 hover:text-purple-700 shadow-xl px-5 py-2 rounded-lg font-medium text-sm">
 Message Us on Facebook
 </a> </div> ` })} </div> ` })}`;
-}, "C:/Users/user/Desktop/OngoingProjects/YSCMIGRATE/yscwebsite/src/pages/music-teaching.astro", void 0);
-const $$file = "C:/Users/user/Desktop/OngoingProjects/YSCMIGRATE/yscwebsite/src/pages/music-teaching.astro";
+}, "C:/Users/Escanorrrrr/OneDrive/Desktop/Khaesey Files/yscwebsite/src/pages/music-teaching.astro", void 0);
+const $$file = "C:/Users/Escanorrrrr/OneDrive/Desktop/Khaesey Files/yscwebsite/src/pages/music-teaching.astro";
 const $$url = "/music-teaching";
 const _page = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,

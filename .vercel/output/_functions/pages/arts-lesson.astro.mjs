@@ -2,7 +2,7 @@ import { f as createComponent, l as renderComponent, r as renderTemplate, m as m
 import { I as InstructorProfile, P as ProgramHistorySection } from "../chunks/ProgramHistorySection_DZt8wC8U.mjs";
 import { P as ParallaxHero, A as Award } from "../chunks/ParallaxHero_DzPyPLHG.mjs";
 import { P as ParallaxSection } from "../chunks/ParallaxSection_CxInqIK5.mjs";
-import { $ as $$Layout } from "../chunks/Layout_mRKKubIj.mjs";
+import { $ as $$Layout } from "../chunks/Layout_CFCoM0FF.mjs";
 import { b as artsimageUrl } from "../chunks/config_DXHxkv4J.mjs";
 import { P as Palette } from "../chunks/index_tryOdpTZ.mjs";
 import { S as Sparkles } from "../chunks/sparkles_CIAmSsCs.mjs";
@@ -55,7 +55,7 @@ const $$ArtsLesson = createComponent(($$result, $$props, $$slots) => {
     { number: "10+", label: "Exhibitions" },
     { number: "14+", label: "Years Experience" },
     { number: "230+", label: "Artworks Created" }
-  ], "showBackButton": true, "client:load": true, "client:component-hydration": "load", "client:component-path": "C:/Users/user/Desktop/OngoingProjects/YSCMIGRATE/yscwebsite/src/components/ParallaxHero.tsx", "client:component-export": "ParallaxHero" })}   <section class="py-20 bg-white"> <div class="container mx-auto px-4 sm:px-6 lg:px-8"> <div class="text-center mb-12"> <h2 class="mb-4">What Makes Our Program Special</h2> <p class="text-muted-foreground max-w-2xl mx-auto">
+  ], "showBackButton": true, "client:load": true, "client:component-hydration": "load", "client:component-path": "C:/Users/Escanorrrrr/OneDrive/Desktop/Khaesey Files/yscwebsite/src/components/ParallaxHero.tsx", "client:component-export": "ParallaxHero" })}   <section class="py-20 bg-white"> <div class="container mx-auto px-4 sm:px-6 lg:px-8"> <div class="text-center mb-12"> <h2 class="mb-4">What Makes Our Program Special</h2> <p class="text-muted-foreground max-w-2xl mx-auto">
 Comprehensive art education that nurtures creativity and builds technical skills
 </p> </div> <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"> <div class="bg-gradient-to-br from-pink-50 to-rose-50 rounded-2xl p-8 border border-pink-100"> <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-500 rounded-lg flex items-center justify-center mb-4"> ${renderComponent($$result2, "Palette", Palette, { "className": "w-6 h-6 text-white" })} </div> <h3 class="mb-3">Diverse Mediums</h3> <p class="text-muted-foreground">Explore watercolor, acrylic, charcoal, clay, digital art, and more. Find your favorite medium!</p> </div> <div class="bg-gradient-to-br from-pink-50 to-rose-50 rounded-2xl p-8 border border-pink-100"> <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-500 rounded-lg flex items-center justify-center mb-4"> ${renderComponent($$result2, "Sparkles", Sparkles, { "className": "w-6 h-6 text-white" })} </div> <h3 class="mb-3">Portfolio Building</h3> <p class="text-muted-foreground">Create a collection of artwork to showcase your growth and achievements over time.</p> </div> <div class="bg-gradient-to-br from-pink-50 to-rose-50 rounded-2xl p-8 border border-pink-100"> <div class="w-12 h-12 bg-gradient-to-br from-pink-500 to-rose-500 rounded-lg flex items-center justify-center mb-4"> ${renderComponent($$result2, "Award", Award, { "className": "w-6 h-6 text-white" })} </div> <h3 class="mb-3">Annual Exhibition</h3> <p class="text-muted-foreground">Showcase your artwork at our annual student art exhibition, celebrating creativity and talent.</p> </div> </div> </div> </section>  <section class="py-20 bg-gradient-to-br from-pink-50 to-rose-50"> <div class="container mx-auto px-4 sm:px-6 lg:px-8"> <div class="text-center mb-12"> <h2 class="mb-4">Meet Our Art Instructors</h2> <p class="text-muted-foreground max-w-2xl mx-auto">
 Learn from professional artists who are passionate about inspiring the next generation
@@ -68,8 +68,8 @@ Join our vibrant community of young artists. Contact us on Facebook to schedule 
 </p> <a href="https://www.facebook.com/YSCcommunity" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-white text-pink-600 hover:bg-white/90 hover:text-pink-700 shadow-xl px-5 py-2 rounded-lg font-medium text-sm">
 Message Us on Facebook
 </a> </div> ` })} </div> ` })}`;
-}, "C:/Users/user/Desktop/OngoingProjects/YSCMIGRATE/yscwebsite/src/pages/arts-lesson.astro", void 0);
-const $$file = "C:/Users/user/Desktop/OngoingProjects/YSCMIGRATE/yscwebsite/src/pages/arts-lesson.astro";
+}, "C:/Users/Escanorrrrr/OneDrive/Desktop/Khaesey Files/yscwebsite/src/pages/arts-lesson.astro", void 0);
+const $$file = "C:/Users/Escanorrrrr/OneDrive/Desktop/Khaesey Files/yscwebsite/src/pages/arts-lesson.astro";
 const $$url = "/arts-lesson";
 const _page = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,

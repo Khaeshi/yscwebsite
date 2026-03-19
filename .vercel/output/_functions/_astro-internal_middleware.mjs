@@ -1,7 +1,7 @@
 import { webcrypto } from "node:crypto";
-import "./chunks/astro-designed-error-pages_BiS8rplb.mjs";
+import "./chunks/astro-designed-error-pages_CSWXdAZv.mjs";
 import "./chunks/astro/server_Cfl3Ur0m.mjs";
-import { s as sequence } from "./chunks/index_CbJAsrOt.mjs";
+import { s as sequence } from "./chunks/index_D2ZUWh-5.mjs";
 const isTestEnvironment = () => {
   try {
     return process.env.NODE_ENV === "test";
@@ -7267,13 +7267,13 @@ const createPathMatcher = (patterns) => {
   const matchers = precomputePathRegex([patterns || ""].flat().filter(Boolean));
   return (pathname) => matchers.some((matcher) => matcher.test(pathname));
 };
-const __vite_import_meta_env__ = { "ASSETS_PREFIX": void 0, "BASE_URL": "/", "DEV": false, "MODE": "production", "PROD": true, "PUBLIC_APP_ID": "2876813752516691", "PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_test_bW9kZWwtdHVya2V5LTMwLmNsZXJrLmFjY291bnRzLmRldiQ", "PUBLIC_CONTACT_EMAIL": "info@youngstarterclub.com", "PUBLIC_FACEBOOK_ACCESS_TOKEN": "EAAo4cmXNwFMBQineP2LHwFNI6zvxZCU2m84DCjE66XEzAbKAbBFvDAxjBwnbvxKECZAdEVsedmd4iAZBiLZBeuvf0a2aq2X35L1GcBZA7W4nvZA88lJGcMWjXJ4I9pJfoSOZAKUhOkLQZAzZB37WBljZAA7LZAAQnhXJzC5wxYudvluH0QZARK6kuMVZBT3Q3jbkemfgcd1MK8bjI", "PUBLIC_FACEBOOK_URL": "https://www.facebook.com/YSCcommunity", "PUBLIC_PAGE_ID": "504865259587171", "PUBLIC_SITE_NAME": "Young Starter Club", "PUBLIC_SITE_URL": "https://youngstarterclub.com", "SITE": "https://youngstarterclub.asia", "SSR": true };
+const __vite_import_meta_env__ = { "ASSETS_PREFIX": void 0, "BASE_URL": "/", "DEV": false, "MODE": "production", "PROD": true, "PUBLIC_APP_ID": "2876813752516691", "PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_live_Y2xlcmsueW91bmdzdGFydGVyY2x1Yi5hc2lhJA", "PUBLIC_FACEBOOK_ACCESS_TOKEN": "EAAo4cmXNwFMBQCfvs4ZBVFZB5Qu9xM92JabR7CmeKgrG5LkyZBAeZC9JWGQVuf5JGNsOn5grJNwvkvGQRQVdAvRIE0TmUQxynIEoff5HL8VTONzkR6IXVtqjOhTvK5Uh4oyksZC0LrSxk6QxTFmFSA4geHMfcQ8c40oywcOcvDXSKpNFthUbqO6oReiyraX7G4bZCDLP2NKkbcsubjhjGbIsLyE91lZCAhV8KoFE28ZD", "PUBLIC_PAGE_ID": "504865259587171", "PUBLIC_SITE_URL": "https://youngstarterclub.asia", "SITE": "https://youngstarterclub.asia", "SSR": true };
 function getContextEnvVar(envVarName, contextOrLocals) {
   const locals = "locals" in contextOrLocals ? contextOrLocals.locals : contextOrLocals;
   if (locals?.runtime?.env) {
     return locals.runtime.env[envVarName];
   }
-  return Object.assign(__vite_import_meta_env__, { CLERK_SECRET_KEY: "sk_test_a2tWtTdVQoeO5Q1MEW4woYtlP30m6uBY5gobNbp3ew", Path: process.env.Path, PUBLIC: process.env.PUBLIC })[envVarName];
+  return Object.assign(__vite_import_meta_env__, { CLERK_SECRET_KEY: "sk_live_o3RTvCT4PYCDldq8IgxrToomdNwc5DEsS8t7i3tPdE", Path: process.env.Path, PUBLIC: process.env.PUBLIC })[envVarName];
 }
 function getSafeEnv(context) {
   return {
@@ -7340,7 +7340,7 @@ var createClerkClientWithOptions = (context, options) => createClerkClient({
     name: "@clerk/astro",
     version: "2.17.2",
     // eslint-disable-next-line turbo/no-undeclared-env-vars
-    environment: Object.assign(__vite_import_meta_env__, { CLERK_SECRET_KEY: "sk_test_a2tWtTdVQoeO5Q1MEW4woYtlP30m6uBY5gobNbp3ew", Path: process.env.Path, PUBLIC: process.env.PUBLIC }).MODE
+    environment: Object.assign(__vite_import_meta_env__, { CLERK_SECRET_KEY: "sk_live_o3RTvCT4PYCDldq8IgxrToomdNwc5DEsS8t7i3tPdE", Path: process.env.Path, PUBLIC: process.env.PUBLIC }).MODE
   },
   telemetry: {
     disabled: getSafeEnv(context).telemetryDisabled,

@@ -2,7 +2,7 @@ import { f as createComponent, l as renderComponent, r as renderTemplate, m as m
 import { I as InstructorProfile, P as ProgramHistorySection } from "../chunks/ProgramHistorySection_DZt8wC8U.mjs";
 import { P as ParallaxHero, A as Award } from "../chunks/ParallaxHero_DzPyPLHG.mjs";
 import { P as ParallaxSection } from "../chunks/ParallaxSection_CxInqIK5.mjs";
-import { $ as $$Layout } from "../chunks/Layout_mRKKubIj.mjs";
+import { $ as $$Layout } from "../chunks/Layout_CFCoM0FF.mjs";
 import { c as createLucideIcon, b as Camera } from "../chunks/index_tryOdpTZ.mjs";
 import { U as Users } from "../chunks/users_CVZbG-IS.mjs";
 import { r } from "../chunks/_@astro-renderers_B4KjVBz-.mjs";
@@ -65,7 +65,7 @@ const $$PhotographyClasses = createComponent(($$result, $$props, $$slots) => {
     { number: "8+", label: "Exhibitions" },
     { number: "8", label: "Years Experience" },
     { number: "30+", label: "Photo Walks" }
-  ], "showBackButton": true, "client:load": true, "client:component-hydration": "load", "client:component-path": "C:/Users/user/Desktop/OngoingProjects/YSCMIGRATE/yscwebsite/src/components/ParallaxHero.tsx", "client:component-export": "ParallaxHero" })}   <section class="py-20 bg-white"> <div class="container mx-auto px-4 sm:px-6 lg:px-8"> <div class="text-center mb-12"> <h2 class="mb-4">Photography Education</h2> <p class="text-muted-foreground max-w-2xl mx-auto">
+  ], "showBackButton": true, "client:load": true, "client:component-hydration": "load", "client:component-path": "C:/Users/Escanorrrrr/OneDrive/Desktop/Khaesey Files/yscwebsite/src/components/ParallaxHero.tsx", "client:component-export": "ParallaxHero" })}   <section class="py-20 bg-white"> <div class="container mx-auto px-4 sm:px-6 lg:px-8"> <div class="text-center mb-12"> <h2 class="mb-4">Photography Education</h2> <p class="text-muted-foreground max-w-2xl mx-auto">
 Comprehensive photography training for all skill levels and camera types
 </p> </div> <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8"> <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8 border border-green-100"> <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mb-4"> ${renderComponent($$result2, "Camera", Camera, { "className": "w-6 h-6 text-white" })} </div> <h3 class="mb-3">Any Camera Welcome</h3> <p class="text-muted-foreground">Learn with your smartphone, point-and-shoot, or DSLR. We teach techniques for any camera.</p> </div> <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8 border border-green-100"> <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mb-4"> ${renderComponent($$result2, "Image", Image, { "className": "w-6 h-6 text-white" })} </div> <h3 class="mb-3">Photo Walks & Field Trips</h3> <p class="text-muted-foreground">Practice photography in diverse real-world settings, from urban streets to nature trails.</p> </div> <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8 border border-green-100"> <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center mb-4"> ${renderComponent($$result2, "Award", Award, { "className": "w-6 h-6 text-white" })} </div> <h3 class="mb-3">Editing Mastery</h3> <p class="text-muted-foreground">Learn professional editing techniques using Lightroom, Photoshop, and mobile apps.</p> </div> </div> </div> </section>  <section class="py-20 bg-gradient-to-br from-green-50 to-emerald-50"> <div class="container mx-auto px-4 sm:px-6 lg:px-8"> <div class="text-center mb-12"> <h2 class="mb-4">Meet Our Photography Instructors</h2> <p class="text-muted-foreground max-w-2xl mx-auto">
 Learn from professional photographers who live and breathe visual storytelling
@@ -78,8 +78,8 @@ Join our photography community and start creating stunning images. Contact us on
 </p> <a href="https://www.facebook.com/YSCcommunity" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-white text-green-600 hover:bg-white/90 hover:text-green-700 shadow-xl px-5 py-2 rounded-lg font-medium text-sm">
 Message Us on Facebook
 </a> </div> ` })} </div> ` })}`;
-}, "C:/Users/user/Desktop/OngoingProjects/YSCMIGRATE/yscwebsite/src/pages/photography-classes.astro", void 0);
-const $$file = "C:/Users/user/Desktop/OngoingProjects/YSCMIGRATE/yscwebsite/src/pages/photography-classes.astro";
+}, "C:/Users/Escanorrrrr/OneDrive/Desktop/Khaesey Files/yscwebsite/src/pages/photography-classes.astro", void 0);
+const $$file = "C:/Users/Escanorrrrr/OneDrive/Desktop/Khaesey Files/yscwebsite/src/pages/photography-classes.astro";
 const $$url = "/photography-classes";
 const _page = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
