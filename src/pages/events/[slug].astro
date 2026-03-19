@@ -2,6 +2,7 @@
 import { connectDB } from '../../lib/db/client.ts';
 import Event from '../../lib/db/models/Event.ts';
 import Registration from '../../lib/db/models/Registration.ts';
+import '../../styles/globals.css';
 
 await connectDB();
 const event = await Event.findOne({ slug: Astro.params.slug, status: 'published' }).lean() as any;
@@ -25,7 +26,6 @@ const endStr = event.endDate
   <title>{event.title} — Young Starter Club</title>
   <meta name="description" content={event.description || `Register for ${event.title} at Young Starter Club.`} />
   <link rel="icon" href="/YSC.ico" />
-  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 min-h-screen">
 
