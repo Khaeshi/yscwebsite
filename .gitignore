@@ -12,7 +12,9 @@ pnpm-debug.log*
 .env.production
 
 .astro
-
+.vercel
+.env
+.env.local
 README.md
 
 =======
