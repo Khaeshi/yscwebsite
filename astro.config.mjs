@@ -17,6 +17,7 @@ export default defineConfig({
     plugins: [tailwindcss()],
     ssr: isProd ? {
       noExternal: true,
+      external: ['@node-rs/argon2', 'oslo']
     } : {},
   },
   site: 'https://youngstarterclub.asia',
