@@ -172,6 +172,16 @@ export function Header({ currentPath } : HeaderProps) {
               
             {isHomePage ? (
                 <>
+                  <a
+                    href="/events"
+                    className={`px-4 py-2 rounded-lg transition-all duration-200 ${
+                      scrolled
+                        ? 'text-gray-700 hover:bg-gray-50 hover:text-purple-600'
+                        : 'text-white hover:bg-white/10'
+                    }`}
+                  >
+                    Events
+                  </a>
                   <button
                     onClick={() => 
                       Scroll.scroller.scrollTo('testimonials', { smooth: true, duration: 500, offset: -headerHeight })}
