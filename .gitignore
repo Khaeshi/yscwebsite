@@ -15,4 +15,6 @@ pnpm-debug.log*
 
 README.md
 
-.env*.local
+=======
+.vercel
+>>>>>>> e995ea0 (afafaefe)
