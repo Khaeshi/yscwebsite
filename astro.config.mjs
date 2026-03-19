@@ -1,7 +1,6 @@
 // @ts-check
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from 'astro/config';
-import clerk from '@clerk/astro';
 import sitemap from '@astrojs/sitemap';
 import react from '@astrojs/react';
 import vercel from '@astrojs/vercel';
@@ -21,9 +20,7 @@ export default defineConfig({
     } : {},
   },
   site: 'https://youngstarterclub.asia',
-  integrations: [react(), sitemap(), clerk({
-    proxyUrl: 'https://youngstarterclub.asia/clerk-proxy',
-  })],
+  integrations: [react(), sitemap()],
   adapter: vercel({
     webAnalytics: { enabled: true },
   }),
