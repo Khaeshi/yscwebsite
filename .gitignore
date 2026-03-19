@@ -12,7 +12,6 @@ pnpm-debug.log*
 .env.production
 
 .astro
-.vercel
 
 README.md
 
