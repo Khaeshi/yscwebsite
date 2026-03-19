@@ -2,7 +2,7 @@
 import { connectDB } from '../../lib/db/client.ts';
 import Event from '../../lib/db/models/Event.ts';
 import Registration from '../../lib/db/models/Registration.ts';
-import '../../styles/globals.css';
+import '../../../styles/globals.css';
 
 await connectDB();
 const event = await Event.findOne({ slug: Astro.params.slug, status: 'published' }).lean() as any;

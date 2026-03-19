@@ -3,7 +3,7 @@ import { Menu, X, Music, Trophy, Palette, ChefHat, Camera, MapPin, MessageCircle
 import { useState, useEffect, useRef } from "react";
 import logoImg from "../../assets/YSC.png";
 import * as Scroll from 'react-scroll';
-import '../../styles/globals.css';
+import '../../../styles/globals.css';
 
 
 
