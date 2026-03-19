@@ -1,8 +1,8 @@
 ---
 import AdminLayout from '../../layouts/AdminLayout.astro';
 
-const { userId } = Astro.locals.auth();
-if (!userId) return Astro.redirect('/admin/login');
+const user = Astro.locals.user;
+if (!user) return Astro.redirect('/admin/login');
 ---
 
 <AdminLayout title="Dashboard | YSC Admin" description="Admin Dashboard">

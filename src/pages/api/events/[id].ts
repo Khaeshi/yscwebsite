@@ -27,8 +27,8 @@ export const GET: APIRoute = async ({ params }) => {
 
 export const PUT: APIRoute = async ({ request, locals, params }) => {
   try {
-    const { userId } = locals.auth();
-    if (!userId) return json({ success: false, message: 'Unauthorized' }, 401);
+    const user = locals.user;
+    if (!user) return json({ success: false, message: 'Unauthorized' }, 401);
 
     await connectDB();
     const body    = await request.json();
@@ -44,8 +44,8 @@ export const PUT: APIRoute = async ({ request, locals, params }) => {
 
 export const DELETE: APIRoute = async ({ locals, params }) => {
   try {
-    const { userId } = locals.auth();
-    if (!userId) return json({ success: false, message: 'Unauthorized' }, 401);
+    const user = locals.user;
+    if (!user) return json({ success: false, message: 'Unauthorized' }, 401);
 
     await connectDB();
     const event = await Event.findById(params.id).lean() as any;

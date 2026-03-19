@@ -11,8 +11,8 @@ const resend = new Resend(import.meta.env.RESEND_API_KEY);
 
 export const GET: APIRoute = async ({ request, locals }) => {
   try {
-    const { userId } = locals.auth();
-    if (!userId) return json({ success: false, message: 'Unauthorized' }, 401);
+    const user = locals.user;
+    if (!user) return json({ success: false, message: 'Unauthorized' }, 401);
 
     await connectDB();
     const url     = new URL(request.url);

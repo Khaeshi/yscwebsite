@@ -14,8 +14,8 @@ const s3 = new S3Client({
 
 export const POST: APIRoute = async ({ request, locals }) => {
   try {
-    const { userId } = locals.auth();
-    if (!userId) return json({ success: false, message: 'Unauthorized' }, 401);
+    const user = locals.user;
+    if (!user) return json({ success: false, message: 'Unauthorized' }, 401);
 
     const formData = await request.formData();
     const file     = formData.get('file') as File | null;

@@ -2,8 +2,8 @@
 import AdminLayout from '../../../layouts/AdminLayout.astro';
 import SettingsManager from '../../../components/admin/SettingsManager.tsx';
 
-const { userId } = Astro.locals.auth();
-if (!userId) return Astro.redirect('/admin/login');
+const user = Astro.locals.user;
+if (!user) return Astro.redirect('/admin/login');
 ---
 
 <AdminLayout title="Settings | YSC Admin" description="System settings and configuration">
