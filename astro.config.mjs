@@ -22,8 +22,7 @@ export default defineConfig({
   },
   site: 'https://youngstarterclub.asia',
   integrations: [react(), sitemap(), clerk({
-    signInUrl: '/sign-in',
-    signUpUrl: '/sign-up',
+    proxyUrl: 'https://youngstarterclub.asia/clerk-proxy',
   })],
   adapter: vercel({
     webAnalytics: { enabled: true },
