@@ -10,11 +10,11 @@ try {
   await client.connect();
   console.log('Connected!');
 
-  const hashedPassword = await new Argon2id().hash('your_password_here');
+  const hashedPassword = await new Argon2id().hash('Matthew77*');
 
   await client.db('YSC').collection('users').insertOne({
     _id: new ObjectId(),
-    email: 'admin@youngstarterclub.asia',
+    email: 'youngstarterclub@gmail.com ',
     hashedPassword,
     role: 'admin',
     createdAt: new Date(),
