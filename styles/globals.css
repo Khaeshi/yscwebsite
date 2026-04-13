@@ -244,3 +244,5 @@ body {
     display: none !important; /* never show backdrop on desktop */
   }
 }
+
+/* For adminLayout.astro*/

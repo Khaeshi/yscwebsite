@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { connectDB } from '../../lib/db/client.ts';
-import { Student, Schedule } from '../../lib/db/models/index.ts';
+import { Schedule } from '../../lib/db/models/index.ts';
+import { buildScheduleReminderMarkdownV2 } from '../../lib/messaging/scheduleTelegramReminder.ts';
 
 const json = (data: any, status = 200) =>
   new Response(JSON.stringify(data), {
@@ -22,10 +23,6 @@ function isRateLimited(ip: string): boolean {
   }
   entry.count++;
   return entry.count > 10; // max 10 requests per minute per IP
-}
-
-function escapeMd(text: string): string {
-  return String(text).replace(/[_*[\]()~`>#+\-=|{}.!\\]/g, '\\$&');
 }
 
 // Constant-time string comparison to prevent timing attacks on secret
@@ -107,17 +104,8 @@ export const GET: APIRoute = async ({ request }) => {
         continue;
       }
 
-      const classEmoji = schedule.classType === 'online' ? '💻' : '🏫';
-
       const message = [
-        `${classEmoji} *Class Reminder*`,
-        ``,
-        `Hi *${escapeMd(student.name)}*\\!`,
-        ``,
-        `📚 *Class:* ${escapeMd(schedule.className)}`,
-        `⏰ *Time:* ${escapeMd(schedule.time)}`,
-        `⏱ *Duration:* ${schedule.duration} min`,
-        `📍 *Type:* ${schedule.classType.toUpperCase()}`,
+        buildScheduleReminderMarkdownV2(schedule, student),
         ``,
         `_Your class starts in ${schedule.reminderMinutes >= 60
           ? `${schedule.reminderMinutes / 60} hour${schedule.reminderMinutes > 60 ? 's' : ''}`

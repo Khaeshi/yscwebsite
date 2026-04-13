@@ -3,116 +3,260 @@ import AdminLayout from '../../layouts/AdminLayout.astro';
 
 const user = Astro.locals.user;
 if (!user) return Astro.redirect('/admin/login');
+
+fetch('/api/stats')
+.then(function(r) { return r.json(); })
+.then(function(data) {
+  if (data.success) {
+    var s = document.getElementById('stat-students');
+    var p = document.getElementById('stat-programs');
+    var e = document.getElementById('stat-enrollments');
+    if (s) s.textContent = String(data.totalStudents);
+    if (p) p.textContent = String(data.totalPrograms);
+    if (e) e.textContent = String(data.totalEnrollments);
+  }
+})
+.catch(function() {});
 ---
 
 <AdminLayout title="Dashboard | YSC Admin" description="Admin Dashboard">
-  <div class="max-w-7xl mx-auto">
-    <h1 class="text-2xl sm:text-3xl font-bold mb-5 sm:mb-8">Dashboard</h1>
 
-    <!-- Stats Grid -->
-    <div class="grid grid-cols-3 gap-2 sm:gap-4 lg:gap-6 mb-5 sm:mb-8">
-      <div class="bg-white rounded-lg border border-gray-200 p-3 sm:p-6">
-        <div class="flex items-start sm:items-center justify-between mb-1 sm:mb-2">
-          <span class="text-gray-600 text-xs sm:text-sm font-medium leading-tight">Total Students</span>
-          <div class="w-7 h-7 sm:w-10 sm:h-10 bg-purple-100 rounded-lg items-center justify-center hidden sm:flex flex-shrink-0">
-            <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
-          </div>
-        </div>
-        <p id="stat-students" class="text-2xl sm:text-3xl font-bold text-gray-900">—</p>
-        <p class="text-xs sm:text-sm text-green-600 mt-0.5 sm:mt-1">↑ Active</p>
+  <style>
+    .dash-card {
+      background: #16162a;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 20px 22px;
+    }
+    .stat-card {
+      background: #16162a;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: border-color 0.15s;
+    }
+    .stat-card:hover { border-color: rgba(255,255,255,0.12); }
+    .donut-wrap {
+      position: relative;
+      width: 56px; height: 56px;
+      flex-shrink: 0;
+    }
+    .donut-wrap svg { width: 56px; height: 56px; transform: rotate(-90deg); }
+    .donut-pct {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; color: #e2e8f0;
+    }
+    .qa-btn {
+      background: #16162a;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px;
+      padding: 16px 10px;
+      text-align: center;
+      display: block;
+      text-decoration: none;
+      transition: all 0.15s;
+      cursor: pointer;
+    }
+    .qa-btn:hover {
+      background: #1e1e35;
+      border-color: rgba(255,255,255,0.1);
+      transform: translateY(-1px);
+    }
+    .qa-icon {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 10px;
+    }
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #f1f5f9;
+      margin: 0 0 16px;
+    }
+  </style>
+
+  <!-- Page heading -->
+  <div style="margin-bottom:28px;">
+    <h1 style="font-size:24px;font-weight:700;color:#f1f5f9;margin:0 0 4px;">Dashboard</h1>
+    <p style="font-size:13px;color:#475569;margin:0;">Welcome back — here's what's happening.</p>
+  </div>
+
+  <!-- ── Stats row ── -->
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px;">
+
+    <!-- Total Students -->
+    <div class="stat-card">
+      <div class="donut-wrap">
+        <svg viewBox="0 0 56 56">
+          <circle cx="28" cy="28" r="22" fill="none" stroke="rgba(167,139,250,0.1)" stroke-width="5"/>
+          <circle cx="28" cy="28" r="22" fill="none" stroke="#a78bfa" stroke-width="5"
+            stroke-dasharray="83 138" stroke-linecap="round"/>
+        </svg>
+        <div class="donut-pct">60%</div>
       </div>
-
-      <div class="bg-white rounded-lg border border-gray-200 p-3 sm:p-6">
-        <div class="flex items-start sm:items-center justify-between mb-1 sm:mb-2">
-          <span class="text-gray-600 text-xs sm:text-sm font-medium leading-tight">Total Programs</span>
-          <div class="w-7 h-7 sm:w-10 sm:h-10 bg-blue-100 rounded-lg items-center justify-center hidden sm:flex flex-shrink-0">
-            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-            </svg>
-          </div>
-        </div>
-        <p id="stat-programs" class="text-2xl sm:text-3xl font-bold text-gray-900">—</p>
-        <p class="text-xs sm:text-sm text-gray-500 mt-0.5 sm:mt-1">Courses</p>
-      </div>
-
-      <div class="bg-white rounded-lg border border-gray-200 p-3 sm:p-6">
-        <div class="flex items-start sm:items-center justify-between mb-1 sm:mb-2">
-          <span class="text-gray-600 text-xs sm:text-sm font-medium leading-tight">Enrollments</span>
-          <div class="w-7 h-7 sm:w-10 sm:h-10 bg-green-100 rounded-lg items-center justify-center hidden sm:flex flex-shrink-0">
-            <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-            </svg>
-          </div>
-        </div>
-        <p id="stat-enrollments" class="text-2xl sm:text-3xl font-bold text-gray-900">—</p>
-        <p class="text-xs sm:text-sm text-gray-500 mt-0.5 sm:mt-1">This year</p>
+      <div style="min-width:0;">
+        <p style="font-size:12px;color:#64748b;margin:0 0 4px;font-weight:500;">Total Students</p>
+        <p id="stat-students" style="font-size:26px;font-weight:700;color:#a78bfa;margin:0;line-height:1;">—</p>
+        <p style="font-size:11px;color:#34d399;margin:4px 0 0;">↑ Active</p>
       </div>
     </div>
 
+    <!-- Total Programs -->
+    <div class="stat-card">
+      <div class="donut-wrap">
+        <svg viewBox="0 0 56 56">
+          <circle cx="28" cy="28" r="22" fill="none" stroke="rgba(96,165,250,0.1)" stroke-width="5"/>
+          <circle cx="28" cy="28" r="22" fill="none" stroke="#60a5fa" stroke-width="5"
+            stroke-dasharray="55 138" stroke-linecap="round"/>
+        </svg>
+        <div class="donut-pct">40%</div>
+      </div>
+      <div style="min-width:0;">
+        <p style="font-size:12px;color:#64748b;margin:0 0 4px;font-weight:500;">Total Programs</p>
+        <p id="stat-programs" style="font-size:26px;font-weight:700;color:#60a5fa;margin:0;line-height:1;">—</p>
+        <p style="font-size:11px;color:#64748b;margin:4px 0 0;">Courses</p>
+      </div>
+    </div>
+
+    <!-- Enrollments -->
+    <div class="stat-card">
+      <div class="donut-wrap">
+        <svg viewBox="0 0 56 56">
+          <circle cx="28" cy="28" r="22" fill="none" stroke="rgba(244,114,182,0.1)" stroke-width="5"/>
+          <circle cx="28" cy="28" r="22" fill="none" stroke="#f472b6" stroke-width="5"
+            stroke-dasharray="110 138" stroke-linecap="round"/>
+        </svg>
+        <div class="donut-pct">80%</div>
+      </div>
+      <div style="min-width:0;">
+        <p style="font-size:12px;color:#64748b;margin:0 0 4px;font-weight:500;">Enrollments</p>
+        <p id="stat-enrollments" style="font-size:26px;font-weight:700;color:#f472b6;margin:0;line-height:1;">—</p>
+        <p style="font-size:11px;color:#64748b;margin:4px 0 0;">This year</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Area chart ── -->
+  <div class="dash-card" style="margin-bottom:20px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+      <h2 class="section-title" style="margin:0;">Overview</h2>
+      <div style="display:flex;align-items:center;gap:16px;">
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span style="width:8px;height:8px;border-radius:50%;background:#a78bfa;display:inline-block;"></span>
+          <span style="font-size:12px;color:#64748b;">Students</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span style="width:8px;height:8px;border-radius:50%;background:#f472b6;display:inline-block;"></span>
+          <span style="font-size:12px;color:#64748b;">Enrollments</span>
+        </div>
+        <span style="
+          font-size:11px;color:#64748b;
+          background:rgba(255,255,255,0.04);
+          border:1px solid rgba(255,255,255,0.07);
+          border-radius:7px;padding:3px 10px;
+        ">This year ▾</span>
+      </div>
+    </div>
+    <svg viewBox="0 0 600 140" width="100%" height="140" preserveAspectRatio="none" style="display:block;">
+      <defs>
+        <linearGradient id="gP" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.45"/>
+          <stop offset="100%" stop-color="#a78bfa" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="gPk" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#f472b6" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#f472b6" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <!-- Purple area -->
+      <path d="M0,100 C50,90 80,55 130,48 C180,40 210,75 260,60 C310,45 340,22 390,28 C440,34 490,65 560,52 L600,48 L600,140 L0,140 Z" fill="url(#gP)"/>
+      <path d="M0,100 C50,90 80,55 130,48 C180,40 210,75 260,60 C310,45 340,22 390,28 C440,34 490,65 560,52 L600,48"
+        fill="none" stroke="#a78bfa" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Pink area -->
+      <path d="M0,115 C50,108 80,85 130,80 C180,74 210,95 260,88 C310,80 340,58 390,64 C440,70 490,90 560,78 L600,74 L600,140 L0,140 Z" fill="url(#gPk)"/>
+      <path d="M0,115 C50,108 80,85 130,80 C180,74 210,95 260,88 C310,80 340,58 390,64 C440,70 490,90 560,78 L600,74"
+        fill="none" stroke="#f472b6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- X labels -->
+      <text x="0"   y="138" font-size="10" fill="#334155">Jan</text>
+      <text x="72"  y="138" font-size="10" fill="#334155">Feb</text>
+      <text x="144" y="138" font-size="10" fill="#334155">Mar</text>
+      <text x="216" y="138" font-size="10" fill="#334155">Apr</text>
+      <text x="288" y="138" font-size="10" fill="#334155">May</text>
+      <text x="360" y="138" font-size="10" fill="#334155">Jun</text>
+      <text x="432" y="138" font-size="10" fill="#334155">Jul</text>
+      <text x="516" y="138" font-size="10" fill="#334155">Aug</text>
+    </svg>
+  </div>
+
+  <!-- ── Bottom row: quick actions + recent activity ── -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+
     <!-- Quick Actions -->
-    <div class="bg-white rounded-lg border border-gray-200 p-4 sm:p-6 mb-5 sm:mb-8">
-      <h2 class="text-base sm:text-xl font-bold mb-3 sm:mb-4">Quick Actions</h2>
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4">
-        <a href="/admin/students" class="p-3 sm:p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-center">
-          <div class="w-10 h-10 sm:w-12 sm:h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-2">
-            <svg class="w-5 h-5 sm:w-6 sm:h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+    <div class="dash-card">
+      <h2 class="section-title">Quick Actions</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+
+        <a href="/admin/students" class="qa-btn">
+          <div class="qa-icon" style="background:rgba(167,139,250,0.12);">
+            <svg width="18" height="18" fill="none" stroke="#a78bfa" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
             </svg>
           </div>
-          <span class="text-xs sm:text-sm font-medium">Add Student</span>
+          <span style="font-size:12px;font-weight:500;color:#cbd5e1;">Add Student</span>
         </a>
-        <a href="/admin/schedules" class="p-3 sm:p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-center">
-          <div class="w-10 h-10 sm:w-12 sm:h-12 bg-indigo-100 rounded-lg flex items-center justify-center mx-auto mb-2">
-            <svg class="w-5 h-5 sm:w-6 sm:h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+
+        <a href="/admin/schedules" class="qa-btn">
+          <div class="qa-icon" style="background:rgba(96,165,250,0.12);">
+            <svg width="18" height="18" fill="none" stroke="#60a5fa" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
             </svg>
           </div>
-          <span class="text-xs sm:text-sm font-medium">Schedules</span>
+          <span style="font-size:12px;font-weight:500;color:#cbd5e1;">Schedules</span>
         </a>
-        <a href="/admin/programs" class="p-3 sm:p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-center">
-          <div class="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-2">
-            <svg class="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+
+        <a href="/admin/programs" class="qa-btn">
+          <div class="qa-icon" style="background:rgba(244,114,182,0.12);">
+            <svg width="18" height="18" fill="none" stroke="#f472b6" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 4v16m8-8H4"/>
             </svg>
           </div>
-          <span class="text-xs sm:text-sm font-medium">Add Program</span>
+          <span style="font-size:12px;font-weight:500;color:#cbd5e1;">Add Program</span>
         </a>
-        <a href="/" target="_blank" class="p-3 sm:p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-center">
-          <div class="w-10 h-10 sm:w-12 sm:h-12 bg-yellow-100 rounded-lg flex items-center justify-center mx-auto mb-2">
-            <svg class="w-5 h-5 sm:w-6 sm:h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+
+        <a href="/" target="_blank" class="qa-btn">
+          <div class="qa-icon" style="background:rgba(251,191,36,0.12);">
+            <svg width="18" height="18" fill="none" stroke="#fbbf24" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
             </svg>
           </div>
-          <span class="text-xs sm:text-sm font-medium">View Site</span>
+          <span style="font-size:12px;font-weight:500;color:#cbd5e1;">View Site</span>
         </a>
       </div>
     </div>
 
     <!-- Recent Activity -->
-    <div class="bg-white rounded-lg border border-gray-200 p-4 sm:p-6">
-      <h2 class="text-base sm:text-xl font-bold mb-3 sm:mb-4">Recent Activity</h2>
-      <p class="text-gray-500 text-center text-sm py-6 sm:py-8">Recent enrollments and updates will appear here</p>
+    <div class="dash-card">
+      <h2 class="section-title">Recent Activity</h2>
+      <div style="
+        display:flex;flex-direction:column;align-items:center;justify-content:center;
+        height:130px;
+        border:1px dashed rgba(255,255,255,0.07);
+        border-radius:12px;
+      ">
+        <svg width="24" height="24" fill="none" stroke="#334155" viewBox="0 0 24 24" style="margin-bottom:8px;">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        <p style="font-size:12px;color:#334155;margin:0;">Recent enrollments will appear here</p>
+      </div>
     </div>
   </div>
-
-  <script>
-    // Fetch stats after page renders — no DB blocking
-    fetch('/api/stats')
-      .then(function(r) { return r.json(); })
-      .then(function(data) {
-        if (data.success) {
-          var s = document.getElementById('stat-students');
-          var p = document.getElementById('stat-programs');
-          var e = document.getElementById('stat-enrollments');
-          if (s) s.textContent = String(data.totalStudents);
-          if (p) p.textContent = String(data.totalPrograms);
-          if (e) e.textContent = String(data.totalEnrollments);
-        }
-      })
-      .catch(function() {
-        // silently fail — dashes stay if API errors
-      });
-  </script>
 </AdminLayout>

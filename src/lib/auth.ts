@@ -34,6 +34,7 @@ const adapter: Adapter = {
         attributes: {
           email: user.email as string,
           role:  user.role  as string,
+          full_name: user.name as string,
         },
       },
     ];
@@ -92,6 +93,7 @@ export const lucia = new Lucia(adapter, {
   getUserAttributes: (data) => ({
     email: (data as any).email,
     role:  (data as any).role,
+    full_name: (data as any).full_name,
   }),
 });
 
@@ -101,6 +103,7 @@ declare module 'lucia' {
     DatabaseUserAttributes: {
       email: string;
       role:  string;
+      full_name: string;
     };
   }
 }

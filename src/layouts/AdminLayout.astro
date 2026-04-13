@@ -7,7 +7,6 @@ interface Props {
     image?: string;
 }
 
-// Lucia auth check
 const user = Astro.locals.user;
 if (!user) return Astro.redirect('/admin/login');
 
@@ -23,9 +22,8 @@ const navItems = [
   { label: 'Dashboard',    href: '/admin',           icon: 'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' },
   { label: 'Students',     href: '/admin/students',  icon: 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z' },
   { label: 'Programs',     href: '/admin/programs',  icon: 'M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253' },
-  { label: 'Media Library', href: '/admin/media',    icon: 'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z' },
   { label: 'Schedules',    href: '/admin/schedules', icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z' },
-  { label: 'Events',       href: '/admin/events',    icon: 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z' },
+  { label: 'Events',       href: '/admin/events',    icon: 'M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z' },
   { label: 'Settings',     href: '/admin/settings',  icon: 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z' },
 ];
 
@@ -47,129 +45,221 @@ const activeLabel = navItems.find(n => isActive(n.href))?.label ?? 'Admin';
     <meta property="og:image" content={image} />
     <meta name="robots" content="noindex, nofollow">
   </head>
-  <body class="min-h-screen bg-gray-50">
 
-    <div id="sidebar-overlay" aria-hidden="true"></div>
+  <body class="min-h-screen bg-[#0d0d1a] text-slate-200">
 
-    <aside id="sidebar" class="fixed top-0 left-0 z-50 h-screen w-64 bg-white border-r border-gray-200 flex flex-col">
-      
+    <!-- ══════════════════════════════
+         LEFT NAV — icon only
+    ══════════════════════════════ -->
+    <aside id="sidebar" class="sidebar fixed top-0 left-0 z-50 h-screen w-[68px] flex flex-col items-center py-5 bg-[#11111f] border-r border-white/5">
+
       <!-- Logo -->
-      <div class="flex items-center justify-between h-16 px-5 border-b border-gray-200 flex-shrink-0">
-        <a href="/admin" class="flex items-center gap-2.5">
-          <div class="w-8 h-8 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg flex-shrink-0"></div>
-          <span class="font-bold text-lg text-gray-900">YSC Admin</span>
-        </a>
-        <button 
-          id="sidebar-close-btn"
-          class="lg:hidden p-1.5 rounded-lg hover:bg-gray-100 text-gray-500 transition-colors"
-          aria-label="Close sidebar">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
-      </div>
+      <a href="/admin" class="logo-link w-9 h-9 rounded-xl flex items-center justify-center mb-8 flex-shrink-0">
+        <svg width="18" height="18" fill="none" stroke="white" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+        </svg>
+      </a>
 
       <!-- Nav -->
-      <nav class="flex-1 px-3 py-5 space-y-1 overflow-y-auto">
-        {navItems.map((item) => (
-          <a 
-            href={item.href}
-            data-nav-link
-            class={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors text-sm ${
-              isActive(item.href)
-                ? 'bg-purple-50 text-purple-600 font-semibold'
-                : 'text-gray-700 hover:bg-gray-100 font-medium'
-            }`}>
-            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.icon} />
-            </svg>
-            <span>{item.label}</span>
-          </a>
-        ))}
-      </nav>
-
-      <!-- User info + logout -->
-      <div class="p-4 border-t border-gray-200 flex-shrink-0">
-        <div class="flex items-center justify-between px-2 py-1.5">
-          <div class="flex items-center gap-2.5 min-w-0">
-            <div class="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center flex-shrink-0">
-              <span class="text-white text-xs font-bold">
-                {user.email?.charAt(0).toUpperCase()}
-              </span>
-            </div>
-            <span class="text-sm font-medium text-gray-700 truncate">{user.email}</span>
-          </div>
-          <form method="POST" action="/admin/logout">
-            <button type="submit" 
-              class="p-1.5 rounded-lg hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors"
-              title="Sign out">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+      <nav class="flex-1 flex flex-col items-center gap-1 w-full">
+        {navItems.map((item) => {
+          const active = isActive(item.href);
+          return (
+            <a
+              href={item.href}
+              data-nav-link
+              title={item.label}
+              class={`nav-item relative w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-150 ${active ? 'nav-active' : 'nav-inactive'}`}
+              style={active ? 'background:linear-gradient(135deg,rgba(124,58,237,0.3),rgba(219,39,119,0.2));' : ''}
+            >
+              {active && (
+                <span class="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-[22px] rounded-r-sm" style="background:linear-gradient(180deg,#7c3aed,#db2777);"></span>
+              )}
+              <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d={item.icon}/>
               </svg>
-            </button>
-          </form>
-        </div>
-      </div>
+            </a>
+          );
+        })}
+      </nav>
     </aside>
 
-    <!-- Main content -->
-    <div class="lg:pl-64 min-h-screen flex flex-col">
-      <header class="sticky top-0 z-30 h-14 lg:h-16 bg-white border-b border-gray-200 flex-shrink-0">
-        <div class="flex items-center justify-between h-full px-4 lg:px-6">
-          <div class="flex items-center gap-3">
-            <button 
-              id="sidebar-open-btn"
-              class="lg:hidden p-2 -ml-1 rounded-lg hover:bg-gray-100 text-gray-600 transition-colors"
-              aria-label="Open sidebar">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </button>
-            <span class="lg:hidden text-sm font-semibold text-gray-800">{activeLabel}</span>
-          </div>
-          <div class="lg:hidden">
-            <form method="POST" action="/admin/logout">
-              <button type="submit" class="p-2 rounded-lg hover:bg-gray-100 text-gray-500 transition-colors">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                </svg>
-              </button>
-            </form>
-          </div>
+    <!-- ══════════════════════════════
+         CENTER — main content
+    ══════════════════════════════ -->
+    <div id="main-content" class="main-content flex flex-col min-h-screen">
+
+      <!-- Top bar -->
+      <header class="sticky top-0 z-30 h-[60px] flex items-center gap-3 px-4 lg:px-7 bg-[#0d0d1a] border-b border-white/5">
+
+        <!-- Mobile hamburger -->
+        <button id="sidebar-open-btn" class="hamburger-btn lg:hidden p-1.5 rounded-lg bg-transparent border-none cursor-pointer text-slate-400 transition-all">
+          <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+
+        <span class="lg:hidden text-sm font-semibold text-slate-100">{activeLabel}</span>
+
+        <div class="flex-1"></div>
+
+        <!-- Search -->
+        <div class="flex items-center gap-2 px-3.5 py-2 rounded-xl w-40 sm:w-60 bg-[#1a1a2e] border border-white/[0.07]">
+          <svg width="14" height="14" fill="none" stroke="#475569" viewBox="0 0 24 24" class="flex-shrink-0">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+          <input type="text" placeholder="Search..." class="bg-transparent border-none outline-none text-slate-400 text-[13px] w-full" />
         </div>
       </header>
 
-      <main class="flex-1 p-3 sm:p-4 lg:p-6">
+      <!-- Page slot -->
+      <main class="flex-1 p-4 lg:p-7">
         <slot />
       </main>
     </div>
 
-    <script>
-      const sidebar  = document.getElementById('sidebar')!;
-      const overlay  = document.getElementById('sidebar-overlay')!;
-      const openBtn  = document.getElementById('sidebar-open-btn')!;
-      const closeBtn = document.getElementById('sidebar-close-btn')!;
+    <!-- ══════════════════════════════
+         RIGHT PANEL
+    ══════════════════════════════ -->
+    <aside class="right-panel fixed top-0 right-0 h-screen flex flex-col gap-6 bg-[#11111f] border-l border-white/5 px-5 py-6 overflow-y-auto">
 
-      function openSidebar() {
+      <!-- Profile row -->
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div class="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold text-white flex-shrink-0" style="background:linear-gradient(135deg,#7c3aed,#db2777);">
+            {user.email?.charAt(0).toUpperCase()}
+          </div>
+          <div class="min-w-0">
+            <p class="text-[13px] font-semibold text-slate-100 m-0 truncate max-w-[110px]">{user.full_name}</p>
+            <p class="text-[11px] text-slate-600 m-0">{user.role}</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-1">
+          <form method="POST" action="/admin/logout">
+            <button type="submit" title="Sign out" class="logout-btn w-11 h-11 rounded-xl flex items-center justify-center bg-transparent border-none cursor-pointer text-slate-600 transition-all duration-150">
+              <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+              </svg>
+            </button>
+          </form>
+          <button title="Notifications" class="icon-btn relative w-8 h-8 rounded-[9px] flex items-center justify-center border-none cursor-pointer text-slate-600 transition-all">
+            <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+            </svg>
+            <span class="absolute top-1.5 right-1.5 w-1.5 h-1.5 rounded-full bg-pink-600"></span>
+          </button>
+          <button title="Messages" class="icon-btn w-8 h-8 rounded-[9px] flex items-center justify-center border-none cursor-pointer text-slate-600 transition-all">
+            <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="h-px bg-white/5"></div>
+
+      <!-- Card slot -->
+      <div>
+        <p class="text-[11px] font-semibold text-slate-600 uppercase tracking-widest mb-3">Overview Card</p>
+        <div class="rounded-2xl p-5 min-h-[130px] flex flex-col justify-between relative overflow-hidden" style="background:linear-gradient(135deg,#3b1f6e 0%,#7c3aed 45%,#db2777 100%);">
+          <div class="absolute -top-5 -right-5 w-[90px] h-[90px] rounded-full bg-white/[0.07]"></div>
+          <div class="absolute -bottom-7 left-5 w-[70px] h-[70px] rounded-full bg-white/[0.05]"></div>
+          <div class="relative z-10">
+            <p class="text-[11px] text-white/60 m-0 mb-1.5">YSC Admin</p>
+            <p class="text-[22px] font-bold text-white m-0">Dashboard</p>
+          </div>
+          <p class="text-[11px] text-white/40 m-0 tracking-[2px] relative z-10">···· ···· ···· ····</p>
+        </div>
+      </div>
+
+      <div class="h-px bg-white/5"></div>
+
+      <!-- Future slot -->
+      <div>
+        <p class="text-[11px] font-semibold text-slate-600 uppercase tracking-widest mb-3">Recent Activity</p>
+        <div class="rounded-xl border border-dashed border-white/[0.08] p-6 text-center">
+          <p class="text-xs text-slate-700 m-0">Future component slot</p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Mobile overlay -->
+    <div id="sidebar-overlay" class="hidden fixed inset-0 bg-black/60 z-40" aria-hidden="true"></div>
+
+    <style>
+      /* ── Nav link states ── */
+      .nav-item   { text-decoration: none; }
+      .nav-active { color: #c4b5fd; }
+      .nav-inactive { color: #475569; }
+      .nav-inactive:hover { color: #94a3b8; background: rgba(255,255,255,0.05); }
+
+      /* ── Logo ── */
+      .logo-link { background: linear-gradient(135deg,#7c3aed,#db2777); text-decoration: none; }
+
+      /* ── Button hovers ── */
+      .logout-btn:hover { color: #94a3b8; background: rgba(255,255,255,0.05); }
+      .hamburger-btn:hover { color: #e2e8f0; background: rgba(255,255,255,0.05); }
+      .icon-btn { background: rgba(255,255,255,0.04); }
+      .icon-btn:hover { background: rgba(255,255,255,0.08); color: #94a3b8; }
+
+      /* ── Input placeholder ── */
+      input::placeholder { color: #475569; }
+
+      /* ══════════════════════════════
+         DESKTOP layout (≥1280px): show right panel
+      ══════════════════════════════ */
+      @media (min-width: 1280px) {
+        .main-content { margin-left: 68px; margin-right: 280px; }
+        .right-panel  { display: flex; width: 280px; }
+      }
+
+      /* ══════════════════════════════
+         TABLET layout (1024px–1279px): hide right panel
+      ══════════════════════════════ */
+      @media (min-width: 1024px) and (max-width: 1279px) {
+        .main-content { margin-left: 68px; margin-right: 0; }
+        .right-panel  { display: none; }
+      }
+
+      /* ══════════════════════════════
+         MOBILE layout (<1024px): slide-in sidebar
+      ══════════════════════════════ */
+      @media (max-width: 1023px) {
+        .main-content { margin-left: 0; margin-right: 0; }
+        .right-panel  { display: none; }
+        #sidebar {
+          transform: translateX(-100%);
+          transition: transform 0.25s ease;
+          width: 220px;
+        }
+        #sidebar.is-open { transform: translateX(0); }
+      }
+
+      #sidebar-overlay.is-open { display: block !important; }
+    </style>
+
+    <script>
+      const sidebar = document.getElementById('sidebar')!;
+      const overlay = document.getElementById('sidebar-overlay')!;
+      const openBtn = document.getElementById('sidebar-open-btn')!;
+
+      openBtn?.addEventListener('click', () => {
         sidebar.classList.add('is-open');
         overlay.classList.add('is-open');
         document.body.style.overflow = 'hidden';
-      }
-
-      function closeSidebar() {
+      });
+      overlay?.addEventListener('click', () => {
         sidebar.classList.remove('is-open');
         overlay.classList.remove('is-open');
         document.body.style.overflow = '';
-      }
-
-      openBtn.addEventListener('click', openSidebar);
-      closeBtn.addEventListener('click', closeSidebar);
-      overlay.addEventListener('click', closeSidebar);
-
-      document.querySelectorAll('[data-nav-link]').forEach(link => {
-        link.addEventListener('click', closeSidebar);
       });
-
+      document.querySelectorAll('[data-nav-link]').forEach(link => {
+        link.addEventListener('click', () => {
+          sidebar.classList.remove('is-open');
+          overlay.classList.remove('is-open');
+          document.body.style.overflow = '';
+        });
+      });
       window.addEventListener('resize', () => {
         if (window.innerWidth >= 1024) {
           overlay.classList.remove('is-open');

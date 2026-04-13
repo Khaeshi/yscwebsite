@@ -83,11 +83,15 @@ export interface UpdateStudentDTO extends Partial<CreateStudentDTO> {
 export interface CreateScheduleDTO {
   studentId: string;
   className: string;
+  instrumentLabel?: string;
   classType: 'online' | 'onsite';
   dayOfWeek: number;
   time: string;
   duration?: number;
   reminderMinutes?: number;
+  sessionNumber?: number;
+  sessionSetLabel?: string;
+  timeRegion?: string;
   active?: boolean;
 }
 

@@ -1,18 +1,39 @@
 import { useState, useEffect } from 'react';
+import { buildScheduleReminderPlainPreview } from '../../lib/messaging/scheduleTelegramReminder.ts';
 
 const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const DAYS_SHORT = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
 const EMPTY_FORM = {
-  studentId: '', className: '', classType: 'online' as 'online' | 'onsite',
-  dayOfWeek: 1, time: '14:00', duration: 60, reminderMinutes: 60, active: true,
+  studentId: '',
+  className: '',
+  instrumentLabel: '',
+  classType: 'online' as 'online' | 'onsite',
+  dayOfWeek: 1,
+  time: '14:00',
+  duration: 60,
+  reminderMinutes: 60,
+  sessionNumber: 1,
+  sessionSetLabel: '1st',
+  timeRegion: 'Philippines (PHT)',
+  active: true,
 };
 
 interface Student { _id: string; name: string; telegramChatId?: string; phone?: string; }
 interface Schedule {
-  _id: string; studentId: Student; className: string;
-  classType: 'online' | 'onsite'; dayOfWeek: number; time: string;
-  duration: number; reminderMinutes: number; active: boolean;
+  _id: string;
+  studentId: Student;
+  className: string;
+  instrumentLabel?: string;
+  classType: 'online' | 'onsite';
+  dayOfWeek: number;
+  time: string;
+  duration: number;
+  reminderMinutes: number;
+  sessionNumber?: number;
+  sessionSetLabel?: string;
+  timeRegion?: string;
+  active: boolean;
 }
 type ToastType = 'success' | 'error' | 'info';
 interface IToast { id: number; message: string; type: ToastType; }
@@ -87,7 +108,20 @@ export default function SchedulesManager({ initialSchedules = [], initialStudent
   function addToast(message: string, type: ToastType = 'success') { setToasts(p => [...p, { id: Date.now(), message, type }]); }
   function openCreate() { setForm(EMPTY_FORM); setEditingId(null); setModalOpen(true); }
   function openEdit(s: Schedule) {
-    setForm({ studentId: s.studentId._id, className: s.className, classType: s.classType, dayOfWeek: s.dayOfWeek, time: s.time, duration: s.duration, reminderMinutes: s.reminderMinutes, active: s.active });
+    setForm({
+      studentId: s.studentId._id,
+      className: s.className,
+      instrumentLabel: s.instrumentLabel ?? '',
+      classType: s.classType,
+      dayOfWeek: s.dayOfWeek,
+      time: s.time,
+      duration: s.duration,
+      reminderMinutes: s.reminderMinutes,
+      sessionNumber: s.sessionNumber ?? 1,
+      sessionSetLabel: s.sessionSetLabel ?? '1st',
+      timeRegion: s.timeRegion ?? 'Philippines (PHT)',
+      active: s.active,
+    });
     setEditingId(s._id); setModalOpen(true);
   }
   function closeModal() { setModalOpen(false); setEditingId(null); setForm(EMPTY_FORM); }
@@ -360,6 +394,20 @@ export default function SchedulesManager({ initialSchedules = [], initialStudent
                   </select>
                 </Field>
               </div>
+              <Field label="Instrument (topic line)">
+                <input type="text" placeholder="e.g. Piano — defaults to class name if empty" value={form.instrumentLabel} onChange={e => setForm({ ...form, instrumentLabel: e.target.value })} className={inputCls} />
+              </Field>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                <Field label="Session #">
+                  <input type="number" min={1} value={form.sessionNumber} onChange={e => setForm({ ...form, sessionNumber: Math.max(1, +e.target.value || 1) })} className={inputCls} />
+                </Field>
+                <Field label="Set / ordinal">
+                  <input type="text" placeholder="1st, 2nd set…" value={form.sessionSetLabel} onChange={e => setForm({ ...form, sessionSetLabel: e.target.value })} className={inputCls} />
+                </Field>
+                <Field label="Time region">
+                  <input type="text" placeholder="Philippines (PHT)" value={form.timeRegion} onChange={e => setForm({ ...form, timeRegion: e.target.value })} className={inputCls} />
+                </Field>
+              </div>
               <div className="grid grid-cols-2 gap-3">
                 <Field label="Day">
                   <select value={form.dayOfWeek} onChange={e => setForm({ ...form, dayOfWeek: +e.target.value })} className={inputCls}>
@@ -391,14 +439,24 @@ export default function SchedulesManager({ initialSchedules = [], initialStudent
               </div>
               {form.studentId && form.className && (
                 <div className="bg-purple-50 border border-purple-100 rounded-xl p-4">
-                  <p className="text-xs font-semibold text-purple-600 uppercase tracking-wider mb-3">📱 Telegram Preview</p>
-                  <div className="bg-white border border-purple-100 rounded-lg p-3 text-sm text-gray-700 space-y-0.5 font-mono shadow-sm">
-                    <p>{form.classType === 'online' ? '💻' : '🏫'} <b>Class Reminder</b></p>
-                    <p className="mt-1">Hi <b className="text-purple-600">{selectedStudent?.name}</b>!</p>
-                    <p>📚 <span className="text-purple-600">{form.className}</span></p>
-                    <p>⏰ <span className="text-purple-600">{form.time}</span></p>
-                    <p>📍 <span className="text-purple-600">{form.classType.toUpperCase()}</span></p>
-                  </div>
+                  <p className="text-xs font-semibold text-purple-600 uppercase tracking-wider mb-3">📱 Telegram message preview</p>
+                  <pre className="bg-white border border-purple-100 rounded-lg p-3 text-xs text-gray-700 whitespace-pre-wrap font-sans leading-relaxed shadow-sm">
+                    {buildScheduleReminderPlainPreview(
+                      {
+                        className: form.className,
+                        instrumentLabel: form.instrumentLabel,
+                        classType: form.classType,
+                        dayOfWeek: form.dayOfWeek,
+                        time: form.time,
+                        sessionNumber: form.sessionNumber,
+                        sessionSetLabel: form.sessionSetLabel,
+                        timeRegion: form.timeRegion,
+                      },
+                      selectedStudent?.name ?? 'Student'
+                    )}
+                    {'\n\n'}
+                    (Cron appends: “Your class starts in … before.”)
+                  </pre>
                 </div>
               )}
               <div className="flex gap-3 pt-1">

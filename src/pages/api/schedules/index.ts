@@ -41,7 +41,20 @@ export const POST: APIRoute = async ({ request }) => {
     await connectDB();
 
     const body = await request.json();
-    const { studentId, className, classType, dayOfWeek, time, duration, reminderMinutes, active } = body;
+    const {
+      studentId,
+      className,
+      instrumentLabel,
+      classType,
+      dayOfWeek,
+      time,
+      duration,
+      reminderMinutes,
+      active,
+      sessionNumber,
+      sessionSetLabel,
+      timeRegion,
+    } = body;
 
     if (!studentId || !className || !classType || dayOfWeek === undefined || !time) {
       return json({ success: false, message: 'Missing required fields: studentId, className, classType, dayOfWeek, time' }, 400);
@@ -50,12 +63,16 @@ export const POST: APIRoute = async ({ request }) => {
     const schedule = await Schedule.create({
       studentId,
       className,
+      instrumentLabel: typeof instrumentLabel === 'string' ? instrumentLabel : '',
       classType,
       dayOfWeek,
       time,
       duration:        duration        ?? 60,
       reminderMinutes: reminderMinutes ?? 60,
       active:          active          ?? true,
+      sessionNumber:   typeof sessionNumber === 'number' && sessionNumber >= 1 ? sessionNumber : 1,
+      sessionSetLabel: typeof sessionSetLabel === 'string' ? sessionSetLabel : '1st',
+      timeRegion:      typeof timeRegion === 'string' ? timeRegion : 'Philippines (PHT)',
     });
 
     const populated = await Schedule.findById(schedule._id)

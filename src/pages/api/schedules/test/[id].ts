@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { connectDB } from '../../../../lib/db/client.ts';
 import Schedule from '../../../../lib/db/models/Schedule.ts';
+import { buildScheduleReminderMarkdownV2 } from '../../../../lib/messaging/scheduleTelegramReminder.ts';
 
 const json = (data: any, status = 200) =>
   new Response(JSON.stringify(data), {
@@ -8,16 +9,7 @@ const json = (data: any, status = 200) =>
     headers: { 'Content-Type': 'application/json' },
   });
 
-const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-
-
 export const POST: APIRoute = async ({ params }) => {
-
-  const token = process.env.TELEGRAM_BOT_TOKEN;
-  console.log('Token value:', token);
-  console.log('Token length:', token?.length);
-  
   try {
     await connectDB();
 
@@ -43,21 +35,12 @@ export const POST: APIRoute = async ({ params }) => {
       return json({ success: false, message: 'TELEGRAM_BOT_TOKEN is not configured' }, 500);
     }
 
-    const classEmoji = schedule.classType === 'online' ? '💻' : '🏫';
-    const dayName    = DAYS[schedule.dayOfWeek] ?? 'Unknown';
-
     const message = [
-      `${classEmoji} *Class Reminder* \\(Test\\)`,
+      buildScheduleReminderMarkdownV2(schedule, student, { isTest: true }),
       ``,
-      `Hi *${escapeMd(student.name)}*\\!`,
-      ``,
-      `📚 *Class:* ${escapeMd(schedule.className)}`,
-      `📅 *Day:* ${dayName}`,
-      `⏰ *Time:* ${escapeMd(schedule.time)}`,
-      `⏱ *Duration:* ${schedule.duration} min`,
-      `📍 *Type:* ${schedule.classType.toUpperCase()}`,
-      ``,
-      `_This is a test reminder\\._`,
+      `_Reminder lead time: ${schedule.reminderMinutes >= 60
+        ? `${schedule.reminderMinutes / 60}h`
+        : `${schedule.reminderMinutes} min`} before class\\._`,
     ].join('\n');
 
     const telegramRes = await fetch(
@@ -96,8 +79,3 @@ export const POST: APIRoute = async ({ params }) => {
     }, 500);
   }
 };
-
-// Escape special characters for Telegram MarkdownV2
-function escapeMd(text: string): string {
-  return String(text).replace(/[_*[\]()~`>#+\-=|{}.!\\]/g, '\\$&');
-}

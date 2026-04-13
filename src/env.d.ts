@@ -13,7 +13,12 @@ interface ImportMetaEnv {
 
 declare namespace App {
   interface Locals {
-    user: import('lucia').User | null;
+    user: {
+      id: string;
+      email: string;
+      full_name?: string;     
+      role: string;
+    } | null;
     session: import('lucia').Session | null;
   }
 }
