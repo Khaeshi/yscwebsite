@@ -29,13 +29,38 @@ export const onRequest = defineMiddleware(async (context, next) => {
   }
 
   // ── Route protection ─────────────────────────────────────────────────────
-  const isAdminRoute = pathname.startsWith('/admin') && pathname !== '/admin/login';
+  const isAdminRoot = pathname.startsWith('/admin');
+  const isLogin = pathname === '/admin/login';
+  const isLogout = pathname === '/admin/logout';
+  const isOnboarding = pathname === '/admin/onboarding';
+  const isTeacherArea = pathname.startsWith('/admin/teacher');
+  const isSchedules = pathname === '/admin/schedules' || pathname.startsWith('/admin/schedules/');
 
-  if (isAdminRoute) {
-    if (!context.locals.user) {
+  if (isAdminRoot && !isLogin) {
+    if (!context.locals.user) return context.redirect('/admin/login');
+
+    const role = context.locals.user.role;
+    const isAdminRole = role === 'admin' || role === 'superadmin';
+    const isTeacherRole = role === 'teacher';
+
+    // Teachers: allow only /admin/teacher/* and onboarding/logout
+    if (isTeacherRole) {
+      if (!context.locals.user.isApproved && !isOnboarding && !isLogout) {
+        return context.redirect('/admin/onboarding');
+      }
+
+      if (!isTeacherArea && !isSchedules && !isOnboarding && !isLogout) {
+        return context.redirect('/admin/teacher/dashboard');
+      }
+    }
+
+    // Admins/Superadmins: allow all /admin/*
+    if (!isAdminRole && !isTeacherRole) {
       return context.redirect('/admin/login');
     }
-    if (context.locals.user.role !== 'admin') {
+
+    // Non-admins can't access /admin/* (except teacher area)
+    if (!isTeacherArea && !isOnboarding && !isLogout && !isAdminRole) {
       return context.redirect('/admin/login');
     }
   }

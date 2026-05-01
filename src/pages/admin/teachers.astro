@@ -1,0 +1,182 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+
+const user = Astro.locals.user;
+if (!user) return Astro.redirect('/admin/login');
+if (user.role !== 'admin' && user.role !== 'superadmin') return Astro.redirect('/admin/login');
+---
+
+<AdminLayout title="Teachers | YSC Admin" description="Teacher management">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:18px;">
+    <div>
+      <h1 style="font-size:24px;font-weight:700;color:#f1f5f9;margin:0 0 4px;">Teachers</h1>
+      <p style="font-size:13px;color:#475569;margin:0;">Invite, approve, suspend, and manage teacher accounts.</p>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1.2fr 0.8fr;gap:14px;align-items:start;">
+    <section style="background:#16162a;border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:18px 18px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <h2 style="font-size:14px;font-weight:700;color:#e2e8f0;margin:0;">Teacher list</h2>
+        <button id="refresh-btn" type="button" style="background:transparent;border:1px solid rgba(255,255,255,0.08);color:#cbd5e1;border-radius:12px;padding:8px 10px;cursor:pointer;font-size:12px;">
+          Refresh
+        </button>
+      </div>
+
+      <div style="overflow:auto;border-radius:12px;border:1px solid rgba(255,255,255,0.06);">
+        <table style="width:100%;border-collapse:collapse;font-size:12px;">
+          <thead style="background:#11111f;color:#94a3b8;">
+            <tr>
+              <th style="text-align:left;padding:10px 12px;">Email</th>
+              <th style="text-align:left;padding:10px 12px;">Name</th>
+              <th style="text-align:left;padding:10px 12px;">Phone</th>
+              <th style="text-align:left;padding:10px 12px;">Status</th>
+              <th style="text-align:right;padding:10px 12px;">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="teachers-body" style="color:#cbd5e1;background:#0d0d1a;">
+            <tr><td colspan="5" style="padding:14px 12px;color:#64748b;">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <aside style="background:#16162a;border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:18px 18px;">
+      <h2 style="font-size:14px;font-weight:700;color:#e2e8f0;margin:0 0 10px;">Invite teacher</h2>
+      <form id="invite-form" style="display:flex;flex-direction:column;gap:10px;">
+        <div>
+          <label style="display:block;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#64748b;text-transform:uppercase;margin-bottom:6px;">Email</label>
+          <input name="email" required type="email" placeholder="teacher@youngstarterclub.asia"
+            style="width:100%;background:#0d0d1a;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px 12px;color:#e2e8f0;outline:none;" />
+        </div>
+        <div>
+          <label style="display:block;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#64748b;text-transform:uppercase;margin-bottom:6px;">Temporary password</label>
+          <input name="password" required type="text" placeholder="Set an initial password"
+            style="width:100%;background:#0d0d1a;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px 12px;color:#e2e8f0;outline:none;" />
+        </div>
+        <div>
+          <label style="display:block;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#64748b;text-transform:uppercase;margin-bottom:6px;">Name (optional)</label>
+          <input name="name" type="text" placeholder="Teacher name"
+            style="width:100%;background:#0d0d1a;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px 12px;color:#e2e8f0;outline:none;" />
+        </div>
+        <div>
+          <label style="display:block;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#64748b;text-transform:uppercase;margin-bottom:6px;">Phone (optional)</label>
+          <input name="phone" type="text" placeholder="+63…"
+            style="width:100%;background:#0d0d1a;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px 12px;color:#e2e8f0;outline:none;" />
+        </div>
+        <button type="submit" style="margin-top:4px;background:linear-gradient(135deg,#7c3aed,#db2777);border:none;color:white;border-radius:12px;padding:10px 12px;font-weight:700;cursor:pointer;">
+          Create teacher
+        </button>
+        <p id="invite-msg" style="margin:0;font-size:12px;color:#64748b;min-height:18px;"></p>
+      </form>
+    </aside>
+  </div>
+
+  <script>
+    const body = document.getElementById('teachers-body');
+    const refreshBtn = document.getElementById('refresh-btn');
+    const form = document.getElementById('invite-form');
+    const msg = document.getElementById('invite-msg');
+
+    function badge(approved) {
+      const text = approved ? 'Approved' : 'Pending';
+      const bg = approved ? 'rgba(34,197,94,0.14)' : 'rgba(251,191,36,0.14)';
+      const fg = approved ? '#22c55e' : '#fbbf24';
+      return `<span style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:${bg};color:${fg};font-weight:700;font-size:11px;">${text}</span>`;
+    }
+
+    async function loadTeachers() {
+      if (!body) return;
+      body.innerHTML = `<tr><td colspan="5" style="padding:14px 12px;color:#64748b;">Loading…</td></tr>`;
+      const res = await fetch('/api/teachers');
+      const data = await res.json().catch(() => ({}));
+      if (!data.success) {
+        body.innerHTML = `<tr><td colspan="5" style="padding:14px 12px;color:#ef4444;">Failed to load teachers</td></tr>`;
+        return;
+      }
+      const teachers = data.teachers ?? [];
+      if (!teachers.length) {
+        body.innerHTML = `<tr><td colspan="5" style="padding:14px 12px;color:#64748b;">No teachers yet.</td></tr>`;
+        return;
+      }
+      body.innerHTML = teachers.map(t => {
+        const approved = Boolean(t.isApproved);
+        const approveBtn = approved
+          ? `<button data-action="suspend" data-id="${t._id}" style="background:transparent;border:1px solid rgba(255,255,255,0.10);color:#fbbf24;border-radius:10px;padding:7px 10px;cursor:pointer;font-size:12px;">Suspend</button>`
+          : `<button data-action="approve" data-id="${t._id}" style="background:transparent;border:1px solid rgba(255,255,255,0.10);color:#22c55e;border-radius:10px;padding:7px 10px;cursor:pointer;font-size:12px;">Approve</button>`;
+        const delBtn = `<button data-action="delete" data-id="${t._id}" style="background:transparent;border:1px solid rgba(255,255,255,0.10);color:#ef4444;border-radius:10px;padding:7px 10px;cursor:pointer;font-size:12px;">Delete</button>`;
+        return `
+          <tr style="border-top:1px solid rgba(255,255,255,0.06);">
+            <td style="padding:10px 12px;white-space:nowrap;">${t.email ?? ''}</td>
+            <td style="padding:10px 12px;">${t.name ?? ''}</td>
+            <td style="padding:10px 12px;white-space:nowrap;">${t.phone ?? ''}</td>
+            <td style="padding:10px 12px;">${badge(approved)}</td>
+            <td style="padding:10px 12px;text-align:right;white-space:nowrap;display:flex;justify-content:flex-end;gap:8px;">
+              ${approveBtn}
+              ${delBtn}
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function setApproval(id, isApproved) {
+      await fetch(`/api/teachers/${id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ isApproved }),
+      });
+      await loadTeachers();
+    }
+
+    async function deleteTeacher(id) {
+      await fetch(`/api/teachers/${id}`, { method: 'DELETE' });
+      await loadTeachers();
+    }
+
+    body?.addEventListener('click', async (e) => {
+      const btn = e.target?.closest?.('button');
+      if (!btn) return;
+      const action = btn.getAttribute('data-action');
+      const id = btn.getAttribute('data-id');
+      if (!action || !id) return;
+      if (action === 'approve') return setApproval(id, true);
+      if (action === 'suspend') return setApproval(id, false);
+      if (action === 'delete') return deleteTeacher(id);
+    });
+
+    refreshBtn?.addEventListener('click', loadTeachers);
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!form) return;
+      msg.textContent = 'Creating…';
+      msg.style.color = '#64748b';
+      const fd = new FormData(form);
+      const payload = {
+        email: fd.get('email'),
+        password: fd.get('password'),
+        name: fd.get('name'),
+        phone: fd.get('phone'),
+      };
+      const res = await fetch('/api/teachers', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!data.success) {
+        msg.textContent = data.message ?? 'Failed to create teacher';
+        msg.style.color = '#ef4444';
+        return;
+      }
+      msg.textContent = 'Teacher created. You can approve them from the list.';
+      msg.style.color = '#22c55e';
+      form.reset();
+      await loadTeachers();
+    });
+
+    loadTeachers();
+  </script>
+</AdminLayout>
+

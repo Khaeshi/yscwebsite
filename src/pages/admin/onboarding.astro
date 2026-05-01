@@ -1,0 +1,67 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+import { MongoClient, ObjectId } from 'mongodb';
+
+const user = Astro.locals.user;
+if (!user) return Astro.redirect('/admin/login');
+if (user.role !== 'teacher') return Astro.redirect('/admin');
+
+let error = '';
+
+if (Astro.request.method === 'POST') {
+  const form = await Astro.request.formData();
+  const name = form.get('name')?.toString().trim() ?? '';
+  const phone = form.get('phone')?.toString().trim() ?? '';
+
+  try {
+    const uri = import.meta.env.MONGODB_URI as string;
+    const client = new MongoClient(uri);
+    await client.connect();
+    const db = client.db('YSC');
+
+    await db.collection('users').updateOne(
+      { _id: new ObjectId(user.id), role: 'teacher' },
+      { $set: { name, phone } }
+    );
+    await client.close();
+
+    // After profile completion, teacher still needs admin approval
+    return Astro.redirect('/admin/teacher/dashboard');
+  } catch (err: any) {
+    error = err?.message ?? 'Failed to update profile';
+  }
+}
+---
+
+<AdminLayout title="Onboarding | YSC" description="Complete your profile">
+  <div style="max-width:720px;margin:0 auto;">
+    <h1 style="font-size:24px;font-weight:800;color:#f1f5f9;margin:0 0 6px;">Complete your profile</h1>
+    <p style="font-size:13px;color:#64748b;margin:0 0 16px;">
+      Please add your details. If your account is not yet approved, you’ll be redirected here until an admin approves you.
+    </p>
+
+    {error && (
+      <div style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.25);color:#fecaca;border-radius:14px;padding:12px 14px;margin-bottom:14px;">
+        {error}
+      </div>
+    )}
+
+    <form method="POST" style="background:#16162a;border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:18px 18px;display:flex;flex-direction:column;gap:12px;">
+      <div>
+        <label style="display:block;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#64748b;text-transform:uppercase;margin-bottom:6px;">Name</label>
+        <input name="name" required value={user.name ?? ''} placeholder="Your full name"
+          style="width:100%;background:#0d0d1a;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px 12px;color:#e2e8f0;outline:none;" />
+      </div>
+      <div>
+        <label style="display:block;font-size:11px;font-weight:700;letter-spacing:0.08em;color:#64748b;text-transform:uppercase;margin-bottom:6px;">Phone (optional)</label>
+        <input name="phone" value={user.phone ?? ''} placeholder="+63…"
+          style="width:100%;background:#0d0d1a;border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px 12px;color:#e2e8f0;outline:none;" />
+      </div>
+
+      <button type="submit" style="margin-top:4px;background:linear-gradient(135deg,#7c3aed,#db2777);border:none;color:white;border-radius:12px;padding:10px 12px;font-weight:800;cursor:pointer;">
+        Save profile
+      </button>
+    </form>
+  </div>
+</AdminLayout>
+

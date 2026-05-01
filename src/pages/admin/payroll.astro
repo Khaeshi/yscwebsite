@@ -1,0 +1,349 @@
+---
+import AdminLayout from '../../layouts/AdminLayout.astro';
+
+const user = Astro.locals.user;
+if (!user) return Astro.redirect('/admin/login');
+if (user.role !== 'admin' && user.role !== 'superadmin') return Astro.redirect('/admin/teacher/dashboard');
+---
+
+<AdminLayout title="Payroll | YSC Admin" description="Payroll summary">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:18px;">
+    <div>
+      <h1 style="font-size:24px;font-weight:700;color:#f1f5f9;margin:0 0 4px;">Payroll</h1>
+      <p style="font-size:13px;color:#475569;margin:0;">Compute teacher payouts from attended sessions.</p>
+    </div>
+    <button id="export-csv" style="background:transparent;border:1px solid rgba(255,255,255,0.08);color:#cbd5e1;border-radius:10px;padding:8px 11px;cursor:pointer;font-size:12px;">
+      Export CSV
+    </button>
+  </div>
+
+  <section style="background:#16162a;border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:14px 14px;margin-bottom:14px;">
+    <div style="display:grid;grid-template-columns:auto auto auto 1fr auto;gap:10px;align-items:center;">
+      <div id="period-tabs" style="display:flex;gap:8px;">
+        <button data-period="weekly" class="period-tab" style="background:#7c3aed;border:none;color:#fff;border-radius:9px;padding:8px 10px;cursor:pointer;font-size:12px;font-weight:700;">Weekly</button>
+        <button data-period="bimonthly" class="period-tab" style="background:#11111f;border:1px solid rgba(255,255,255,0.08);color:#cbd5e1;border-radius:9px;padding:8px 10px;cursor:pointer;font-size:12px;">Bi-monthly</button>
+        <button data-period="monthly" class="period-tab" style="background:#11111f;border:1px solid rgba(255,255,255,0.08);color:#cbd5e1;border-radius:9px;padding:8px 10px;cursor:pointer;font-size:12px;">Monthly</button>
+      </div>
+      <button id="prev-period" style="background:#11111f;border:1px solid rgba(255,255,255,0.08);color:#cbd5e1;border-radius:9px;padding:8px 10px;cursor:pointer;font-size:12px;">← Prev</button>
+      <button id="next-period" style="background:#11111f;border:1px solid rgba(255,255,255,0.08);color:#cbd5e1;border-radius:9px;padding:8px 10px;cursor:pointer;font-size:12px;">Next →</button>
+      <p id="period-label" style="margin:0;color:#cbd5e1;font-size:12px;">—</p>
+      <input id="anchor-date" type="date" style="background:#0d0d1a;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:9px 10px;color:#e2e8f0;" />
+    </div>
+  </section>
+
+  <section style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:14px;">
+    <div style="background:#16162a;border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:12px;">
+      <p style="margin:0;font-size:11px;color:#64748b;">Teachers</p>
+      <p id="sum-teachers" style="margin:4px 0 0;font-size:24px;font-weight:700;color:#e2e8f0;">0</p>
+    </div>
+    <div style="background:#16162a;border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:12px;">
+      <p style="margin:0;font-size:11px;color:#64748b;">Sessions</p>
+      <p id="sum-sessions" style="margin:4px 0 0;font-size:24px;font-weight:700;color:#60a5fa;">0</p>
+    </div>
+    <div style="background:#16162a;border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:12px;">
+      <p style="margin:0;font-size:11px;color:#64748b;">Total Due (PHP)</p>
+      <p id="sum-total" style="margin:4px 0 0;font-size:24px;font-weight:700;color:#22c55e;">0.00</p>
+    </div>
+  </section>
+
+  <section style="background:#16162a;border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:18px;">
+    <div style="overflow:auto;border-radius:12px;border:1px solid rgba(255,255,255,0.06);">
+      <table style="width:100%;border-collapse:collapse;font-size:12px;">
+        <thead style="background:#11111f;color:#94a3b8;">
+          <tr>
+            <th style="text-align:left;padding:10px 12px;">Teacher</th>
+            <th style="text-align:left;padding:10px 12px;">Sessions</th>
+            <th style="text-align:left;padding:10px 12px;">Rate / Session</th>
+            <th style="text-align:left;padding:10px 12px;">Total Due</th>
+            <th style="text-align:right;padding:10px 12px;">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="payroll-body" style="background:#0d0d1a;color:#cbd5e1;">
+          <tr><td colspan="5" style="padding:14px 12px;color:#64748b;">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <dialog id="rate-modal" style="border:none;border-radius:14px;padding:0;max-width:420px;width:92%;background:#16162a;color:#e2e8f0;">
+    <form method="dialog" style="padding:16px;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;align-items:center;">
+      <strong style="font-size:14px;">Set Rate</strong>
+      <button style="background:transparent;border:none;color:#94a3b8;cursor:pointer;">✕</button>
+    </form>
+    <form id="rate-form" style="padding:16px;display:grid;gap:10px;">
+      <input id="rate-teacher-id" type="hidden" />
+      <label style="display:grid;gap:6px;font-size:12px;">
+        <span style="color:#94a3b8;">Teacher</span>
+        <input id="rate-teacher-name" disabled style="background:#0d0d1a;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:9px 10px;color:#cbd5e1;" />
+      </label>
+      <label style="display:grid;gap:6px;font-size:12px;">
+        <span style="color:#94a3b8;">Amount Per Session (PHP)</span>
+        <input id="rate-amount" type="number" min="0" step="0.01" required style="background:#0d0d1a;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:9px 10px;color:#cbd5e1;" />
+      </label>
+      <label style="display:grid;gap:6px;font-size:12px;">
+        <span style="color:#94a3b8;">Effective From</span>
+        <input id="rate-effective-from" type="date" required style="background:#0d0d1a;border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:9px 10px;color:#cbd5e1;" />
+      </label>
+      <button type="submit" style="margin-top:4px;background:linear-gradient(135deg,#7c3aed,#db2777);border:none;color:white;border-radius:10px;padding:10px 12px;font-weight:700;cursor:pointer;">
+        Save Rate
+      </button>
+      <p id="rate-msg" style="margin:0;font-size:12px;color:#94a3b8;min-height:16px;"></p>
+    </form>
+  </dialog>
+
+  <script>
+    const periodTabs = Array.from(document.querySelectorAll('.period-tab'));
+    const prevBtn = document.getElementById('prev-period');
+    const nextBtn = document.getElementById('next-period');
+    const periodLabel = document.getElementById('period-label');
+    const anchorDateEl = document.getElementById('anchor-date');
+    const body = document.getElementById('payroll-body');
+    const sumTeachers = document.getElementById('sum-teachers');
+    const sumSessions = document.getElementById('sum-sessions');
+    const sumTotal = document.getElementById('sum-total');
+    const exportBtn = document.getElementById('export-csv');
+
+    const rateModal = document.getElementById('rate-modal');
+    const rateForm = document.getElementById('rate-form');
+    const rateTeacherId = document.getElementById('rate-teacher-id');
+    const rateTeacherName = document.getElementById('rate-teacher-name');
+    const rateAmount = document.getElementById('rate-amount');
+    const rateEffectiveFrom = document.getElementById('rate-effective-from');
+    const rateMsg = document.getElementById('rate-msg');
+
+    let period = 'weekly';
+    let anchorDate = new Date();
+    let currentSummaries = [];
+    let expandedRows = new Set();
+
+    function fmtMoney(n) {
+      return Number(n || 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function isoDate(d) {
+      const dt = new Date(d);
+      return dt.toISOString().slice(0, 10);
+    }
+
+    function updateTabs() {
+      periodTabs.forEach((btn) => {
+        const active = btn.getAttribute('data-period') === period;
+        btn.style.background = active ? '#7c3aed' : '#11111f';
+        btn.style.border = active ? 'none' : '1px solid rgba(255,255,255,0.08)';
+        btn.style.color = active ? '#fff' : '#cbd5e1';
+        btn.style.fontWeight = active ? '700' : '500';
+      });
+    }
+
+    function periodBounds(periodType, dateObj) {
+      const d = new Date(dateObj.getFullYear(), dateObj.getMonth(), dateObj.getDate());
+      if (periodType === 'weekly') {
+        const day = d.getDay();
+        const diffFromMonday = day === 0 ? -6 : 1 - day;
+        const start = new Date(d);
+        start.setDate(d.getDate() + diffFromMonday);
+        const end = new Date(start);
+        end.setDate(start.getDate() + 6);
+        return { start, end };
+      }
+      if (periodType === 'bimonthly') {
+        const year = d.getFullYear();
+        const month = d.getMonth();
+        if (d.getDate() <= 15) return { start: new Date(year, month, 1), end: new Date(year, month, 15) };
+        const last = new Date(year, month + 1, 0).getDate();
+        return { start: new Date(year, month, 16), end: new Date(year, month, last) };
+      }
+      const year = d.getFullYear();
+      const month = d.getMonth();
+      return { start: new Date(year, month, 1), end: new Date(year, month + 1, 0) };
+    }
+
+    function updatePeriodLabel() {
+      const { start, end } = periodBounds(period, anchorDate);
+      periodLabel.textContent = `${start.toLocaleDateString()} - ${end.toLocaleDateString()}`;
+    }
+
+    function shiftPeriod(direction) {
+      const d = new Date(anchorDate);
+      if (period === 'weekly') d.setDate(d.getDate() + 7 * direction);
+      if (period === 'bimonthly') d.setDate(d.getDate() + 15 * direction);
+      if (period === 'monthly') d.setMonth(d.getMonth() + direction);
+      anchorDate = d;
+      anchorDateEl.value = isoDate(anchorDate);
+      loadPayroll();
+    }
+
+    function renderTable() {
+      if (!currentSummaries.length) {
+        body.innerHTML = `<tr><td colspan="5" style="padding:14px 12px;color:#64748b;">No payroll data for this period.</td></tr>`;
+        return;
+      }
+
+      body.innerHTML = currentSummaries.map((row) => {
+        const isExpanded = expandedRows.has(row.teacherId);
+        const breakdownRows = isExpanded
+          ? `
+            <tr>
+              <td colspan="5" style="padding:10px 12px 14px 12px;background:#11111f;border-top:1px solid rgba(255,255,255,0.04);">
+                <div style="border:1px solid rgba(255,255,255,0.06);border-radius:10px;overflow:auto;">
+                  <table style="width:100%;border-collapse:collapse;font-size:11px;">
+                    <thead style="background:#0d0d1a;color:#94a3b8;">
+                      <tr>
+                        <th style="text-align:left;padding:8px 10px;">Date</th>
+                        <th style="text-align:left;padding:8px 10px;">Student</th>
+                        <th style="text-align:left;padding:8px 10px;">Subject</th>
+                        <th style="text-align:left;padding:8px 10px;">Time</th>
+                      </tr>
+                    </thead>
+                    <tbody style="background:#11111f;color:#cbd5e1;">
+                      ${row.breakdown.length ? row.breakdown.map((b) => `
+                        <tr style="border-top:1px solid rgba(255,255,255,0.05);">
+                          <td style="padding:8px 10px;">${new Date(b.scheduledDate).toLocaleDateString()}</td>
+                          <td style="padding:8px 10px;">${b.studentName ?? ''}</td>
+                          <td style="padding:8px 10px;">${b.subject ?? ''}</td>
+                          <td style="padding:8px 10px;">${b.time ?? ''}</td>
+                        </tr>
+                      `).join('') : `<tr><td colspan="4" style="padding:10px;color:#64748b;">No attended sessions.</td></tr>`}
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </tr>
+          `
+          : '';
+
+        return `
+          <tr style="border-top:1px solid rgba(255,255,255,0.06);">
+            <td style="padding:10px 12px;">${row.teacherName}</td>
+            <td style="padding:10px 12px;">${row.sessionsCount}</td>
+            <td style="padding:10px 12px;">PHP ${fmtMoney(row.ratePerSession)}</td>
+            <td style="padding:10px 12px;">PHP ${fmtMoney(row.totalAmount)}</td>
+            <td style="padding:10px 12px;text-align:right;white-space:nowrap;">
+              <button data-action="expand" data-id="${row.teacherId}" style="background:transparent;border:1px solid rgba(255,255,255,0.10);color:#60a5fa;border-radius:10px;padding:7px 10px;cursor:pointer;font-size:12px;margin-right:8px;">
+                ${isExpanded ? 'Hide' : 'Breakdown'}
+              </button>
+              <button data-action="rate" data-id="${row.teacherId}" data-name="${row.teacherName}" data-rate="${row.ratePerSession}" style="background:transparent;border:1px solid rgba(255,255,255,0.10);color:#22c55e;border-radius:10px;padding:7px 10px;cursor:pointer;font-size:12px;">
+                Set Rate
+              </button>
+            </td>
+          </tr>
+          ${breakdownRows}
+        `;
+      }).join('');
+    }
+
+    async function loadPayroll() {
+      updateTabs();
+      updatePeriodLabel();
+      body.innerHTML = `<tr><td colspan="5" style="padding:14px 12px;color:#64748b;">Loading...</td></tr>`;
+      const date = isoDate(anchorDate);
+      const res = await fetch(`/api/payroll/summary?period=${period}&date=${date}`);
+      const data = await res.json().catch(() => ({}));
+      if (!data.success) {
+        body.innerHTML = `<tr><td colspan="5" style="padding:14px 12px;color:#ef4444;">Failed to load payroll summary.</td></tr>`;
+        return;
+      }
+
+      currentSummaries = data.summaries ?? [];
+      const totalTeachers = currentSummaries.length;
+      const totalSessions = currentSummaries.reduce((n, x) => n + Number(x.sessionsCount || 0), 0);
+      const totalAmount = currentSummaries.reduce((n, x) => n + Number(x.totalAmount || 0), 0);
+      sumTeachers.textContent = String(totalTeachers);
+      sumSessions.textContent = String(totalSessions);
+      sumTotal.textContent = fmtMoney(totalAmount);
+      renderTable();
+    }
+
+    function exportCsv() {
+      const lines = [
+        ['Teacher', 'Sessions', 'RatePerSession', 'TotalAmount', 'PeriodStart', 'PeriodEnd'].join(','),
+        ...currentSummaries.map((row) => [
+          `"${(row.teacherName || '').replace(/"/g, '""')}"`,
+          row.sessionsCount ?? 0,
+          row.ratePerSession ?? 0,
+          row.totalAmount ?? 0,
+          row.periodStart ? new Date(row.periodStart).toISOString() : '',
+          row.periodEnd ? new Date(row.periodEnd).toISOString() : '',
+        ].join(',')),
+      ];
+      const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = `payroll-${period}-${isoDate(anchorDate)}.csv`;
+      link.click();
+      URL.revokeObjectURL(link.href);
+    }
+
+    function openRateModal(teacherId, teacherName, currentRate) {
+      rateTeacherId.value = teacherId;
+      rateTeacherName.value = teacherName;
+      rateAmount.value = Number(currentRate || 0);
+      rateEffectiveFrom.value = isoDate(new Date());
+      rateMsg.textContent = '';
+      rateMsg.style.color = '#94a3b8';
+      rateModal.showModal();
+    }
+
+    periodTabs.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        period = btn.getAttribute('data-period');
+        loadPayroll();
+      });
+    });
+    prevBtn?.addEventListener('click', () => shiftPeriod(-1));
+    nextBtn?.addEventListener('click', () => shiftPeriod(1));
+    anchorDateEl?.addEventListener('change', () => {
+      anchorDate = new Date(anchorDateEl.value || new Date());
+      loadPayroll();
+    });
+    exportBtn?.addEventListener('click', exportCsv);
+
+    body?.addEventListener('click', (e) => {
+      const btn = e.target?.closest?.('button');
+      if (!btn) return;
+      const action = btn.getAttribute('data-action');
+      const id = btn.getAttribute('data-id');
+      if (!action || !id) return;
+      if (action === 'expand') {
+        if (expandedRows.has(id)) expandedRows.delete(id);
+        else expandedRows.add(id);
+        renderTable();
+        return;
+      }
+      if (action === 'rate') {
+        openRateModal(id, btn.getAttribute('data-name') || '', btn.getAttribute('data-rate') || 0);
+      }
+    });
+
+    rateForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      rateMsg.textContent = 'Saving...';
+      rateMsg.style.color = '#94a3b8';
+      const payload = {
+        teacherId: rateTeacherId.value,
+        amountPerSession: Number(rateAmount.value),
+        currency: 'PHP',
+        effectiveFrom: rateEffectiveFrom.value,
+      };
+      const res = await fetch('/api/payroll/rates', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!data.success) {
+        rateMsg.textContent = data.message || 'Failed to save rate';
+        rateMsg.style.color = '#ef4444';
+        return;
+      }
+      rateMsg.textContent = 'Rate saved.';
+      rateMsg.style.color = '#22c55e';
+      setTimeout(() => rateModal.close(), 300);
+      await loadPayroll();
+    });
+
+    anchorDateEl.value = isoDate(anchorDate);
+    loadPayroll();
+  </script>
+</AdminLayout>
+

@@ -17,7 +17,12 @@ if (Astro.request.method === 'POST') {
   const password = form.get('password')?.toString() ?? '';
 
   try {
-    const uri    = import.meta.env.MONGODB_URI as string;
+    const uri =
+      (import.meta.env.MONGODB_URI as string | undefined) ||
+      (process.env.MONGODB_URI as string | undefined);
+    if (!uri) {
+      throw new Error('Missing MONGODB_URI environment variable');
+    }
     const client = new MongoClient(uri);
     await client.connect();
     const user = await client.db('YSC').collection('users').findOne({ email });

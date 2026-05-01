@@ -2,15 +2,19 @@ import 'dotenv/config';
 import { MongoClient, ObjectId } from 'mongodb';
 import { Argon2id } from 'oslo/password';
 
-type AdminRole = 'admin' | 'superadmin';
-
 type Args = {
   email: string;
   password: string;
   name: string;
   phone?: string;
-  role: AdminRole;
+  approved: boolean;
 };
+
+function parseBoolean(value: string | undefined, fallback = false): boolean {
+  if (value == null) return fallback;
+  const normalized = value.trim().toLowerCase();
+  return normalized === '1' || normalized === 'true' || normalized === 'yes' || normalized === 'y';
+}
 
 function readArgs(): Args {
   const cliArgs = Object.fromEntries(
@@ -20,17 +24,15 @@ function readArgs(): Args {
     })
   );
 
-  const email = (cliArgs.email || process.env.ADMIN_EMAIL || '').trim().toLowerCase();
-  const password = (cliArgs.password || process.env.ADMIN_PASSWORD || '').toString();
-  const name = (cliArgs.name || process.env.ADMIN_NAME || '').trim();
-  const phoneRaw = (cliArgs.phone || process.env.ADMIN_PHONE || '').trim();
-
-  const roleRaw = (cliArgs.role || process.env.ADMIN_ROLE || 'admin').trim().toLowerCase();
-  const role: AdminRole = roleRaw === 'superadmin' ? 'superadmin' : 'admin';
+  const email = (cliArgs.email || process.env.TEACHER_EMAIL || '').trim().toLowerCase();
+  const password = (cliArgs.password || process.env.TEACHER_PASSWORD || '').toString();
+  const name = (cliArgs.name || process.env.TEACHER_NAME || '').trim();
+  const phoneRaw = (cliArgs.phone || process.env.TEACHER_PHONE || '').trim();
+  const approved = parseBoolean(cliArgs.approved || process.env.TEACHER_APPROVED, false);
 
   if (!email || !password) {
     throw new Error(
-      'Missing required inputs. Provide --email=... --password=... (or ADMIN_EMAIL/ADMIN_PASSWORD in .env).'
+      'Missing required inputs. Provide --email=... --password=... (or TEACHER_EMAIL/TEACHER_PASSWORD in .env).'
     );
   }
 
@@ -39,7 +41,7 @@ function readArgs(): Args {
     password,
     name,
     phone: phoneRaw || undefined,
-    role,
+    approved,
   };
 }
 
@@ -66,23 +68,24 @@ async function main() {
       _id: new ObjectId(),
       email: input.email,
       hashedPassword,
-      role: input.role,
+      role: 'teacher',
       name: input.name,
       phone: input.phone,
-      isApproved: true,
-      approvedAt: now,
+      isApproved: input.approved,
+      approvedAt: input.approved ? now : null,
       approvedBy: null,
       createdAt: now,
     });
 
-    console.log(`${input.role} created: ${input.email}`);
-    if (input.name) console.log(`Name: ${input.name}`);
+    console.log(`Teacher created: ${input.email}`);
+    console.log(`Approved: ${input.approved ? 'yes' : 'no'}`);
   } finally {
     await client.close();
   }
 }
 
 main().catch((err) => {
-  console.error('Failed to create admin:', err.message);
+  console.error('Failed to create teacher:', err.message);
   process.exit(1);
 });
+

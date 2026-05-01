@@ -16,8 +16,10 @@ declare namespace App {
     user: {
       id: string;
       email: string;
-      full_name?: string;     
-      role: string;
+      name?: string;
+      phone?: string;
+      isApproved?: boolean;
+      role: 'superadmin' | 'admin' | 'teacher' | string;
     } | null;
     session: import('lucia').Session | null;
   }

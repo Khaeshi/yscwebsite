@@ -6,7 +6,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "create:teacher": "node scripts/create-teacher.ts",
+    "create:admin": "node scripts/create-admin.ts"
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",

@@ -33,8 +33,10 @@ const adapter: Adapter = {
         id: user._id.toString(),
         attributes: {
           email: user.email as string,
-          role:  user.role  as string,
-          full_name: user.name as string,
+          role:  user.role as string,
+          name: user.name as string,
+          phone: (user.phone as string | undefined) ?? undefined,
+          isApproved: Boolean(user.isApproved),
         },
       },
     ];
@@ -93,7 +95,9 @@ export const lucia = new Lucia(adapter, {
   getUserAttributes: (data) => ({
     email: (data as any).email,
     role:  (data as any).role,
-    full_name: (data as any).full_name,
+    name: (data as any).name,
+    phone: (data as any).phone,
+    isApproved: (data as any).isApproved,
   }),
 });
 
@@ -102,8 +106,10 @@ declare module 'lucia' {
     Lucia: typeof lucia;
     DatabaseUserAttributes: {
       email: string;
-      role:  string;
-      full_name: string;
+      role: 'superadmin' | 'admin' | 'teacher' | string;
+      name: string;
+      phone?: string;
+      isApproved: boolean;
     };
   }
 }

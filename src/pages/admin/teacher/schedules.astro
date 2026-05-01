@@ -1,0 +1,13 @@
+---
+import AdminLayout from '../../../layouts/AdminLayout.astro';
+import SchedulesManager from '../../../components/admin/ScheduleManager.tsx';
+
+const user = Astro.locals.user;
+if (!user) return Astro.redirect('/admin/login');
+if (user.role !== 'teacher') return Astro.redirect('/admin');
+---
+
+<AdminLayout title="My Schedules | YSC" description="Teacher schedules">
+  <SchedulesManager client:load />
+</AdminLayout>
+

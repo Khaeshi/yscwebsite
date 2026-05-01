@@ -1,39 +1,37 @@
-import { useState, useEffect } from 'react';
-import { buildScheduleReminderPlainPreview } from '../../lib/messaging/scheduleTelegramReminder.ts';
+import { useEffect, useMemo, useState } from 'react';
 
-const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-const DAYS_SHORT = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const DAYS_SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 const EMPTY_FORM = {
   studentId: '',
-  className: '',
-  instrumentLabel: '',
-  classType: 'online' as 'online' | 'onsite',
-  dayOfWeek: 1,
+  teacherId: '',
+  subject: '',
+  dayOfWeek: [] as number[],
   time: '14:00',
-  duration: 60,
-  reminderMinutes: 60,
-  sessionNumber: 1,
-  sessionSetLabel: '1st',
-  timeRegion: 'Philippines (PHT)',
-  active: true,
+  durationMinutes: 60,
+  repeatWeekly: true,
+  startDate: new Date().toISOString().slice(0, 10), // YYYY-MM-DD
+  endDate: '',
+  isActive: true,
+  chatbotTemplate: 'Hi {{studentName}}, your {{subject}} session is at {{time}}.',
 };
 
 interface Student { _id: string; name: string; telegramChatId?: string; phone?: string; }
+interface Teacher { _id: string; email: string; name?: string; phone?: string; isApproved?: boolean; }
 interface Schedule {
   _id: string;
   studentId: Student;
-  className: string;
-  instrumentLabel?: string;
-  classType: 'online' | 'onsite';
-  dayOfWeek: number;
+  teacherId: Teacher | string;
+  subject: string;
+  dayOfWeek: number[];
   time: string;
-  duration: number;
-  reminderMinutes: number;
-  sessionNumber?: number;
-  sessionSetLabel?: string;
-  timeRegion?: string;
-  active: boolean;
+  durationMinutes: number;
+  repeatWeekly: boolean;
+  startDate: string;
+  endDate: string | null;
+  isActive: boolean;
+  chatbotTemplate: string;
 }
 type ToastType = 'success' | 'error' | 'info';
 interface IToast { id: number; message: string; type: ToastType; }
@@ -87,20 +85,41 @@ export default function SchedulesManager({ initialSchedules = [], initialStudent
   const [editingId, setEditingId]       = useState<string | null>(null);
   const [form, setForm]                 = useState(EMPTY_FORM);
   const [submitting, setSubmitting]     = useState(false);
-  const [testingId, setTestingId]       = useState<string | null>(null);
   const [deletingId, setDeletingId]     = useState<string | null>(null);
   const [deleteTarget, setDeleteTarget] = useState<Schedule | null>(null);
   const [toasts, setToasts]             = useState<IToast[]>([]);
   const [dayFilter, setDayFilter]       = useState<number | 'all'>('all');
+  const [teachers, setTeachers]         = useState<Teacher[]>([]);
+  const [role, setRole]                 = useState<'admin' | 'superadmin' | 'teacher' | 'unknown'>('unknown');
 
   useEffect(() => { if (initialSchedules.length === 0) fetchAll(); }, []);
 
   async function fetchAll() {
     setLoading(true);
     try {
-      const [sr, tr] = await Promise.all([fetch('/api/schedules').then(r => r.json()), fetch('/api/students').then(r => r.json())]);
-      if (sr.success) setSchedules(sr.schedules);
+      const [sr, tr] = await Promise.all([
+        fetch('/api/schedules').then(r => r.json()),
+        fetch('/api/students').then(r => r.json()),
+      ]);
+      if (sr.success) {
+        setSchedules(sr.schedules);
+        if (Array.isArray(sr.schedules) && sr.schedules[0]?.teacherId && typeof sr.schedules[0].teacherId === 'object') {
+          // infer role based on whether teacherId is populated (admin route populates both)
+        }
+      }
       if (tr.success) setStudents(tr.students);
+
+      // Try to fetch teachers list (admin only); if forbidden, ignore
+      const teachersRes = await fetch('/api/teachers');
+      if (teachersRes.ok) {
+        const td = await teachersRes.json().catch(() => ({}));
+        if (td?.success) {
+          setTeachers(td.teachers ?? []);
+          setRole('admin');
+        }
+      } else {
+        setRole('teacher');
+      }
     } catch { addToast('Failed to load data', 'error'); }
     finally { setLoading(false); }
   }
@@ -110,17 +129,16 @@ export default function SchedulesManager({ initialSchedules = [], initialStudent
   function openEdit(s: Schedule) {
     setForm({
       studentId: s.studentId._id,
-      className: s.className,
-      instrumentLabel: s.instrumentLabel ?? '',
-      classType: s.classType,
-      dayOfWeek: s.dayOfWeek,
+      teacherId: typeof s.teacherId === 'string' ? s.teacherId : (s.teacherId?._id ?? ''),
+      subject: s.subject,
+      dayOfWeek: Array.isArray(s.dayOfWeek) ? s.dayOfWeek : [],
       time: s.time,
-      duration: s.duration,
-      reminderMinutes: s.reminderMinutes,
-      sessionNumber: s.sessionNumber ?? 1,
-      sessionSetLabel: s.sessionSetLabel ?? '1st',
-      timeRegion: s.timeRegion ?? 'Philippines (PHT)',
-      active: s.active,
+      durationMinutes: s.durationMinutes ?? 60,
+      repeatWeekly: Boolean(s.repeatWeekly),
+      startDate: (s.startDate ?? '').toString().slice(0, 10),
+      endDate: s.endDate ? s.endDate.toString().slice(0, 10) : '',
+      isActive: Boolean(s.isActive),
+      chatbotTemplate: s.chatbotTemplate ?? '',
     });
     setEditingId(s._id); setModalOpen(true);
   }
@@ -146,40 +164,46 @@ export default function SchedulesManager({ initialSchedules = [], initialStudent
       const res = await fetch(`/api/schedules/${schedule._id}`, { method: 'DELETE' });
       const data = await res.json();
       if (!data.success) throw new Error(data.message);
-      setSchedules(p => p.filter(s => s._id !== schedule._id));
-      addToast(`"${schedule.className}" deleted`);
+      setSchedules(p => p.map(s => s._id === schedule._id ? { ...s, isActive: false } : s));
+      addToast(`"${schedule.subject}" archived`);
     } catch (err: any) { addToast(err.message || 'Delete failed', 'error'); }
     finally { setDeletingId(null); }
   }
 
   async function handleToggle(schedule: Schedule) {
     try {
-      const res = await fetch(`/api/schedules/${schedule._id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ active: !schedule.active }) });
+      const res = await fetch(`/api/schedules/${schedule._id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ isActive: !schedule.isActive }) });
       const data = await res.json();
       if (!data.success) throw new Error(data.message);
       setSchedules(p => p.map(s => s._id === schedule._id ? data.schedule : s));
-      addToast(`${schedule.className} ${!schedule.active ? 'activated' : 'deactivated'}`, 'info');
+      addToast(`${schedule.subject} ${!schedule.isActive ? 'activated' : 'deactivated'}`, 'info');
     } catch (err: any) { addToast(err.message, 'error'); }
   }
 
-  async function handleTest(schedule: Schedule) {
-    setTestingId(schedule._id);
-    try {
-      const res = await fetch(`/api/schedules/test/${schedule._id}`, { method: 'POST' });
-      const data = await res.json();
-      if (!data.success) throw new Error(data.message);
-      addToast(data.message, 'success');
-    } catch (err: any) { addToast(err.message || 'Failed to send reminder', 'error'); }
-    finally { setTestingId(null); }
+  const filtered = useMemo(() => {
+    const base = schedules;
+    const byDay = dayFilter === 'all' ? base : base.filter(s => Array.isArray(s.dayOfWeek) && s.dayOfWeek.includes(dayFilter));
+    return byDay;
+  }, [schedules, dayFilter]);
+
+  const selectedStudent = students.find(s => s._id === form.studentId);
+  const stats = useMemo(() => ({
+    total: schedules.length,
+    active: schedules.filter(s => s.isActive).length,
+    inactive: schedules.filter(s => !s.isActive).length,
+  }), [schedules]);
+
+  function formatDays(days: number[]) {
+    if (!Array.isArray(days) || days.length === 0) return '—';
+    const sorted = [...new Set(days)].sort((a, b) => a - b);
+    return sorted.map(d => DAYS_SHORT[d] ?? '?').join(', ');
   }
 
-  const filtered = dayFilter === 'all' ? schedules : schedules.filter(s => s.dayOfWeek === dayFilter);
-  const selectedStudent = students.find(s => s._id === form.studentId);
-  const stats = {
-    total: schedules.length, active: schedules.filter(s => s.active).length,
-    online: schedules.filter(s => s.classType === 'online').length,
-    onsite: schedules.filter(s => s.classType === 'onsite').length,
-  };
+  function teacherLabel(t: Teacher | string) {
+    if (!t) return '—';
+    if (typeof t === 'string') return t;
+    return t.name?.trim() ? t.name : t.email;
+  }
 
   return (
     <div className="text-gray-800 min-h-screen p-3 sm:p-6">
@@ -198,8 +222,8 @@ export default function SchedulesManager({ initialSchedules = [], initialStudent
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Class Schedules</h1>
-          <p className="text-gray-500 text-xs sm:text-sm mt-0.5">Manage classes and automated Telegram reminders</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Schedules</h1>
+          <p className="text-gray-500 text-xs sm:text-sm mt-0.5">Manage student schedules and templates</p>
         </div>
         <button onClick={openCreate}
           className="inline-flex items-center justify-center gap-2 bg-purple-600 hover:bg-purple-700 text-white px-4 py-2.5 rounded-xl font-semibold text-sm transition-colors shadow-sm w-full sm:w-auto">
@@ -209,12 +233,11 @@ export default function SchedulesManager({ initialSchedules = [], initialStudent
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 mb-5">
+      <div className="grid grid-cols-3 gap-2 sm:gap-4 mb-5">
         {([
-          { label: 'Total',  val: stats.total,  color: 'text-blue-600',    sub: 'All schedules'    },
-          { label: 'Active', val: stats.active, color: 'text-emerald-600', sub: 'Currently running' },
-          { label: 'Online', val: stats.online, color: 'text-purple-600',  sub: 'Virtual classes'  },
-          { label: 'Onsite', val: stats.onsite, color: 'text-amber-600',   sub: 'In-person'        },
+          { label: 'Total',  val: stats.total,  color: 'text-blue-600',    sub: 'All schedules'      },
+          { label: 'Active', val: stats.active, color: 'text-emerald-600', sub: 'Currently running'  },
+          { label: 'Inactive', val: stats.inactive, color: 'text-gray-600', sub: 'Soft-deleted/paused' },
         ] as const).map(s => (
           <div key={s.label} className="bg-white border border-gray-200 rounded-xl p-3 sm:p-5 shadow-sm">
             <p className="text-gray-500 text-xs font-semibold uppercase tracking-wider mb-1 sm:mb-3">{s.label}</p>
@@ -256,7 +279,7 @@ export default function SchedulesManager({ initialSchedules = [], initialStudent
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-gray-100 bg-gray-50/80">
-                    {['Student', 'Class', 'Schedule', 'Reminder', 'Status', 'Actions'].map(h => (
+                    {['Student', 'Teacher', 'Subject', 'Days/Time', 'Status', 'Actions'].map(h => (
                       <th key={h} className="px-5 py-3.5 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap">{h}</th>
                     ))}
                   </tr>
@@ -276,33 +299,26 @@ export default function SchedulesManager({ initialSchedules = [], initialStudent
                         </div>
                       </td>
                       <td className="px-5 py-4">
-                        <p className="text-sm font-semibold text-gray-900">{sc.className}</p>
-                        <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-medium mt-1 ${sc.classType === 'online' ? 'bg-blue-50 text-blue-600 border border-blue-100' : 'bg-amber-50 text-amber-600 border border-amber-100'}`}>
-                          {sc.classType === 'online' ? '💻' : '🏫'} {sc.classType}
-                        </span>
+                        <p className="text-sm font-semibold text-gray-900">{teacherLabel(sc.teacherId)}</p>
+                        <p className="text-xs text-gray-400">Owner</p>
+                      </td>
+                      <td className="px-5 py-4">
+                        <p className="text-sm font-semibold text-gray-900">{sc.subject}</p>
+                        <p className="text-xs text-gray-400 truncate max-w-[320px]">{sc.chatbotTemplate || '—'}</p>
                       </td>
                       <td className="px-5 py-4 whitespace-nowrap">
-                        <p className="text-sm font-semibold text-gray-900">{DAYS[sc.dayOfWeek]}</p>
-                        <p className="text-xs text-gray-400">{sc.time} · {sc.duration}min</p>
-                      </td>
-                      <td className="px-5 py-4 whitespace-nowrap">
-                        <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-gray-100 text-gray-600 rounded-lg text-xs font-medium">
-                          🔔 {sc.reminderMinutes >= 60 ? `${sc.reminderMinutes / 60}h` : `${sc.reminderMinutes}min`} before
-                        </span>
+                        <p className="text-sm font-semibold text-gray-900">{formatDays(sc.dayOfWeek)}</p>
+                        <p className="text-xs text-gray-400">{sc.time} · {sc.durationMinutes}min</p>
                       </td>
                       <td className="px-5 py-4">
                         <button onClick={() => handleToggle(sc)}
-                          className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${sc.active ? 'bg-emerald-500' : 'bg-gray-200'}`}>
-                          <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow transition-transform ${sc.active ? 'translate-x-[18px]' : 'translate-x-0.5'}`} />
+                          className={`relative inline-flex h-5 w-9 items-center rounded-full transition-colors ${sc.isActive ? 'bg-emerald-500' : 'bg-gray-200'}`}>
+                          <span className={`inline-block h-3.5 w-3.5 transform rounded-full bg-white shadow transition-transform ${sc.isActive ? 'translate-x-[18px]' : 'translate-x-0.5'}`} />
                         </button>
-                        <p className={`text-xs mt-0.5 font-medium ${sc.active ? 'text-emerald-500' : 'text-gray-400'}`}>{sc.active ? 'Active' : 'Paused'}</p>
+                        <p className={`text-xs mt-0.5 font-medium ${sc.isActive ? 'text-emerald-500' : 'text-gray-400'}`}>{sc.isActive ? 'Active' : 'Paused'}</p>
                       </td>
                       <td className="px-5 py-4">
                         <div className="flex items-center gap-1">
-                          <button onClick={() => handleTest(sc)} disabled={!sc.studentId.telegramChatId || testingId === sc._id}
-                            className="p-1.5 rounded-lg hover:bg-blue-50 text-blue-500 disabled:opacity-30 disabled:cursor-not-allowed transition-colors">
-                            {testingId === sc._id ? <div className="w-4 h-4 border border-blue-400 border-t-transparent rounded-full animate-spin" /> : <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>}
-                          </button>
                           <button onClick={() => openEdit(sc)} className="p-1.5 rounded-lg hover:bg-purple-50 text-purple-500 transition-colors">
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                           </button>
@@ -326,14 +342,10 @@ export default function SchedulesManager({ initialSchedules = [], initialStudent
                       <Avatar name={sc.studentId.name} />
                       <div className="min-w-0">
                         <p className="text-sm font-semibold text-gray-900 truncate">{sc.studentId.name}</p>
-                        <p className="text-xs text-gray-500 truncate">{sc.className}</p>
+                        <p className="text-xs text-gray-500 truncate">{sc.subject}</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-1 flex-shrink-0">
-                      <button onClick={() => handleTest(sc)} disabled={!sc.studentId.telegramChatId || testingId === sc._id}
-                        className="p-1.5 rounded-lg hover:bg-blue-50 text-blue-500 disabled:opacity-30 transition-colors">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" /></svg>
-                      </button>
                       <button onClick={() => openEdit(sc)} className="p-1.5 rounded-lg hover:bg-purple-50 text-purple-500 transition-colors">
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" /></svg>
                       </button>
@@ -343,14 +355,11 @@ export default function SchedulesManager({ initialSchedules = [], initialStudent
                     </div>
                   </div>
                   <div className="flex items-center gap-2 mt-3 flex-wrap">
-                    <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-medium ${sc.classType === 'online' ? 'bg-blue-50 text-blue-600 border border-blue-100' : 'bg-amber-50 text-amber-600 border border-amber-100'}`}>
-                      {sc.classType === 'online' ? '💻' : '🏫'} {sc.classType}
-                    </span>
-                    <span className="text-xs text-gray-500">{DAYS_SHORT[sc.dayOfWeek]} {sc.time}</span>
-                    <span className="text-xs text-gray-400">{sc.duration}min</span>
+                    <span className="text-xs text-gray-500">{formatDays(sc.dayOfWeek)} {sc.time}</span>
+                    <span className="text-xs text-gray-400">{sc.durationMinutes}min</span>
                     <button onClick={() => handleToggle(sc)}
-                      className={`relative inline-flex h-4.5 w-8 items-center rounded-full transition-colors ml-auto ${sc.active ? 'bg-emerald-500' : 'bg-gray-200'}`}>
-                      <span className={`inline-block h-3 w-3 transform rounded-full bg-white shadow transition-transform ${sc.active ? 'translate-x-[18px]' : 'translate-x-0.5'}`} />
+                      className={`relative inline-flex h-4.5 w-8 items-center rounded-full transition-colors ml-auto ${sc.isActive ? 'bg-emerald-500' : 'bg-gray-200'}`}>
+                      <span className={`inline-block h-3 w-3 transform rounded-full bg-white shadow transition-transform ${sc.isActive ? 'translate-x-[18px]' : 'translate-x-0.5'}`} />
                     </button>
                   </div>
                 </div>
@@ -383,82 +392,91 @@ export default function SchedulesManager({ initialSchedules = [], initialStudent
                   <p className="text-amber-500 text-xs mt-1.5">⚠ No Telegram ID — reminders won't be sent</p>
                 )}
               </Field>
-              <div className="grid grid-cols-2 gap-3">
-                <Field label="Class Name" required>
-                  <input required type="text" placeholder="e.g. Piano Lesson" value={form.className} onChange={e => setForm({ ...form, className: e.target.value })} className={inputCls} />
-                </Field>
-                <Field label="Type">
-                  <select value={form.classType} onChange={e => setForm({ ...form, classType: e.target.value as any })} className={inputCls}>
-                    <option value="online">💻 Online</option>
-                    <option value="onsite">🏫 Onsite</option>
+              {(role === 'admin' || role === 'superadmin') && (
+                <Field label="Teacher" required>
+                  <select required value={form.teacherId} onChange={e => setForm({ ...form, teacherId: e.target.value })} className={inputCls}>
+                    <option value="">Select a teacher...</option>
+                    {teachers.map(t => <option key={t._id} value={t._id}>{t.name?.trim() ? t.name : t.email}</option>)}
                   </select>
                 </Field>
-              </div>
-              <Field label="Instrument (topic line)">
-                <input type="text" placeholder="e.g. Piano — defaults to class name if empty" value={form.instrumentLabel} onChange={e => setForm({ ...form, instrumentLabel: e.target.value })} className={inputCls} />
+              )}
+
+              <Field label="Subject" required>
+                <input required type="text" placeholder="e.g. Piano, Badminton" value={form.subject} onChange={e => setForm({ ...form, subject: e.target.value })} className={inputCls} />
               </Field>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                <Field label="Session #">
-                  <input type="number" min={1} value={form.sessionNumber} onChange={e => setForm({ ...form, sessionNumber: Math.max(1, +e.target.value || 1) })} className={inputCls} />
-                </Field>
-                <Field label="Set / ordinal">
-                  <input type="text" placeholder="1st, 2nd set…" value={form.sessionSetLabel} onChange={e => setForm({ ...form, sessionSetLabel: e.target.value })} className={inputCls} />
-                </Field>
-                <Field label="Time region">
-                  <input type="text" placeholder="Philippines (PHT)" value={form.timeRegion} onChange={e => setForm({ ...form, timeRegion: e.target.value })} className={inputCls} />
-                </Field>
-              </div>
+
+              <Field label="Days of week" required>
+                <div className="flex flex-wrap gap-2">
+                  {DAYS_SHORT.map((d, idx) => {
+                    const active = form.dayOfWeek.includes(idx);
+                    return (
+                      <button
+                        key={d}
+                        type="button"
+                        onClick={() => setForm({
+                          ...form,
+                          dayOfWeek: active ? form.dayOfWeek.filter(x => x !== idx) : [...form.dayOfWeek, idx],
+                        })}
+                        className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors border ${
+                          active ? 'bg-purple-600 text-white border-purple-600' : 'bg-white text-gray-600 border-gray-200 hover:border-purple-300 hover:text-purple-600'
+                        }`}
+                      >
+                        {d}
+                      </button>
+                    );
+                  })}
+                </div>
+                {form.dayOfWeek.length === 0 && (
+                  <p className="text-xs text-red-500 mt-1.5">Select at least one day.</p>
+                )}
+              </Field>
+
               <div className="grid grid-cols-2 gap-3">
-                <Field label="Day">
-                  <select value={form.dayOfWeek} onChange={e => setForm({ ...form, dayOfWeek: +e.target.value })} className={inputCls}>
-                    {DAYS.map((d, i) => <option key={d} value={i}>{d}</option>)}
-                  </select>
-                </Field>
-                <Field label="Time">
+                <Field label="Time" required>
                   <input type="time" value={form.time} onChange={e => setForm({ ...form, time: e.target.value })} className={inputCls} />
                 </Field>
+                <Field label="Duration (minutes)">
+                  <input type="number" min={1} value={form.durationMinutes} onChange={e => setForm({ ...form, durationMinutes: Math.max(1, +e.target.value || 1) })} className={inputCls} />
+                </Field>
               </div>
+
               <div className="grid grid-cols-2 gap-3">
-                <Field label="Duration">
-                  <select value={form.duration} onChange={e => setForm({ ...form, duration: +e.target.value })} className={inputCls}>
-                    {[30, 45, 60, 90, 120].map(d => <option key={d} value={d}>{d} min</option>)}
-                  </select>
+                <Field label="Start date" required>
+                  <input type="date" value={form.startDate} onChange={e => setForm({ ...form, startDate: e.target.value })} className={inputCls} />
                 </Field>
-                <Field label="Remind Before">
-                  <select value={form.reminderMinutes} onChange={e => setForm({ ...form, reminderMinutes: +e.target.value })} className={inputCls}>
-                    {[5, 15, 30, 60, 120, 1440].map(m => <option key={m} value={m}>{m >= 60 ? `${m / 60}h` : `${m}min`} before</option>)}
-                  </select>
+                <Field label="End date (optional)">
+                  <input type="date" value={form.endDate} onChange={e => setForm({ ...form, endDate: e.target.value })} className={inputCls} />
                 </Field>
               </div>
+
               <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
-                <button type="button" onClick={() => setForm({ ...form, active: !form.active })}
-                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${form.active ? 'bg-emerald-500' : 'bg-gray-300'}`}>
-                  <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform ${form.active ? 'translate-x-6' : 'translate-x-1'}`} />
+                <button type="button" onClick={() => setForm({ ...form, repeatWeekly: !form.repeatWeekly })}
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${form.repeatWeekly ? 'bg-purple-600' : 'bg-gray-300'}`}>
+                  <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform ${form.repeatWeekly ? 'translate-x-6' : 'translate-x-1'}`} />
                 </button>
-                <span className="text-sm text-gray-600">{form.active ? 'Active — reminders will be sent' : 'Paused — no reminders'}</span>
+                <span className="text-sm text-gray-600">{form.repeatWeekly ? 'Repeats weekly' : 'Does not repeat weekly'}</span>
               </div>
-              {form.studentId && form.className && (
-                <div className="bg-purple-50 border border-purple-100 rounded-xl p-4">
-                  <p className="text-xs font-semibold text-purple-600 uppercase tracking-wider mb-3">📱 Telegram message preview</p>
-                  <pre className="bg-white border border-purple-100 rounded-lg p-3 text-xs text-gray-700 whitespace-pre-wrap font-sans leading-relaxed shadow-sm">
-                    {buildScheduleReminderPlainPreview(
-                      {
-                        className: form.className,
-                        instrumentLabel: form.instrumentLabel,
-                        classType: form.classType,
-                        dayOfWeek: form.dayOfWeek,
-                        time: form.time,
-                        sessionNumber: form.sessionNumber,
-                        sessionSetLabel: form.sessionSetLabel,
-                        timeRegion: form.timeRegion,
-                      },
-                      selectedStudent?.name ?? 'Student'
-                    )}
-                    {'\n\n'}
-                    (Cron appends: “Your class starts in … before.”)
-                  </pre>
-                </div>
-              )}
+
+              <Field label="Chatbot template">
+                <textarea
+                  value={form.chatbotTemplate}
+                  onChange={e => setForm({ ...form, chatbotTemplate: e.target.value })}
+                  rows={4}
+                  className={inputCls}
+                  placeholder="Use {{studentName}}, {{time}}, {{subject}}"
+                />
+                <p className="text-xs text-gray-400 mt-1">
+                  Placeholders supported: <code className="bg-gray-100 px-1 rounded">{'{{studentName}}'}</code>, <code className="bg-gray-100 px-1 rounded">{'{{time}}'}</code>, <code className="bg-gray-100 px-1 rounded">{'{{subject}}'}</code>
+                </p>
+              </Field>
+
+              <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                <button type="button" onClick={() => setForm({ ...form, isActive: !form.isActive })}
+                  className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${form.isActive ? 'bg-emerald-500' : 'bg-gray-300'}`}>
+                  <span className={`inline-block h-4 w-4 transform rounded-full bg-white shadow transition-transform ${form.isActive ? 'translate-x-6' : 'translate-x-1'}`} />
+                </button>
+                <span className="text-sm text-gray-600">{form.isActive ? 'Active schedule' : 'Paused schedule'}</span>
+              </div>
               <div className="flex gap-3 pt-1">
                 <button type="button" onClick={closeModal} className="flex-1 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl text-sm font-semibold transition-colors">Cancel</button>
                 <button type="submit" disabled={submitting} className="flex-1 px-4 py-2.5 bg-purple-600 hover:bg-purple-700 disabled:opacity-50 text-white rounded-xl text-sm font-semibold transition-colors flex items-center justify-center gap-2">
@@ -478,10 +496,10 @@ export default function SchedulesManager({ initialSchedules = [], initialStudent
               <svg className="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" /></svg>
             </div>
             <h3 className="text-base font-bold text-gray-900 mb-1">Delete Schedule</h3>
-            <p className="text-gray-500 text-sm mb-6">Delete <strong>"{deleteTarget.className}"</strong> for <strong>{deleteTarget.studentId.name}</strong>? This cannot be undone.</p>
+            <p className="text-gray-500 text-sm mb-6">Archive <strong>"{deleteTarget.subject}"</strong> for <strong>{deleteTarget.studentId.name}</strong>? (Soft delete: sets isActive=false)</p>
             <div className="flex gap-3">
               <button onClick={() => setDeleteTarget(null)} className="flex-1 px-4 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl text-sm font-semibold transition-colors">Cancel</button>
-              <button onClick={() => handleDelete(deleteTarget)} className="flex-1 px-4 py-2.5 bg-red-500 hover:bg-red-600 text-white rounded-xl text-sm font-semibold transition-colors">Delete</button>
+              <button onClick={() => handleDelete(deleteTarget)} className="flex-1 px-4 py-2.5 bg-red-500 hover:bg-red-600 text-white rounded-xl text-sm font-semibold transition-colors">Archive</button>
             </div>
           </div>
         </div>
